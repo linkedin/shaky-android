@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<module name="Checker">
+    <module name="SuppressionFilter">
+        <property name="file" value="Flagship/config/quality/suppression.xml"/>
+    </module>
+    <module name="NewlineAtEndOfFile"/>
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+    <module name="SuppressionCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE\:OFF ([\w\|]+)"/>
+        <property name="onCommentFormat" value="CHECKSTYLE\:ON ([\w\|]+)"/>
+        <property name="checkFormat" value="$1"/>
+    </module>
+    <module name="SuppressionCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE\:OFF_ALL"/>
+        <property name="onCommentFormat" value="CHECKSTYLE\:ON_ALL"/>
+    </module>
+    <module name="SuppressWarningsFilter"/>
+    <module name="TreeWalker">
+        <!-- This is needed for SuppresionCommentFilter-->
+        <module name="FileContentsHolder"/>
+        <module name="SuppressWarningsHolder"/>
+        <!-- Annotations -->
+        <!-- See http://checkstyle.sourceforge.net/config_annotation.html-->
+        <module name="AnnotationUseStyle">
+            <property name="elementStyle" value="compact_no_array"/>
+            <property name="trailingArrayComma" value="never"/>
+            <property name="closingParens" value="never"/>
+        </module>
+        <module name="MissingDeprecated"/>
+        <module name="MissingOverride"/>
+        <!--<module name="PackageAnnotation"/>-->
+        <module name="SuppressWarnings"/>
+
+        <!-- Block Checks -->
+        <!-- See http://checkstyle.sourceforge.net/config_blocks.html -->
+        <module name="EmptyBlock"/>
+        <module name="LeftCurly"/>
+        <module name="NeedBraces"/>
+        <module name="RightCurly"/>
+        <module name="AvoidNestedBlocks">
+            <property name="allowInSwitchCase" value="true"/>
+        </module>
+
+        <!-- Class Design -->
+        <!-- See http://checkstyle.sourceforge.net/config_design.html -->
+        <module name="VisibilityModifier">
+            <property name="packageAllowed" value="true"/>
+            <property name="protectedAllowed" value="true"/>
+            <property name="publicMemberPattern" value="^serialVersionUID$"/>
+        </module>
+        <!--<module name="FinalClass"/>-->
+        <module name="InterfaceIsType"/>
+        <module name="HideUtilityClassConstructor"/>
+        <!--<module name="DesignForExtension"/>-->
+        <module name="MutableException"/>
+        <module name="ThrowsCount"/>
+        <module name="InnerTypeLast"/>
+
+        <!-- Coding -->
+        <!-- See http://checkstyle.sourceforge.net/config_coding.html -->
+        <!--<module name="ArrayTrailingComma"/>-->
+        <!--<module name="AvoidInlineConditionals"/>-->
+        <module name="CovariantEquals"/>
+        <module name="EmptyStatement"/>
+        <!--<module name="EqualsAvoidNull"/>-->
+        <module name="EqualsHashCode"/>
+        <!--<module name="FinalLocalVariable"/>-->
+        <!--<module name="HiddenField"/>-->
+        <module name="IllegalInstantiation"/>
+        <!--<module name="IllegalToken"/>-->
+        <!--<module name="IllegalTokenText"/>-->
+        <module name="InnerAssignment"/>
+        <module name="MagicNumber">
+            <property name="ignoreHashCodeMethod" value="true"/>
+            <property name="ignoreAnnotation" value="true"/>
+        </module>
+        <module name="MissingSwitchDefault"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="NestedForDepth"/>
+        <module name="NestedIfDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedTryDepth"/>
+        <module name="NoClone"/>
+        <module name="NoFinalizer"/>
+        <!--<module name="SuperClone"/>-->
+        <!--<module name="SuperFinalize"/>-->
+        <module name="IllegalCatch"/>
+        <module name="IllegalThrows"/>
+        <module name="PackageDeclaration"/>
+        <module name="ReturnCount">
+            <property name="max" value="10"/>
+        </module>
+        <module name="IllegalType">
+            <property name="legalAbstractClassNames" value= "AbstractRequest,AbstractHttpRequest,AbstractPropViewModel" />
+        </module>
+        <module name="DeclarationOrder"/>
+        <module name="ParameterAssignment"/>
+        <module name="ExplicitInitialization"/>
+        <module name="DefaultComesLast"/>
+        <!--<module name="MissingCtor"/>-->
+        <module name="FallThrough"/>
+        <module name="MultipleStringLiterals">
+            <property name="ignoreStringsRegexp" value='^(("")|(" ")|("\/"))$'/>
+            <property name="allowedDuplicates" value="2"/>
+        </module>
+        <module name="MultipleVariableDeclarations"/>
+        <!--<module name="RequireThis"/>-->
+        <module name="UnnecessaryParentheses"/>
+        <module name="OneStatementPerLine"/>
+
+        <!-- Duplicate Code -->
+        <!-- See http://checkstyle.sourceforge.net/config_duplicates.html -->
+        <!-- StrictDuplicateCode is not a module for TreeWalker-->
+        <!--<module name="StrictDuplicateCode"/>-->
+
+        <!-- Headers -->
+        <!-- See http://checkstyle.sourceforge.net/config_header.html -->
+        <!--<module name="Header"/>-->
+        <!--<module name="RegexpHeader"/>-->
+
+        <!-- Imports -->
+        <!-- See http://checkstyle.sourceforge.net/config_imports.html -->
+        <module name="AvoidStarImport">
+            <property name="allowClassImports" value="false"/>
+            <property name="allowStaticMemberImports" value="false"/>
+        </module>
+        <module name="AvoidStaticImport">
+            <property name="excludes"
+                      value="org.junit.Assert.*,org.mockito.*,org.robolectric.*"/>
+        </module>
+        <module name="IllegalImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+        <!--
+      <module name="ImportOrder">
+          <property name="groups" value=".*,javax,java"/>
+          <property name="separated" value="true"/>
+      </module>
+      -->
+        <!--<module name="ImportControl"/>-->
+
+        <!-- Javadoc Comments -->
+        <!-- See http://checkstyle.sourceforge.net/config_javadoc.html -->
+        <!--<module name="JavadocPackage"/>-->
+        <!--<module name="JavadocType"/>-->
+        <!--<module name="JavadocMethod"/>-->
+        <!--<module name="JavadocVariable"/>-->
+        <module name="JavadocStyle">
+            <property name="checkFirstSentence" value="false"/>
+        </module>
+        <!--<module name="WriteTag"/>-->
+
+        <!-- Metrics -->
+        <!-- See http://checkstyle.sourceforge.net/config_metrics.html -->
+        <module name="BooleanExpressionComplexity">
+            <property name="max" value="7"/>
+        </module>
+        <module name="ClassDataAbstractionCoupling">
+            <property name="max" value="20"/>
+        </module>
+        <module name="ClassFanOutComplexity">
+            <property name="max" value="50"/>
+        </module>
+
+        <!-- 25 is a high limit for cyclomatic complexity but it's needed due to psdc unions.
+        TODO: Figure out a better design to reduce this complexity -->
+        <module name="CyclomaticComplexity">
+            <property name="max" value="25"/>
+        </module>
+        <module name="NPathComplexity">
+            <property name="max" value="256"/>
+        </module>
+        <module name="JavaNCSS">
+            <!-- Default of 50 is too agressive for use-cases like methods with large enum switch-case -->
+            <property name="methodMaximum" value="75"/>
+        </module>
+
+        <!-- Miscellaneous -->
+        <!-- See http://checkstyle.sourceforge.net/config_misc.html -->
+        <!--NewlineAtEndOfFlie is a module under TreeWalker -->
+        <!--module name="NewlineAtEndOfFile"/-->
+        <module name="TodoComment"/>
+        <!--<module name="Translation"/>-->
+        <module name="UncommentedMain"/>
+        <module name="UpperEll"/>
+        <module name="ArrayTypeStyle"/>
+        <!--<module name="FinalParameters"/>-->
+        <!--<module name="DescendantToken"/>-->
+        <module name="Indentation">
+            <property name="braceAdjustment" value="0"/>
+            <!--<property name="basicOffset" value="2"/>
+            <property name="caseIndent" value="2"/>
+            <property name="throwsIndent" value="2"/> -->
+        </module>
+
+        <!--<module name="TrailingComment"/>-->
+        <!--<module name="Regexpt"/>-->
+        <module name="OuterTypeFilename"/>
+        <!-- UniqueProperties is a module under TreeWalker -->
+        <!--<module name="UniqueProperties"/>-->
+
+        <!-- Modifiers -->
+        <!-- See http://checkstyle.sourceforge.net/config_modifier.html -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- Naming Conventions -->
+        <!-- See http://checkstyle.sourceforge.net/config_naming.html -->
+        <module name="ConstantName">
+            <property name="format" value="^[A-Z][A-Z0-9\$]*(_[A-Z0-9\$]+)*$"/>
+        </module>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName">
+            <!-- Non public member variable should start with m -->
+            <!--<property name="format" value="^m[A-Z][a-zA-Z0-9]*$"/>-->
+            <property name="applyToPublic" value="false"/>
+        </module>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName">
+            <!-- <property name="format" value="^s[A-Z][a-zA-Z0-9]*$"/> -->
+        </module>
+        <module name="TypeName"/>
+
+        <!-- Regexp -->
+        <!-- See http://checkstyle.sourceforge.net/config_regexp.html -->
+        <!--<module name="RegexpSingleline"/>-->
+
+        <!-- Size Violations -->
+        <!-- See http://checkstyle.sourceforge.net/config_sizes.html -->
+        <module name="ExecutableStatementCount">
+            <property name="max" value="35"/>
+        </module>
+
+        <!-- Whitespace -->
+        <!-- See http://checkstyle.sourceforge.net/config_whitespace.html -->
+        <module name="GenericWhitespace"/>
+        <module name="EmptyForInitializerPad"/>
+        <module name="EmptyForIteratorPad"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad"/>
+        <!-- FileTabCharacter is not a module for TreeWalker-->
+        <!--<module name="FileTabCharacter"/>-->
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround">
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+            <property name="allowEmptyTypes" value="true"/>
+        </module>
+        <module name="OperatorWrap"/>
+    </module>
+</module>

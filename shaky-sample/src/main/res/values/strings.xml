@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Shaky</string>
+    <string name="shake_me">Shake me!</string>
+</resources>

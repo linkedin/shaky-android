@@ -1,0 +1,31 @@
+language: android
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-22.0.1
+    - android-22
+    - extra-android-support
+
+jdk:
+  - oraclejdk8
+
+script:
+  - ./gradlew clean check
+
+after_success:
+  - .buildscript/deploy_snapshot.sh
+
+branches:
+  except:
+    - gh-pages
+
+notifications:
+  email: false
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.gradle

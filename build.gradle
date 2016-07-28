@@ -1,0 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.2'
+    }
+}
+
+subprojects {
+    plugins.apply('checkstyle')
+
+    repositories {
+        mavenCentral()
+    }
+}
