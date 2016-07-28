@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<resources>
+    <string name="dialog_title">Shake to send feedback</string>
+    <string name="dialog_message">You shook your device! Would you like to send feedback about your experience?</string>
+    <string name="dialog_positive">Send Feedback</string>
+    <string name="dialog_negative">Dismiss</string>
+
+    <string name="feedback_title">Send feedback</string>
+
+    <string name="collecting_feedback">Collecting debug data…</string>
+
+    <string name="row1_title">Report a bug</string>
+    <string name="row1_subtitle">Something doesn\'t seem quite right.</string>
+    <string name="bug_title">Bug Report</string>
+    <string name="bug_hint">Describe the bug</string>
+
+    <string name="row2_title">Request a new feature</string>
+    <string name="row2_subtitle">It would be super cool if…</string>
+    <string name="feature_title">Feature Request</string>
+    <string name="feature_hint">Write your request</string>
+
+    <string name="row3_title">Send app feedback</string>
+    <string name="row3_subtitle">Tell us how we\'re doing!</string>
+    <string name="general_title">General Feedback</string>
+    <string name="general_hint">Write your feedback</string>
+
+    <string name="message_hint">Write your feedback</string>
+    <string name="image_action">Tap to edit image</string>
+
+    <string name="form_submit">Send</string>
+
+    <string name="draw_hint">Please mark the affected area(s)</string>
+    <string name="draw_save">save</string>
+    <string name="draw_clear">clear</string>
+    <string name="draw_brush">brush</string>
+    <string name="draw_undo">undo</string>
+    <string name="draw_brush_white">whiteout</string>
+
+    <string name="empty_feedback_message">Please write your feedback.</string>
+    <string name="empty_feedback_confirm">OK</string>
+</resources>

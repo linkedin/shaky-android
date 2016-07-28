@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- LinkedIn Color theme -->
+        <!-- https://brand.linkedin.com/visual-identity/color-palettes -->
+        <item name="colorAccent">@color/blue</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+</resources>
