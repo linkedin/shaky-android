@@ -49,7 +49,7 @@ public class SelectFragment extends Fragment {
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.shaky_toolbar);
         toolbar.setTitle(R.string.feedback_title);
-        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -43,7 +43,7 @@ class FeedbackItem {
     public final String description;
     public final int feedbackType;
 
-    public FeedbackItem(@NonNull String title, @NonNull String description, @DrawableRes int icon,
+    FeedbackItem(@NonNull String title, @NonNull String description, @DrawableRes int icon,
                         @FeedbackType int feedbackType) {
         this.title = title;
         this.description = description;

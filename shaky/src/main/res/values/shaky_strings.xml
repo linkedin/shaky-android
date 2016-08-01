@@ -50,7 +50,6 @@
     <string name="draw_brush">brush</string>
     <string name="draw_undo">undo</string>
     <string name="draw_brush_white">whiteout</string>
-    <string name="draw_brush_hint">Toggles the brush style</string>
 
     <string name="empty_feedback_message">Please write your feedback.</string>
     <string name="empty_feedback_confirm">OK</string>

@@ -37,7 +37,6 @@ public abstract class ShakeDelegate {
      * can be used to collect extra debug information to include in the feedback
      * submission, such as user data, app version, etc.
      */
-    @Nullable
     @WorkerThread
     public void collectData(Activity activity, Result data) {
     }

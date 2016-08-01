@@ -77,7 +77,7 @@ public class FormFragment extends Fragment {
 
         String title = getArguments().getString(KEY_TITLE);
         toolbar.setTitle(title);
-        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(createNavigationClickListener());
         toolbar.inflateMenu(R.menu.shaky_feedback_activity_actions);
         toolbar.setOnMenuItemClickListener(createMenuClickListener(messageEditText));

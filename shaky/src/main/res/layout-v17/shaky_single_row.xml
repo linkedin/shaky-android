@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/row_textspacing"
             android:gravity="center_vertical"
+            android:textAlignment="center"
             android:text="@string/row1_title"
             android:textColor="@color/dark_gray"
             android:textSize="@dimen/row_title_textsize"/>
@@ -58,6 +59,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:gravity="start"
+            android:textAlignment="textStart"
             android:text="@string/row3_subtitle"
             android:textColor="@color/gray"/>
     </LinearLayout>

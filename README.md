@@ -1,4 +1,5 @@
 # Shaky
+[![Build Status](https://travis-ci.org/linkedin/shaky-android.svg?branch=master)](https://travis-ci.org/linkedin/shaky-android)
 
 Shake-to-feedback plugin for Android.
 
@@ -12,7 +13,7 @@ Inspired by Google Maps' Shake to feedback and based on Square's
 Download the latest .aar via Maven:
 ```xml
 	<dependency>
-	  <groupId>com.linkedin.android.shaky</groupId>
+	  <groupId>com.linkedin.shaky</groupId>
 	  <artifactId>shaky</artifactId>
 	  <version>1.0.0</version>
 	</dependency>
@@ -20,7 +21,7 @@ Download the latest .aar via Maven:
 
 or Gradle:
 ```
-	compile 'com.linkedin.android:shaky:shaky:1.0.0'
+	compile 'com.linkedin.shaky:shaky:1.0.0'
 ```
 
 ## Getting Started
@@ -62,21 +63,21 @@ In your `Application` subclass:
     }
 ```
 
-For a complete example, see the [demo app](sample/src/main).
+For a complete example, see the [demo app](shaky-sample/src/main).
 
 ## Advanced Usage
 
 Your app can define custom behavior by subclassing
-[`ShakeDelegate`](library/src/main/java/com/linkedin/android/shaky/ShakeDelegate.java)
+[`ShakeDelegate`](shaky/src/main/java/com/linkedin/android/shaky/ShakeDelegate.java)
 and implementing the
-[`void submit(Activity, FeedbackResult)`](library/src/main/java/com/linkedin/android/shaky/ShakeDelegate.java#L49)
+[`void submit(Activity, FeedbackResult)`](shaky/src/main/java/com/linkedin/android/shaky/ShakeDelegate.java#L49)
 method (e.g. to send the data to a custom server endpoint).
 
 
 In addition, you can implement the
-[`Bundle collectData()`](library/src/main/java/com/linkedin/android/shaky/ShakeDelegate.java#L42)
+[`Bundle collectData()`](shaky/src/main/java/com/linkedin/android/shaky/ShakeDelegate.java#L42)
 to collect extra app data including device logs, user data, etc. You will also need to handle how to send the extra data collected in your `submit` method.
 
 ## Security
 
-If you think you've discovered a security issue, please send an email to security@linkedin.com with information and detailed instructions on how to reproduce the issue.
+If you think you've discovered a security issue, please send an email to security@linkedin.com with detailed instructions on how to reproduce the issue.

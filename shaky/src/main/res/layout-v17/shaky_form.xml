@@ -76,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/image_action"
                     android:gravity="start"
+                    android:textAlignment="textStart"
                     android:layout_marginTop="@dimen/content_top_padding"
                     android:layout_gravity="center_horizontal"/>
 

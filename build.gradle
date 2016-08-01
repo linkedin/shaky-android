@@ -15,3 +15,10 @@ subprojects {
         mavenCentral()
     }
 }
+
+ext {
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.1'
+    minSdkVersion = 15
+    targetSdkVersion = 23
+}

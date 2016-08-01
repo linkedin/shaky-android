@@ -1,2 +1,4 @@
+rootProject.name = 'shaky-root'
+
 include ':shaky'
 include ':shaky-sample'

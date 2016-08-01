@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 22
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -23,9 +23,9 @@ android {
     }
 }
 
-def supportLibrariesVersion = '22.2.0'
-
 dependencies {
+	def supportLibrariesVersion = '24.1.1'
+
     compile 'com.squareup:seismic:1.0.1'
     compile "com.android.support:appcompat-v7:$supportLibrariesVersion"
     compile "com.android.support:recyclerview-v7:$supportLibrariesVersion"
