@@ -83,14 +83,13 @@ public class DrawFragment extends Fragment {
         if (imageUri != null) {
             try {
                 // There seems to be an issue when using setImageUri that causes density to be chosen incorrectly
+                // See: https://code.google.com/p/android/issues/detail?id=201491. This is fixed in API 24
                 InputStream stream = getActivity().getContentResolver().openInputStream(imageUri);
 
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inPreferredConfig = Bitmap.Config.RGB_565;
-                Bitmap b = BitmapFactory.decodeStream(stream);
-                paper.setImageBitmap(b);
-            } catch (FileNotFoundException e) {
-                Log.e("Screenshot error", e.getMessage(), e);
+                Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                paper.setImageBitmap(bitmap);
+            } catch (FileNotFoundException exception) {
+                Log.e("Screenshot error", exception.getMessage(), exception);
             }
         }
 
