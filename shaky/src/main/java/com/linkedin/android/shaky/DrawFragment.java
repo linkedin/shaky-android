@@ -17,6 +17,7 @@ package com.linkedin.android.shaky;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
@@ -79,7 +81,16 @@ public class DrawFragment extends Fragment {
         paper = (Paper) view.findViewById(R.id.shaky_paper);
         imageUri = getArguments().getParcelable(KEY_IMAGE_URI);
         if (imageUri != null) {
-            paper.setImageURI(imageUri);
+            try {
+                // There seems to be an issue when using setImageUri that causes density to be chosen incorrectly
+                // See: https://code.google.com/p/android/issues/detail?id=201491. This is fixed in API 24
+                InputStream stream = getActivity().getContentResolver().openInputStream(imageUri);
+
+                Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                paper.setImageBitmap(bitmap);
+            } catch (FileNotFoundException exception) {
+                Log.e("Screenshot error", exception.getMessage(), exception);
+            }
         }
 
         view.findViewById(R.id.shaky_button_clear).setOnClickListener(createClearClickListener());
