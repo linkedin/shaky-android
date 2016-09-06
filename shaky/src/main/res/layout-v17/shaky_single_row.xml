@@ -49,7 +49,7 @@
             android:layout_marginBottom="@dimen/row_textspacing"
             android:gravity="start"
             android:textAlignment="textStart"
-            android:text="@string/row1_title"
+            android:text="@string/shaky_row1_title"
             android:textColor="@color/dark_gray"
             android:textSize="@dimen/row_title_textsize"/>
 
@@ -60,7 +60,7 @@
             android:maxLines="1"
             android:gravity="start"
             android:textAlignment="textStart"
-            android:text="@string/row3_subtitle"
+            android:text="@string/shaky_row3_subtitle"
             android:textColor="@color/gray"/>
     </LinearLayout>
 </LinearLayout>

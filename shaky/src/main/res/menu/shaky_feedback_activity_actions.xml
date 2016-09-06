@@ -19,7 +19,7 @@
 
     <item android:id="@+id/action_submit"
           android:icon="@drawable/ic_send_white_24dp"
-          android:title="@string/form_submit"
+          android:title="@string/shaky_form_submit"
           compat:showAsAction="always" />
 
 </menu>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">흔들어서 의견 보내기</string>
+    <string name="shaky_dialog_message">기기를 흔드세요! 기능이나 서비스에 대해 의견을 보내시겠어요?</string>
+    <string name="shaky_dialog_positive">의견 보내기</string>
+    <string name="shaky_dialog_negative">닫기</string>
+
+    <string name="shaky_feedback_title">의견 보내기</string>
+
+    <string name="shaky_collecting_feedback">데이터 수집 중…</string>
+
+    <string name="shaky_row1_title">버그 신고</string>
+    <string name="shaky_row1_subtitle">기능이 제대로 작동하지 않음</string>
+    <string name="shaky_bug_title">버그 신고</string>
+    <string name="shaky_bug_hint">버그 설명</string>
+
+    <string name="shaky_row2_title">기능 제안</string>
+    <string name="shaky_row2_subtitle">제안하고 싶은 기능 설명</string>
+    <string name="shaky_feature_title">서비스 요청</string>
+    <string name="shaky_feature_hint">요청하고 싶은 서비스 설명</string>
+
+    <string name="shaky_row3_title">앱 의견 보내기</string>
+    <string name="shaky_row3_subtitle">회원님의 의견을 알려주세요!</string>
+    <string name="shaky_general_title">일반 사항</string>
+    <string name="shaky_general_hint">의견 쓰기</string>
+
+    <string name="shaky_message_hint">의견 쓰기</string>
+    <string name="shaky_image_action">이미지를 수정하려면 한번 탭</string>
+
+    <string name="shaky_form_submit">보내기</string>
+
+    <string name="shaky_draw_hint">문제가 되는 부분 표시</string>
+    <string name="shaky_draw_save">저장</string>
+    <string name="shaky_draw_clear">삭제</string>
+    <string name="shaky_draw_brush">붓</string>
+    <string name="shaky_draw_undo">입력 취소</string>
+    <string name="shaky_draw_brush_white">지우기</string>
+    <string name="shaky_draw_brush_hint">붓 종류 선택</string>
+
+    <string name="shaky_empty_feedback_message">의견을 쓰세요.</string>
+    <string name="shaky_empty_feedback_confirm">확인</string>
+</resources>

@@ -49,7 +49,7 @@
                 android:id="@+id/shaky_form_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/message_hint"
+                android:hint="@string/shaky_message_hint"
                 android:inputType="textMultiLine"
                 android:scrollbars="vertical"
                 android:textColor="@color/dark_gray"/>
@@ -69,13 +69,13 @@
                     android:adjustViewBounds="true"
                     android:background="@android:color/white"
                     android:clickable="true"
-                    android:contentDescription="@string/image_action"
+                    android:contentDescription="@string/shaky_image_action"
                     android:elevation="@dimen/soft_shadow"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/image_action"
+                    android:text="@string/shaky_image_action"
                     android:gravity="start"
                     android:textAlignment="textStart"
                     android:layout_marginTop="@dimen/content_top_padding"

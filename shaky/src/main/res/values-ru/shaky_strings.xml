@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">Встряхните, чтобы отправить отзыв</string>
+    <string name="shaky_dialog_message">Вы встряхнули своё устройство. Хотите отправить отзыв об использовании приложения?</string>
+    <string name="shaky_dialog_positive">Отправить отзыв</string>
+    <string name="shaky_dialog_negative">Отклонить</string>
+
+    <string name="shaky_feedback_title">Отправить отзыв</string>
+
+    <string name="shaky_collecting_feedback">Выполняется сбор данных отладки…</string>
+
+    <string name="shaky_row1_title">Сообщить об ошибке</string>
+    <string name="shaky_row1_subtitle">Приложение функционирует не совсем, как ожидается.</string>
+    <string name="shaky_bug_title">Сообщение об ошибке</string>
+    <string name="shaky_bug_hint">Опишите ошибку</string>
+
+    <string name="shaky_row2_title">Запросить новую функцию</string>
+    <string name="shaky_row2_subtitle">Было бы здорово, если бы…</string>
+    <string name="shaky_feature_title">Запрос новой функции</string>
+    <string name="shaky_feature_hint">Опишите свой запрос</string>
+
+    <string name="shaky_row3_title">Отправить отзыв о приложении</string>
+    <string name="shaky_row3_subtitle">Нам интересно узнать ваше мнение!</string>
+    <string name="shaky_general_title">Общий отзыв</string>
+    <string name="shaky_general_hint">Напишите свой отзыв</string>
+
+    <string name="shaky_message_hint">Напишите свой отзыв</string>
+    <string name="shaky_image_action">Коснитесь, чтобы отредактировать изображение</string>
+
+    <string name="shaky_form_submit">Отправить</string>
+
+    <string name="shaky_draw_hint">Обозначьте проблемное место(а) приложения</string>
+    <string name="shaky_draw_save">сохранить</string>
+    <string name="shaky_draw_clear">очистить</string>
+    <string name="shaky_draw_brush">обозначить</string>
+    <string name="shaky_draw_undo">отменить</string>
+    <string name="shaky_draw_brush_white">закрасить</string>
+    <string name="shaky_draw_brush_hint">Переключатель стиля обозначения</string>
+
+    <string name="shaky_empty_feedback_message">Напишите свой отзыв</string>
+    <string name="shaky_empty_feedback_confirm">OK</string>
+</resources>

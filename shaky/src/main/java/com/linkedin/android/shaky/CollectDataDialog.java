@@ -37,7 +37,7 @@ public class CollectDataDialog extends DialogFragment {
                 // don't call super, so the back button won't close the dialog
             }
         };
-        dialog.setTitle(R.string.collecting_feedback);
+        dialog.setTitle(R.string.shaky_collecting_feedback);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

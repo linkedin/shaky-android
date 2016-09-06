@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">Potrząśnij, aby wysłać opinię</string>
+    <string name="shaky_dialog_message">Potrząsnąleś(-aś) swoim urządzeniem! Czy chcesz wysłać opinię o swoim doświadczeniu?</string>
+    <string name="shaky_dialog_positive">Wyślij opinię</string>
+    <string name="shaky_dialog_negative">Odrzuć</string>
+
+    <string name="shaky_feedback_title">Wyślij opinię</string>
+
+    <string name="shaky_collecting_feedback">Pobieranie danych…</string>
+
+    <string name="shaky_row1_title">Zgłoś usterkę.</string>
+    <string name="shaky_row1_subtitle">Wygląda to na usterkę.</string>
+    <string name="shaky_bug_title">Zgłoś usterkę</string>
+    <string name="shaky_bug_hint">Opisz usterkę</string>
+
+    <string name="shaky_row2_title">Poproś o nową funkcję</string>
+    <string name="shaky_row2_subtitle">Byłoby dobrze, gdyby…</string>
+    <string name="shaky_feature_title">Prośby o funkcję</string>
+    <string name="shaky_feature_hint">Napisz prośbę</string>
+
+    <string name="shaky_row3_title">Wyślij opinię o aplikacji</string>
+    <string name="shaky_row3_subtitle">Powiedz nam o swoim doświadczeniu!</string>
+    <string name="shaky_general_title">Opinia</string>
+    <string name="shaky_general_hint">Napisz opinię</string>
+
+    <string name="shaky_message_hint">Napisz opinię</string>
+    <string name="shaky_image_action">Dotknij 2 razy, aby edytować zdjęcie</string>
+
+    <string name="shaky_form_submit">Wyślij</string>
+
+    <string name="shaky_draw_hint">Zaznacz </string>
+    <string name="shaky_draw_save">zapisz</string>
+    <string name="shaky_draw_clear">wyczyść</string>
+    <string name="shaky_draw_brush">pędzel</string>
+    <string name="shaky_draw_undo">cofnij</string>
+    <string name="shaky_draw_brush_white">korektor</string>
+    <string name="shaky_draw_brush_hint">Włącz styl pędzla</string>
+
+    <string name="shaky_empty_feedback_message">Napisz opinię.</string>
+    <string name="shaky_empty_feedback_confirm">OK</string>
+</resources>

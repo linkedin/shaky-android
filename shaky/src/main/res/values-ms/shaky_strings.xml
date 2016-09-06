@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">Goncang untuk hantar maklum balas</string>
+    <string name="shaky_dialog_message">Anda menggoncang peranti anda! Adakah anda mahu menghantar maklum balas tentang pengalaman anda?</string>
+    <string name="shaky_dialog_positive">Hantar Maklum Balas</string>
+    <string name="shaky_dialog_negative">Singkir</string>
+
+    <string name="shaky_feedback_title">Hantar maklum balas</string>
+
+    <string name="shaky_collecting_feedback">Mengumpulkan data nyahpepijat…</string>
+
+    <string name="shaky_row1_title">Laporkan pepijat</string>
+    <string name="shaky_row1_subtitle">Sesuatu kelihatan tidak berapa betul.</string>
+    <string name="shaky_bug_title">Laporan Pepijat</string>
+    <string name="shaky_bug_hint">Terangkan pepijat</string>
+
+    <string name="shaky_row2_title">Minta ciri baharu</string>
+    <string name="shaky_row2_subtitle">Hebat sekali jika…</string>
+    <string name="shaky_feature_title">Permintaan Ciri</string>
+    <string name="shaky_feature_hint">Tulis permintaan anda</string>
+
+    <string name="shaky_row3_title">Hantar maklum balas aplikasi</string>
+    <string name="shaky_row3_subtitle">Beritahu kami tentang prestasi kami!</string>
+    <string name="shaky_general_title">Maklum Balas Umum</string>
+    <string name="shaky_general_hint">Tulis maklum balas anda</string>
+
+    <string name="shaky_message_hint">Tulis maklum balas anda</string>
+    <string name="shaky_image_action">Tekan untuk mengedit imej</string>
+
+    <string name="shaky_form_submit">Hantar</string>
+
+    <string name="shaky_draw_hint">Sila tandakan kawasan yang terjejas</string>
+    <string name="shaky_draw_save">simpan</string>
+    <string name="shaky_draw_clear">Kosongkan</string>
+    <string name="shaky_draw_brush">berus</string>
+    <string name="shaky_draw_undo">buat asal</string>
+    <string name="shaky_draw_brush_white">padam</string>
+    <string name="shaky_draw_brush_hint">Tukar tetapan gaya berus</string>
+
+    <string name="shaky_empty_feedback_message">Sila tuliskan maklum balas anda.</string>
+    <string name="shaky_empty_feedback_confirm">OK</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">搖一搖，傳送意見反映</string>
+    <string name="shaky_dialog_message">您好像搖了行動裝置！您想傳送意見反映嗎？</string>
+    <string name="shaky_dialog_positive">傳送意見與改善</string>
+    <string name="shaky_dialog_negative">關閉</string>
+
+    <string name="shaky_feedback_title">傳送意見反映</string>
+
+    <string name="shaky_collecting_feedback">正在收集偵錯資料⋯⋯</string>
+
+    <string name="shaky_row1_title">報告 bug</string>
+    <string name="shaky_row1_subtitle">系統出現不明錯誤。</string>
+    <string name="shaky_bug_title">bug 報告</string>
+    <string name="shaky_bug_hint">說明問題</string>
+
+    <string name="shaky_row2_title">要求新功能</string>
+    <string name="shaky_row2_subtitle">我希望能夠⋯⋯</string>
+    <string name="shaky_feature_title">功能請求</string>
+    <string name="shaky_feature_hint">輸入請求</string>
+
+    <string name="shaky_row3_title">傳送 App 意見反映</string>
+    <string name="shaky_row3_subtitle">請提供意見反映</string>
+    <string name="shaky_general_title">一般意見反映</string>
+    <string name="shaky_general_hint">輸入意見反映</string>
+
+    <string name="shaky_message_hint">輸入意見反映</string>
+    <string name="shaky_image_action">輕點來編輯圖片</string>
+
+    <string name="shaky_form_submit">傳送</string>
+
+    <string name="shaky_draw_hint">請畫出有問題的地方</string>
+    <string name="shaky_draw_save">儲存</string>
+    <string name="shaky_draw_clear">清除</string>
+    <string name="shaky_draw_brush">筆刷</string>
+    <string name="shaky_draw_undo">復原</string>
+    <string name="shaky_draw_brush_white">橡皮擦</string>
+    <string name="shaky_draw_brush_hint">切換筆刷樣式</string>
+
+    <string name="shaky_empty_feedback_message">請輸入意見反映。</string>
+    <string name="shaky_empty_feedback_confirm">確認</string>
+</resources>
