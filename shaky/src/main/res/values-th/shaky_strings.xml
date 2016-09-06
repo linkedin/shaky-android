@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">เขย่าเพื่อส่งคำติชม</string>
+    <string name="shaky_dialog_message">คุณเขย่าอุปกรณ์ของคุณ! คุณต้องการส่งคำติชมเกี่ยวกับประสบการณ์ของคุณหรือไม่</string>
+    <string name="shaky_dialog_positive">ส่งคำติชม</string>
+    <string name="shaky_dialog_negative">ปิด</string>
+
+    <string name="shaky_feedback_title">ส่งคำติชม</string>
+
+    <string name="shaky_collecting_feedback">กำลังเก็บรวบรวมข้อมูลดีบัก…</string>
+
+    <string name="shaky_row1_title">รายงานบัก</string>
+    <string name="shaky_row1_subtitle">ดูเหมือนว่ามีบางอย่างที่ไม่ถูกต้อง</string>
+    <string name="shaky_bug_title">รายงานบัก</string>
+    <string name="shaky_bug_hint">อธิบายบัก</string>
+
+    <string name="shaky_row2_title">ร้องขอคุณลักษณะใหม่</string>
+    <string name="shaky_row2_subtitle">จะดีเยี่ยมเลยถ้า…</string>
+    <string name="shaky_feature_title">คำร้องขอคุณลักษณะ</string>
+    <string name="shaky_feature_hint">เขียนคำร้องขอของคุณ</string>
+
+    <string name="shaky_row3_title">ส่งคำติชมแอพ</string>
+    <string name="shaky_row3_subtitle">บริการของเราเป็นอย่างไรบ้าง</string>
+    <string name="shaky_general_title">คำติชมทั่วไป</string>
+    <string name="shaky_general_hint">เขียนคำติชมของคุณ</string>
+
+    <string name="shaky_message_hint">เขียนคำติชมของคุณ</string>
+    <string name="shaky_image_action">แตะเพื่อแก้ไขรูปภาพ</string>
+
+    <string name="shaky_form_submit">ส่ง</string>
+
+    <string name="shaky_draw_hint">โปรดทำเครื่องหมายพื้นที่ที่ได้รับผลกระทบ</string>
+    <string name="shaky_draw_save">บันทึก</string>
+    <string name="shaky_draw_clear">ล้าง</string>
+    <string name="shaky_draw_brush">ปัด</string>
+    <string name="shaky_draw_undo">เลิกทำ</string>
+    <string name="shaky_draw_brush_white">ทาสีขาวทับ</string>
+    <string name="shaky_draw_brush_hint">สลับสไตล์การปัด</string>
+
+    <string name="shaky_empty_feedback_message">โปรดเขียนคำติชมของคุณ</string>
+    <string name="shaky_empty_feedback_confirm">ตกลง</string>
+</resources>

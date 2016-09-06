@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">Agite para enviar feedback</string>
+    <string name="shaky_dialog_message">Você agitou seu dispositivo. Gostaria de enviar feedback?</string>
+    <string name="shaky_dialog_positive">Enviar feedback</string>
+    <string name="shaky_dialog_negative">Fechar</string>
+
+    <string name="shaky_feedback_title">Enviar feedback</string>
+
+    <string name="shaky_collecting_feedback">Coletando dados de bugs…</string>
+
+    <string name="shaky_row1_title">Denunciar bug</string>
+    <string name="shaky_row1_subtitle">Ocorreu um erro</string>
+    <string name="shaky_bug_title">Relatório de bugs</string>
+    <string name="shaky_bug_hint">Descreva o bug</string>
+
+    <string name="shaky_row2_title">Solicite um novo recurso</string>
+    <string name="shaky_row2_subtitle">Tenho uma sugestão:</string>
+    <string name="shaky_feature_title">Solicitação de recurso</string>
+    <string name="shaky_feature_hint">Escreva sua solicitação</string>
+
+    <string name="shaky_row3_title">Enviar feedback do app</string>
+    <string name="shaky_row3_subtitle">Dê sua opinião!</string>
+    <string name="shaky_general_title">Feedback geral</string>
+    <string name="shaky_general_hint">Escreva seu feedback</string>
+
+    <string name="shaky_message_hint">Escreva seu feedback</string>
+    <string name="shaky_image_action">Toque para editar a imagem</string>
+
+    <string name="shaky_form_submit">Enviar</string>
+
+    <string name="shaky_draw_hint">Marque a área afetada</string>
+    <string name="shaky_draw_save">salvar</string>
+    <string name="shaky_draw_clear">apagar</string>
+    <string name="shaky_draw_brush">marcar</string>
+    <string name="shaky_draw_undo">desfazer</string>
+    <string name="shaky_draw_brush_white">marcar em branco</string>
+    <string name="shaky_draw_brush_hint">Altera o tipo de pincel</string>
+
+    <string name="shaky_empty_feedback_message">Escreva seu feedback.</string>
+    <string name="shaky_empty_feedback_confirm">OK</string>
+</resources>

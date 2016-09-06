@@ -52,14 +52,14 @@ public class SendFeedbackDialog extends DialogFragment {
                                       R.layout.shaky_popup, null);
         builder.setView(popupView);
 
-        builder.setPositiveButton(R.string.dialog_positive, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.shaky_dialog_positive, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(ACTION_START_FEEDBACK_FLOW);
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         });
-        builder.setNegativeButton(R.string.dialog_negative, null);
+        builder.setNegativeButton(R.string.shaky_dialog_negative, null);
 
         final AlertDialog dialog = builder.create();
 

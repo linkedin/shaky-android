@@ -48,7 +48,7 @@ public class SelectFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.shaky_toolbar);
-        toolbar.setTitle(R.string.feedback_title);
+        toolbar.setTitle(R.string.shaky_feedback_title);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,20 +62,20 @@ public class SelectFragment extends Fragment {
     private FeedbackItem[] getData() {
         return new FeedbackItem[]{
                 new FeedbackItem(
-                        getString(R.string.row1_title),
-                        getString(R.string.row1_subtitle),
+                        getString(R.string.shaky_row1_title),
+                        getString(R.string.shaky_row1_subtitle),
                         R.drawable.img_magnifying_glass_56dp,
                         FeedbackItem.BUG
                 ),
                 new FeedbackItem(
-                        getString(R.string.row2_title),
-                        getString(R.string.row2_subtitle),
+                        getString(R.string.shaky_row2_title),
+                        getString(R.string.shaky_row2_subtitle),
                         R.drawable.img_lightbulb_56dp,
                         FeedbackItem.FEATURE
                 ),
                 new FeedbackItem(
-                        getString(R.string.row3_title),
-                        getString(R.string.row3_subtitle),
+                        getString(R.string.shaky_row3_title),
+                        getString(R.string.shaky_row3_subtitle),
                         R.drawable.img_message_bubbles_56dp,
                         FeedbackItem.GENERAL
                 ),

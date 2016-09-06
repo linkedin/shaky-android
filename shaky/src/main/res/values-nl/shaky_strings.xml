@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">Schud om feedback te verzenden</string>
+    <string name="shaky_dialog_message">U hebt uw apparaat geschud! Wilt u feedback verzenden over uw ervaring?</string>
+    <string name="shaky_dialog_positive">Feedback verzenden</string>
+    <string name="shaky_dialog_negative">Sluiten</string>
+
+    <string name="shaky_feedback_title">Feedback verzenden</string>
+
+    <string name="shaky_collecting_feedback">Foutopsporingsgegevens worden verzameld…</string>
+
+    <string name="shaky_row1_title">Een fout melden</string>
+    <string name="shaky_row1_subtitle">Er ging iets fout.</string>
+    <string name="shaky_bug_title">Fout melden</string>
+    <string name="shaky_bug_hint">Beschrijf de fout</string>
+
+    <string name="shaky_row2_title">Een verzoek voor een nieuwe functie indienen</string>
+    <string name="shaky_row2_subtitle">Het zou leuk zijn als…</string>
+    <string name="shaky_feature_title">Functieverzoek</string>
+    <string name="shaky_feature_hint">Schrijf uw verzoek</string>
+
+    <string name="shaky_row3_title">Feedback over de app verzenden</string>
+    <string name="shaky_row3_subtitle">Vertel ons hoe we het doen!</string>
+    <string name="shaky_general_title">Algemene feedback</string>
+    <string name="shaky_general_hint">Schrijf uw feedback</string>
+
+    <string name="shaky_message_hint">Schrijf uw feedback</string>
+    <string name="shaky_image_action">Tik om de afbeelding te bewerken</string>
+
+    <string name="shaky_form_submit">Verzenden</string>
+
+    <string name="shaky_draw_hint">Markeer het probleem</string>
+    <string name="shaky_draw_save">opslaan</string>
+    <string name="shaky_draw_clear">wissen</string>
+    <string name="shaky_draw_brush">kwast</string>
+    <string name="shaky_draw_undo">ongedaan maken</string>
+    <string name="shaky_draw_brush_white">vlakgom</string>
+    <string name="shaky_draw_brush_hint">Schakelknop voor kwaststijl</string>
+
+    <string name="shaky_empty_feedback_message">Schrijf uw feedback.</string>
+    <string name="shaky_empty_feedback_confirm">OK</string>
+</resources>

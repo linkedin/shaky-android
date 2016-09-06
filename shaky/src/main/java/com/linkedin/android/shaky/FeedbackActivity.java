@@ -163,12 +163,12 @@ public class FeedbackActivity extends AppCompatActivity {
     private int getTitleResId(@FeedbackItem.FeedbackType int feedbackType) {
         switch (feedbackType) {
             case FeedbackItem.BUG:
-                return R.string.bug_title;
+                return R.string.shaky_bug_title;
             case FeedbackItem.FEATURE:
-                return R.string.feature_title;
+                return R.string.shaky_feature_title;
             default:
             case FeedbackItem.GENERAL:
-                return R.string.general_title;
+                return R.string.shaky_general_title;
         }
     }
 
@@ -176,12 +176,12 @@ public class FeedbackActivity extends AppCompatActivity {
     private int getHintResId(@FeedbackItem.FeedbackType int feedbackType) {
         switch (feedbackType) {
             case FeedbackItem.BUG:
-                return R.string.bug_hint;
+                return R.string.shaky_bug_hint;
             case FeedbackItem.FEATURE:
-                return R.string.feature_hint;
+                return R.string.shaky_feature_hint;
             default:
             case FeedbackItem.GENERAL:
-                return R.string.general_hint;
+                return R.string.shaky_general_hint;
         }
     }
 }

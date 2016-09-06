@@ -99,7 +99,7 @@ public class DrawFragment extends Fragment {
         view.findViewById(R.id.shaky_button_undo).setOnClickListener(createUndoClickListener());
 
         if (savedInstanceState == null) {
-            Toast.makeText(getActivity(), getString(R.string.draw_hint), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.shaky_draw_hint), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -118,7 +118,7 @@ public class DrawFragment extends Fragment {
             public void onClick(View v) {
                 Button brushButton = (Button) v;
                 paper.toggleBrush();
-                brushButton.setText(getString(paper.isThinBrush() ? R.string.draw_brush : R.string.draw_brush_white));
+                brushButton.setText(getString(paper.isThinBrush() ? R.string.shaky_draw_brush : R.string.shaky_draw_brush_white));
             }
         };
     }

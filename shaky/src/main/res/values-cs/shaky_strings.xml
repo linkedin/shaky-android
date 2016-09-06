@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">Zatřepte telefonem a můžete nám poslat své názory a připomínky.</string>
+    <string name="shaky_dialog_message">Zatřepal(a) jste telefonem! Chcete nám poslat názory a připomínky k aplikaci?</string>
+    <string name="shaky_dialog_positive">Odeslat názory a připomínky</string>
+    <string name="shaky_dialog_negative">Zrušit</string>
+
+    <string name="shaky_feedback_title">Poslat názory a připomínky</string>
+
+    <string name="shaky_collecting_feedback">Sbíráme data pro debugging…</string>
+
+    <string name="shaky_row1_title">Nahlásit chybu</string>
+    <string name="shaky_row1_subtitle">Něco není v pořádku.</string>
+    <string name="shaky_bug_title">Hlášení chyby</string>
+    <string name="shaky_bug_hint">Popište chybu.</string>
+
+    <string name="shaky_row2_title">Požádat o novou funkci</string>
+    <string name="shaky_row2_subtitle">Bylo by fajn, kdybyste…</string>
+    <string name="shaky_feature_title">Žádost o funkci</string>
+    <string name="shaky_feature_hint">Napište váš požadavek zde.</string>
+
+    <string name="shaky_row3_title">Poslat názory a připomínky k aplikaci</string>
+    <string name="shaky_row3_subtitle">Řekněte nám, jak si stojíme!</string>
+    <string name="shaky_general_title">Obecné připomínky</string>
+    <string name="shaky_general_hint">Napište připomínky zde.</string>
+
+    <string name="shaky_message_hint">Napište připomínky zde.</string>
+    <string name="shaky_image_action">Poklepejte a můžete upravit obrázek.</string>
+
+    <string name="shaky_form_submit">Odeslat</string>
+
+    <string name="shaky_draw_hint">Označte prosím postiženou oblast.</string>
+    <string name="shaky_draw_save">Uložit</string>
+    <string name="shaky_draw_clear">Vymazat</string>
+    <string name="shaky_draw_brush">Tužka</string>
+    <string name="shaky_draw_undo">Vrátit zpět</string>
+    <string name="shaky_draw_brush_white">Štětec</string>
+    <string name="shaky_draw_brush_hint">Přepnout styl tužky</string>
+
+    <string name="shaky_empty_feedback_message">Napište prosím své připomínky.</string>
+    <string name="shaky_empty_feedback_confirm">OK</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">Geri bildirim için salla</string>
+    <string name="shaky_dialog_message">Cihazınızı salladınız! Deneyiminiz  ile ilgili geri bildirim göndermek ister misiniz?</string>
+    <string name="shaky_dialog_positive">Geri Bildirim Gönder</string>
+    <string name="shaky_dialog_negative">Kapat</string>
+
+    <string name="shaky_feedback_title">Geri bildirim gönder</string>
+
+    <string name="shaky_collecting_feedback">Hata ayıklama verileri toplanıyor…</string>
+
+    <string name="shaky_row1_title">Hata rapor et</string>
+    <string name="shaky_row1_subtitle">Ters giden bir şeyler var gibi.</string>
+    <string name="shaky_bug_title">Hata Rapor Et</string>
+    <string name="shaky_bug_hint">Hatayı açıkla</string>
+
+    <string name="shaky_row2_title">Yeni özellik talep et</string>
+    <string name="shaky_row2_subtitle">Eğer şu özellik olursa, çok süper olur…</string>
+    <string name="shaky_feature_title">Özellik </string>
+    <string name="shaky_feature_hint">Talebinizi yazın</string>
+
+    <string name="shaky_row3_title">Uygulama geri bildirimi gönder</string>
+    <string name="shaky_row3_subtitle">Bize nasıl olduğumuzu bildirin!</string>
+    <string name="shaky_general_title">Genel Geri Bildirim </string>
+    <string name="shaky_general_hint">Geri bildiriminizi yazın…</string>
+
+    <string name="shaky_message_hint">Geri bildiriminizi yazın…</string>
+    <string name="shaky_image_action">Yetenek düzenlemek için iki kez dokun.</string>
+
+    <string name="shaky_form_submit">Gönder</string>
+
+    <string name="shaky_draw_hint">Etkilenen alan(lar)ı işaretleyin</string>
+    <string name="shaky_draw_save">kaydet</string>
+    <string name="shaky_draw_clear">temizle</string>
+    <string name="shaky_draw_brush">fırçala</string>
+    <string name="shaky_draw_undo">geri al</string>
+    <string name="shaky_draw_brush_white">daksille</string>
+    <string name="shaky_draw_brush_hint">Fırça sitilini değiştir</string>
+
+    <string name="shaky_empty_feedback_message">Lütfen geri bildiriminizi yazın.</string>
+    <string name="shaky_empty_feedback_confirm">TAMAM</string>
+</resources>

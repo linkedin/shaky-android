@@ -34,28 +34,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|start"
-            android:text="@string/draw_undo"/>
+            android:text="@string/shaky_draw_undo"/>
 
         <Button
             android:id="@+id/shaky_button_brush"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:text="@string/draw_brush"/>
+            android:text="@string/shaky_draw_brush"/>
 
         <Button
             android:id="@+id/shaky_button_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
-            android:text="@string/draw_clear"/>
+            android:text="@string/shaky_draw_clear"/>
 
         <Button
             android:id="@+id/shaky_button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:text="@string/draw_save"/>
+            android:text="@string/shaky_draw_save"/>
 
     </FrameLayout>
 
