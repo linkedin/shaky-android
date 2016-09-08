@@ -57,7 +57,7 @@ publishing {
                     resolveStrategy = Closure.DELEGATE_FIRST
                     description = LIBRARY_DESCRIPTION
                     artifactId = ARTIFACT
-                    url 'https://github.com/linkedin/pygradle'
+                    url 'https://github.com/linkedin/shaky-android'
                     scm {
                         url 'https://github.com/linkedin/shaky-android'
                         connection 'scm:git:git://github.com/linkedin/shaky-android.git'
