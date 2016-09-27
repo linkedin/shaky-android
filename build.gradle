@@ -7,6 +7,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.1.2'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4'
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.4.0"
     }
 }
 
@@ -26,6 +27,6 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 23
     supportLibrariesVersion = '23.0.1'
-
-    isCi = "true".equals(System.getenv('CI'))
 }
+
+apply plugin: 'com.jfrog.artifactory'
