@@ -1,10 +1,10 @@
+import com.linkedin.gradle.DistributeTask
+
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
-allprojects {
-    group = "com.linkedin.shaky-android"
-}
+group = GROUP_ID
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -43,24 +43,42 @@ dependencies {
 
 version = VERSION_NAME
 
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+
 publishing {
     publications {
         aar(MavenPublication) {
-            groupId GROUP_ID
 
             artifact("$buildDir/outputs/aar/${project.getName()}-release.aar") {
                 builtBy assembleRelease
             }
+            artifact sourcesJar
+            artifact javadocJar
 
             pom.withXml {
                 asNode().children().last() + {
                     resolveStrategy = Closure.DELEGATE_FIRST
+
                     description = LIBRARY_DESCRIPTION
-                    artifactId = ARTIFACT
                     url 'https://github.com/linkedin/shaky-android'
                     scm {
                         url 'https://github.com/linkedin/shaky-android'
                         connection 'scm:git:git://github.com/linkedin/shaky-android.git'
+                        developerConnection 'https://github.com/linkedin/shaky-android.git'
                     }
                     licenses {
                         license {
@@ -73,8 +91,19 @@ publishing {
                     developers {
                         developer {
                             id 'com.linkedin'
-                            name 'LinkedIn Corp'
+                            name 'LinkedIn Corp.'
                             email ''
+                        }
+                    }
+
+                    dependencies {
+                        configurations.compile.allDependencies.each { ModuleDependency dp ->
+                            dependency {
+                                resolveStrategy = Closure.DELEGATE_ONLY
+                                groupId dp.group
+                                artifactId dp.name
+                                version dp.version
+                            }
                         }
                     }
                 }
@@ -96,4 +125,8 @@ artifactory {
         }
     }
     clientConfig.setIncludeEnvVars(false)
+}
+
+task distributeBuild(type: DistributeTask) {
+    dependsOn ':artifactoryPublish', 'shaky:artifactoryPublish'
 }
