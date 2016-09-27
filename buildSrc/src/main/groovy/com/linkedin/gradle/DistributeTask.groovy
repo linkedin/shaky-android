@@ -22,7 +22,7 @@ class DistributeTask extends DefaultTask {
                 "overrideExistingFiles": "false",
                 "async"                : "true",
                 "targetRepo"           : "maven",
-                "sourceRepos"          : ["pygradle"],
+                "sourceRepos"          : ["shaky-android"],
                 "dryRun"               : "false"
         ]
 

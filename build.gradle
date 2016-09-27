@@ -27,8 +27,6 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 23
     supportLibrariesVersion = '23.0.1'
-
-    isCi = "true".equals(System.getenv('CI'))
 }
 
 apply plugin: 'com.jfrog.artifactory'

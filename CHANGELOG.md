@@ -6,5 +6,5 @@ Initial release.
 
 ## Version 1.0.2
 
-Fixed small image bug
+Fixed #7 - small image bug
 Added localization

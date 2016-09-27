@@ -128,5 +128,5 @@ artifactory {
 }
 
 task distributeBuild(type: DistributeTask) {
-    dependsOn ':artifactoryPublish', 'shaky:artifactoryPublish'
+    dependsOn 'artifactoryPublish'
 }
