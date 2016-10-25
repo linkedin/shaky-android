@@ -19,7 +19,7 @@
 <resources>
     <string name="shaky_dialog_title">Zatřepte telefonem a můžete nám poslat své názory a připomínky.</string>
     <string name="shaky_dialog_message">Zatřepal(a) jste telefonem! Chcete nám poslat názory a připomínky k aplikaci?</string>
-    <string name="shaky_dialog_positive">Odeslat názory a připomínky</string>
+    <string name="shaky_dialog_positive">Poslat názory a připomínky</string>
     <string name="shaky_dialog_negative">Zrušit</string>
 
     <string name="shaky_feedback_title">Poslat názory a připomínky</string>
@@ -44,7 +44,7 @@
     <string name="shaky_message_hint">Napište připomínky zde.</string>
     <string name="shaky_image_action">Poklepejte a můžete upravit obrázek.</string>
 
-    <string name="shaky_form_submit">Odeslat</string>
+    <string name="shaky_form_submit">Poslat</string>
 
     <string name="shaky_draw_hint">Označte prosím postiženou oblast.</string>
     <string name="shaky_draw_save">Uložit</string>

@@ -26,14 +26,14 @@
 
     <string name="shaky_collecting_feedback">Pobieranie danych…</string>
 
-    <string name="shaky_row1_title">Zgłoś usterkę.</string>
+    <string name="shaky_row1_title">Zgłoś usterkę</string>
     <string name="shaky_row1_subtitle">Wygląda to na usterkę.</string>
-    <string name="shaky_bug_title">Zgłoś usterkę</string>
+    <string name="shaky_bug_title">Zgłoszenie usterki</string>
     <string name="shaky_bug_hint">Opisz usterkę</string>
 
     <string name="shaky_row2_title">Poproś o nową funkcję</string>
     <string name="shaky_row2_subtitle">Byłoby dobrze, gdyby…</string>
-    <string name="shaky_feature_title">Prośby o funkcję</string>
+    <string name="shaky_feature_title">Prośba o funkcję</string>
     <string name="shaky_feature_hint">Napisz prośbę</string>
 
     <string name="shaky_row3_title">Wyślij opinię o aplikacji</string>
@@ -46,7 +46,7 @@
 
     <string name="shaky_form_submit">Wyślij</string>
 
-    <string name="shaky_draw_hint">Zaznacz </string>
+    <string name="shaky_draw_hint">Zaznacz miejsca z usterkami</string>
     <string name="shaky_draw_save">zapisz</string>
     <string name="shaky_draw_clear">wyczyść</string>
     <string name="shaky_draw_brush">pędzel</string>

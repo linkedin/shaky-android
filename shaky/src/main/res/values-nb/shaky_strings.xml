@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2016 LinkedIn Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- i18n-derived -->
+<!-- i18n-resource -->
+<resources>
+    <string name="shaky_dialog_title">Rist for å sende tilbakemelding</string>
+    <string name="shaky_dialog_message">Du ristet enheten din! Vil du sende tilbakemelding om denne funksjonen?</string>
+    <string name="shaky_dialog_positive">Send tilbakemelding</string>
+    <string name="shaky_dialog_negative">Lukk</string>
+
+    <string name="shaky_feedback_title">Send tilbakemelding</string>
+
+    <string name="shaky_collecting_feedback">Samler feilsøkingsdata …</string>
+
+    <string name="shaky_row1_title">Rapporter en feil</string>
+    <string name="shaky_row1_subtitle">Det har oppstått en feil.</string>
+    <string name="shaky_bug_title">Rapporter feil</string>
+    <string name="shaky_bug_hint">Beskriv feilen</string>
+
+    <string name="shaky_row2_title">Be om en ny funksjon</string>
+    <string name="shaky_row2_subtitle">Det ville være super kult hvis …</string>
+    <string name="shaky_feature_title">Forespørsel om funksjon</string>
+    <string name="shaky_feature_hint">Skriv forespørselen din</string>
+
+    <string name="shaky_row3_title">Send tilbakemelding om app</string>
+    <string name="shaky_row3_subtitle">Gi oss en tilbakemelding!</string>
+    <string name="shaky_general_title">Generell tilbakemelding</string>
+    <string name="shaky_general_hint">Skriv tilbakemeldingen</string>
+
+    <string name="shaky_message_hint">Skriv tilbakemelding</string>
+    <string name="shaky_image_action">Dobbelttrykk for å redigere bilde</string>
+
+    <string name="shaky_form_submit">Send</string>
+
+    <string name="shaky_draw_hint">Vennligst markér de aktuelle feltene</string>
+    <string name="shaky_draw_save">lagre</string>
+    <string name="shaky_draw_clear">tøm</string>
+    <string name="shaky_draw_brush">pensel</string>
+    <string name="shaky_draw_undo">angre</string>
+    <string name="shaky_draw_brush_white">korrigering</string>
+    <string name="shaky_draw_brush_hint">Velg penseltype</string>
+
+    <string name="shaky_empty_feedback_message">Skriv tilbakemelding.</string>
+    <string name="shaky_empty_feedback_confirm">OK</string>
+</resources>

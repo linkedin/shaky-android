@@ -32,7 +32,7 @@
     <string name="shaky_bug_hint">버그 설명</string>
 
     <string name="shaky_row2_title">기능 제안</string>
-    <string name="shaky_row2_subtitle">제안하고 싶은 기능 설명</string>
+    <string name="shaky_row2_subtitle">제안하고 싶은 기능</string>
     <string name="shaky_feature_title">서비스 요청</string>
     <string name="shaky_feature_hint">요청하고 싶은 서비스 설명</string>
 
