@@ -8,3 +8,7 @@ Initial release.
 
 Fixed #7 - small image bug
 Added localization
+
+## Version 1.0.3
+
+Fixed localization issues, added Norwegian
