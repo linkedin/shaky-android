@@ -34,14 +34,14 @@
     <string name="shaky_row2_title">新功能建议</string>
     <string name="shaky_row2_subtitle">我希望…</string>
     <string name="shaky_feature_title">新功能建议</string>
-    <string name="shaky_feature_hint">写建议</string>
+    <string name="shaky_feature_hint">输入建议</string>
 
     <string name="shaky_row3_title">留言反馈</string>
     <string name="shaky_row3_subtitle">欢迎提出您的宝贵意见！</string>
     <string name="shaky_general_title">一般反馈</string>
-    <string name="shaky_general_hint">写反馈</string>
+    <string name="shaky_general_hint">输入反馈</string>
 
-    <string name="shaky_message_hint">写反馈</string>
+    <string name="shaky_message_hint">输入反馈</string>
     <string name="shaky_image_action">点击编辑图片</string>
 
     <string name="shaky_form_submit">发送</string>

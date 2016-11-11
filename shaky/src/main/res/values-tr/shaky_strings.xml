@@ -39,14 +39,14 @@
     <string name="shaky_row3_title">Uygulama geri bildirimi gönder</string>
     <string name="shaky_row3_subtitle">Bize nasıl olduğumuzu bildirin!</string>
     <string name="shaky_general_title">Genel Geri Bildirim </string>
-    <string name="shaky_general_hint">Geri bildiriminizi yazın…</string>
+    <string name="shaky_general_hint">Geri bildiriminizi yazın</string>
 
-    <string name="shaky_message_hint">Geri bildiriminizi yazın…</string>
+    <string name="shaky_message_hint">Geri bildiriminizi yazın</string>
     <string name="shaky_image_action">Yetenek düzenlemek için iki kez dokun.</string>
 
     <string name="shaky_form_submit">Gönder</string>
 
-    <string name="shaky_draw_hint">Etkilenen alan(lar)ı işaretleyin</string>
+    <string name="shaky_draw_hint">Etkilenen alan(lar)ı işaretle</string>
     <string name="shaky_draw_save">kaydet</string>
     <string name="shaky_draw_clear">temizle</string>
     <string name="shaky_draw_brush">fırçala</string>
@@ -55,5 +55,5 @@
     <string name="shaky_draw_brush_hint">Fırça sitilini değiştir</string>
 
     <string name="shaky_empty_feedback_message">Lütfen geri bildiriminizi yazın.</string>
-    <string name="shaky_empty_feedback_confirm">TAMAM</string>
+    <string name="shaky_empty_feedback_confirm">Tamam</string>
 </resources>

@@ -37,7 +37,7 @@
     <string name="shaky_feature_hint">Verfassen Sie Ihre Anfrage</string>
 
     <string name="shaky_row3_title">App-Feedback senden</string>
-    <string name="shaky_row3_subtitle">Sind Sie mit unseren Leistungen zufrieden?</string>
+    <string name="shaky_row3_subtitle">Sind Sie mit unseren Funktionen zufrieden?</string>
     <string name="shaky_general_title">Allgemeines Feedback</string>
     <string name="shaky_general_hint">Verfassen Sie Ihr Feedback</string>
 
@@ -50,7 +50,7 @@
     <string name="shaky_draw_save">Speichern</string>
     <string name="shaky_draw_clear">Löschen</string>
     <string name="shaky_draw_brush">Pinsel</string>
-    <string name="shaky_draw_undo">Widerrufen</string>
+    <string name="shaky_draw_undo">widerrufen</string>
     <string name="shaky_draw_brush_white">Korrektur</string>
     <string name="shaky_draw_brush_hint">Pinselart ändern</string>
 

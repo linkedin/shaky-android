@@ -17,27 +17,27 @@
 <!-- i18n-derived -->
 <!-- i18n-resource -->
 <resources>
-    <string name="shaky_dialog_title">シェイクしてフィードバックを送信</string>
-    <string name="shaky_dialog_message">スマホをシェイクされました。アプリのフィードバックを送信されますか?</string>
-    <string name="shaky_dialog_positive">フィードバックを送信</string>
-    <string name="shaky_dialog_negative">閉じる</string>
+    <string name="shaky_dialog_title">シェイクフィードバック送信</string>
+    <string name="shaky_dialog_message">スマホをシェイクされました。フィードバックを送信されますか?</string>
+    <string name="shaky_dialog_positive">はい、送信します</string>
+    <string name="shaky_dialog_negative">いいえ</string>
 
-    <string name="shaky_feedback_title">フィードバックの送信</string>
+    <string name="shaky_feedback_title">フィードバックを送信する</string>
 
     <string name="shaky_collecting_feedback">データを収集しています…</string>
 
-    <string name="shaky_row1_title">不具合の報告</string>
-    <string name="shaky_row1_subtitle">エラーが発生しました。</string>
-    <string name="shaky_bug_title">不具合を報告</string>
+    <string name="shaky_row1_title">不具合を報告</string>
+    <string name="shaky_row1_subtitle">エラー/不具合を報告します。</string>
+    <string name="shaky_bug_title">不具合の報告</string>
     <string name="shaky_bug_hint">問題について説明してください</string>
 
-    <string name="shaky_row2_title">新機能のリクエスト</string>
-    <string name="shaky_row2_subtitle">○○機能があったら…</string>
-    <string name="shaky_feature_title">機能のリクエスト</string>
+    <string name="shaky_row2_title">新機能をリクエスト</string>
+    <string name="shaky_row2_subtitle">あったら良いと思う機能をリクエストします。</string>
+    <string name="shaky_feature_title">新機能のリクエスト</string>
     <string name="shaky_feature_hint">リクエストを記入してください</string>
 
-    <string name="shaky_row3_title">アプリのフィードバックを送信</string>
-    <string name="shaky_row3_subtitle">ご意見をお聞かせください</string>
+    <string name="shaky_row3_title">フィードバックを送信</string>
+    <string name="shaky_row3_subtitle">意見または感想を送信します。</string>
     <string name="shaky_general_title">一般的なフィードバック</string>
     <string name="shaky_general_hint">フィードバックを記入してください</string>
 
@@ -46,7 +46,7 @@
 
     <string name="shaky_form_submit">送信</string>
 
-    <string name="shaky_draw_hint">該当するエリアを指摘してください。</string>
+    <string name="shaky_draw_hint">該当する箇所をマークしてください。</string>
     <string name="shaky_draw_save">保存</string>
     <string name="shaky_draw_clear">クリア</string>
     <string name="shaky_draw_brush">ブラシ</string>
