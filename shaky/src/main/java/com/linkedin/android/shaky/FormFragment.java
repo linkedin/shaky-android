@@ -128,7 +128,7 @@ public class FormFragment extends Fragment {
         if (message.trim().length() == 0) {
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             alertDialog.setMessage(getString(R.string.shaky_empty_feedback_message));
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.shaky_empty_feedback_confirm),
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.shaky_empty_feedback_confirm),
                                   new DialogInterface.OnClickListener() {
                                       public void onClick(DialogInterface dialog, int which) {
                                           dialog.dismiss();
