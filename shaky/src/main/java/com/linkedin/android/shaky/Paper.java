@@ -25,10 +25,10 @@ import android.graphics.Path;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Drawable view on an image.
  */
-public class Paper extends ImageView {
+public class Paper extends AppCompatImageView {
 
     private static final float THIN_STROKE_WIDTH = 12f;
     private static final float THICK_STROKE_WIDTH = 48f;

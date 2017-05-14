@@ -58,13 +58,12 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-
 publishing {
     publications {
         aar(MavenPublication) {
 
             artifact("$buildDir/outputs/aar/${project.getName()}-release.aar") {
-                builtBy assembleRelease
+                builtBy assemble
             }
             artifact sourcesJar
             artifact javadocJar
