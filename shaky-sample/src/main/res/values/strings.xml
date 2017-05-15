@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">Shaky</string>
     <string name="shake_me" translatable="false">Shake me!</string>
+    <string name="manual_feedback_trigger" translatable="false">Manually start feedback</string>
 </resources>

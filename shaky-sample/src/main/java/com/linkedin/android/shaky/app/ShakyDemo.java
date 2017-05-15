@@ -18,9 +18,7 @@ package com.linkedin.android.shaky.app;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.TextView;
+import android.view.View;
 
 import java.util.Random;
 
@@ -31,15 +29,19 @@ public class ShakyDemo extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_demo);
 
-        TextView tv = new TextView(this);
-        tv.setGravity(Gravity.CENTER);
-        tv.setText(R.string.shake_me);
+        View tv = findViewById(R.id.demo_background);
 
         Random random = new Random();
         int color = Color.rgb(random.nextInt(RGB_MAX), random.nextInt(RGB_MAX), random.nextInt(RGB_MAX));
         tv.setBackgroundColor(color);
 
-        setContentView(tv, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        findViewById(R.id.demo_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ShakyApplication) getApplication()).getShaky().startFeedbackFlow();
+            }
+        });
     }
 }
