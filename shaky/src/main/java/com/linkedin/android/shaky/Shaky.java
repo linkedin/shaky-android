@@ -72,9 +72,23 @@ public class Shaky implements ShakeDetector.Listener {
      *
      * Registers shaky to the current application.
      */
-    public static void with(@NonNull Application application, @NonNull ShakeDelegate delegate) {
-        LifecycleCallbacks lifecycleCallbacks = new LifecycleCallbacks(application, delegate);
+    @NonNull
+    public static Shaky with(@NonNull Application application, @NonNull ShakeDelegate delegate) {
+        Shaky shaky = new Shaky(application.getApplicationContext(), delegate);
+        LifecycleCallbacks lifecycleCallbacks = new LifecycleCallbacks(shaky);
         application.registerActivityLifecycleCallbacks(lifecycleCallbacks);
+        return shaky;
+    }
+
+    public void startFeedbackFlow() {
+        if (!canStartFeedbackFlow()) {
+            return;
+        }
+
+        new CollectDataDialog().show(activity.getFragmentManager(), COLLECT_DATA_TAG);
+
+        collectDataTask = new CollectDataTask(activity, delegate, createCallback());
+        collectDataTask.execute(getScreenshotBitmap());
     }
 
     void setActivity(@Nullable Activity activity) {
@@ -133,6 +147,7 @@ public class Shaky implements ShakeDetector.Listener {
     /**
      * @return true if we're not currently in a feedback flow, false otherwise.
      */
+    @VisibleForTesting
     boolean canStartFeedbackFlow() {
         return activity != null
                 && !(activity instanceof FeedbackActivity)
@@ -170,15 +185,7 @@ public class Shaky implements ShakeDetector.Listener {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())) {
-                    if (activity == null) {
-                        return;
-                    }
-
-                    new CollectDataDialog()
-                            .show(activity.getFragmentManager(), COLLECT_DATA_TAG);
-
-                    collectDataTask = new CollectDataTask(activity, delegate, createCallback());
-                    collectDataTask.execute(getScreenshotBitmap());
+                    startFeedbackFlow();
                 } else if (FeedbackActivity.ACTION_END_FEEDBACK_FLOW.equals(intent.getAction())) {
                     delegate.submit(activity, unpackResult(intent));
                 }

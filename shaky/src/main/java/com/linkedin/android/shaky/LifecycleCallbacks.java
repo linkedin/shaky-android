@@ -17,7 +17,6 @@ package com.linkedin.android.shaky;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -25,8 +24,8 @@ class LifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 
     private final Shaky shaky;
 
-    LifecycleCallbacks(@NonNull Context appContext, @NonNull ShakeDelegate delegate) {
-        shaky = new Shaky(appContext, delegate);
+    LifecycleCallbacks(@NonNull Shaky shaky) {
+        this.shaky = shaky;
     }
 
     @Override

@@ -16,6 +16,7 @@
 package com.linkedin.android.shaky.app;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 import com.linkedin.android.shaky.EmailShakeDelegate;
 import com.linkedin.android.shaky.Shaky;
 
@@ -23,9 +24,17 @@ import com.linkedin.android.shaky.Shaky;
  * Hello world example.
  */
 public class ShakyApplication extends Application {
+
+    private Shaky shaky;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        Shaky.with(this, new EmailShakeDelegate("hello@world.com"));
+        shaky = Shaky.with(this, new EmailShakeDelegate("hello@world.com"));
+    }
+
+    @NonNull
+    public Shaky getShaky() {
+        return shaky;
     }
 }

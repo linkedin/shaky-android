@@ -16,7 +16,6 @@
 package com.linkedin.android.shaky;
 
 import android.app.Activity;
-import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 /**
@@ -25,6 +24,7 @@ import android.support.annotation.WorkerThread;
  * This class contains methods that apps can override to customize the behavior of Shaky.
  */
 public abstract class ShakeDelegate {
+
     /**
      * @return true if shake detection should be enabled, false otherwise
      */
