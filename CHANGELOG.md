@@ -1,7 +1,8 @@
 # Change Log
 
-## Version 1.0.4-SNAPSHOT
+## Version 1.1.0 (2017-05-16)
 
+- Added API to programmatically trigger feedback flow (#6)
 - Fixed left-aligned "OK" button on AlertDialog
 - Use sentence casing input method for feedback input EditText
 

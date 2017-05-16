@@ -15,13 +15,13 @@ Download the latest .aar via Maven:
 	<dependency>
 	  <groupId>com.linkedin.shaky</groupId>
 	  <artifactId>shaky</artifactId>
-	  <version>1.0.3</version>
+	  <version>1.1.0</version>
 	</dependency>
 ```
 
 or Gradle:
 ```
-	compile 'com.linkedin.shaky:shaky:1.0.3'
+	compile 'com.linkedin.shaky:shaky:1.1.0'
 ```
 
 ## Getting Started
@@ -77,3 +77,6 @@ method (e.g. to send the data to a custom server endpoint).
 In addition, you can implement the
 [`Bundle collectData()`](shaky/src/main/java/com/linkedin/android/shaky/ShakeDelegate.java#L42)
 to collect extra app data including device logs, user data, etc. You will also need to handle how to send the extra data collected in your `submit` method.
+
+If you want to programmatically trigger the feedback collection flow, rather than listening for shake events, you can call `Shaky#startFeedbackFlow()` on the
+object returned by `Shaky.with()`. See the demo app for a full example of how to do this.
