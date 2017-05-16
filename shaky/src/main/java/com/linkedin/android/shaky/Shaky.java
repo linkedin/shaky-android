@@ -85,10 +85,7 @@ public class Shaky implements ShakeDetector.Listener {
             return;
         }
 
-        new CollectDataDialog().show(activity.getFragmentManager(), COLLECT_DATA_TAG);
-
-        collectDataTask = new CollectDataTask(activity, delegate, createCallback());
-        collectDataTask.execute(getScreenshotBitmap());
+        doStartFeedbackFlow();
     }
 
     void setActivity(@Nullable Activity activity) {
@@ -101,6 +98,13 @@ public class Shaky implements ShakeDetector.Listener {
         } else {
             stop();
         }
+    }
+
+    private void doStartFeedbackFlow() {
+        new CollectDataDialog().show(activity.getFragmentManager(), COLLECT_DATA_TAG);
+
+        collectDataTask = new CollectDataTask(activity, delegate, createCallback());
+        collectDataTask.execute(getScreenshotBitmap());
     }
 
     /**
@@ -185,7 +189,9 @@ public class Shaky implements ShakeDetector.Listener {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())) {
-                    startFeedbackFlow();
+                    if (activity != null) {
+                        doStartFeedbackFlow();
+                    }
                 } else if (FeedbackActivity.ACTION_END_FEEDBACK_FLOW.equals(intent.getAction())) {
                     delegate.submit(activity, unpackResult(intent));
                 }
