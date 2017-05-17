@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.1.1 (2017-05-17)
+
+- Fix regression where feedback flow is not triggered after shaking
+
 ## Version 1.1.0 (2017-05-16)
 
 - Added API to programmatically trigger feedback flow (#6)
