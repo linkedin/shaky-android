@@ -25,11 +25,22 @@ import android.support.annotation.WorkerThread;
  */
 public abstract class ShakeDelegate {
 
+    public static final int SENSITIVITY_LIGHT  = 22;
+    public static final int SENSITIVITY_MEDIUM = 23;
+    public static final int SENSITIVITY_HARD   = 24;
+
     /**
      * @return true if shake detection should be enabled, false otherwise
      */
     public boolean isEnabled() {
         return true;
+    }
+
+    /**
+     * @return desired sensitivity level, defaults to 'medium'
+     */
+    public int getSensitivityLevel() {
+        return SENSITIVITY_MEDIUM;
     }
 
     /**

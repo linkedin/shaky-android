@@ -61,6 +61,8 @@ public class Shaky implements ShakeDetector.Listener {
         this.delegate = delegate;
         shakeDetector = new ShakeDetector(this);
 
+        shakeDetector.setSensitivity( getDetectorSensitivityLevel() );
+
         IntentFilter filter = new IntentFilter();
         filter.addAction(SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW);
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
@@ -241,4 +243,15 @@ public class Shaky implements ShakeDetector.Listener {
 
         return result;
     }
+
+    @VisibleForTesting
+    public int getDetectorSensitivityLevel() {
+        int delegateLevel = delegate.getSensitivityLevel();
+
+        if ( delegateLevel == ShakeDelegate.SENSITIVITY_LIGHT ) return ShakeDetector.SENSITIVITY_LIGHT;
+        if ( delegateLevel == ShakeDelegate.SENSITIVITY_HARD  ) return ShakeDetector.SENSITIVITY_HARD;
+
+        return ShakeDetector.SENSITIVITY_MEDIUM;
+    }
+
 }
