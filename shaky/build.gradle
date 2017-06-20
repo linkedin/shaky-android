@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    compile 'com.squareup:seismic:1.0.1'
+    compile 'com.squareup:seismic:1.0.2'
     compile "com.android.support:appcompat-v7:$supportLibrariesVersion"
     compile "com.android.support:recyclerview-v7:$supportLibrariesVersion"
     compile "com.android.support:support-v4:$supportLibrariesVersion"

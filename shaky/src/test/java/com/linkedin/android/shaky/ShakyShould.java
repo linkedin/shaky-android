@@ -22,7 +22,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import com.squareup.seismic.ShakeDetector;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -48,6 +50,7 @@ public class ShakyShould {
         when(activity.getFragmentManager()).thenReturn(fragmentManager);
         when(activity.getApplicationContext()).thenReturn(activity);
         when(activity.getMainLooper()).thenReturn(Looper.getMainLooper());
+        when(delegate.getSensitivityLevel()).thenReturn(ShakeDelegate.SENSITIVITY_LIGHT);
 
         shaky = new Shaky(activity, delegate);
         shaky.setActivity(activity);
@@ -70,5 +73,10 @@ public class ShakyShould {
         FeedbackActivity feedbackActivity = new FeedbackActivity();
         shaky.setActivity(feedbackActivity);
         assertFalse(shaky.canStartFeedbackFlow());
+    }
+
+    @Test
+    public void respectDelegateSensitivityLevel() {
+        assertEquals(shaky.getDetectorSensitivityLevel(), ShakeDetector.SENSITIVITY_LIGHT);
     }
 }

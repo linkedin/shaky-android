@@ -28,6 +28,7 @@ import java.util.ArrayList;
  */
 public class EmailShakeDelegate extends ShakeDelegate {
     private String[] to;
+    private int sensitivityLevel = ShakeDelegate.SENSITIVITY_MEDIUM;
 
     public EmailShakeDelegate(@NonNull String[] to) {
         this.to = to;
@@ -40,6 +41,18 @@ public class EmailShakeDelegate extends ShakeDelegate {
     @Override
     public final void submit(@NonNull Activity activity, @NonNull Result result) {
         activity.startActivity(onSubmit(result));
+    }
+
+    @Override
+    public int getSensitivityLevel() {
+        return sensitivityLevel;
+    }
+
+    /**
+     * Optionally override sensitivityLevel to one of ShakeDelegate.SENSITIVITY_*
+     */
+    public void setSensitivityLevel(@ShakeDelegate.SensitivityLevel int newLevel) {
+        sensitivityLevel = newLevel;
     }
 
     /**
