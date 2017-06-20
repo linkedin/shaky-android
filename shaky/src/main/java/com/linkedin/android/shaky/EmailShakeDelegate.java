@@ -51,7 +51,7 @@ public class EmailShakeDelegate extends ShakeDelegate {
     /**
      * Optionally override sensitivityLevel to one of ShakeDelegate.SENSITIVITY_*
      */
-    public void setSensitivityLevel(int newLevel) {
+    public void setSensitivityLevel(@ShakeDelegate.SensitivityLevel int newLevel) {
         sensitivityLevel = newLevel;
     }
 

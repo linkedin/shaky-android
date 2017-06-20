@@ -17,6 +17,10 @@ package com.linkedin.android.shaky;
 
 import android.app.Activity;
 import android.support.annotation.WorkerThread;
+import android.support.annotation.IntDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Entry point into this API.
@@ -24,6 +28,13 @@ import android.support.annotation.WorkerThread;
  * This class contains methods that apps can override to customize the behavior of Shaky.
  */
 public abstract class ShakeDelegate {
+    @IntDef({
+            SENSITIVITY_LIGHT,
+            SENSITIVITY_MEDIUM,
+            SENSITIVITY_HARD
+    })
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface SensitivityLevel {}
 
     public static final int SENSITIVITY_LIGHT  = 22;
     public static final int SENSITIVITY_MEDIUM = 23;
@@ -39,6 +50,7 @@ public abstract class ShakeDelegate {
     /**
      * @return desired sensitivity level, defaults to 'medium'
      */
+    @SensitivityLevel
     public int getSensitivityLevel() {
         return SENSITIVITY_MEDIUM;
     }
