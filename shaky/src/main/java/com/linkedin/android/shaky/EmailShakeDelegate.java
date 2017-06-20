@@ -55,7 +55,6 @@ public class EmailShakeDelegate extends ShakeDelegate {
         sensitivityLevel = newLevel;
     }
 
-
     /**
      * Creates the email {@link Intent} and attaches all attachments.
      * Subclasses should override this method to customize the email Intent.

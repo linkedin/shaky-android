@@ -36,9 +36,9 @@ public abstract class ShakeDelegate {
     @Retention(RetentionPolicy.SOURCE)
     public @interface SensitivityLevel {}
 
-    public static final int SENSITIVITY_LIGHT  = 22;
+    public static final int SENSITIVITY_LIGHT = 22;
     public static final int SENSITIVITY_MEDIUM = 23;
-    public static final int SENSITIVITY_HARD   = 24;
+    public static final int SENSITIVITY_HARD = 24;
 
     /**
      * @return true if shake detection should be enabled, false otherwise
