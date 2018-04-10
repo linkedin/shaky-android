@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Secouer pour envoyer un feedback</string>
     <string name="shaky_dialog_message">Vous avez secoué votre appareil. Souhaitez-vous nous envoyer un feedback sur votre expérience ?</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">Veuillez rédiger votre feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="delete">Supprimer</string>
 </resources>
+<!-- This translation has been auto-propagated by AutoComplete. -->

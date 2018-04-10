@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Scuoti per inviare feedback</string>
     <string name="shaky_dialog_message">Hai scosso il dispositivo! Vorresti inviare un feedback sulla tua esperienza?</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">Scrivi i tuoi commenti.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="delete">Elimina</string>
 </resources>
+<!-- This translation has been auto-propagated by AutoComplete. -->

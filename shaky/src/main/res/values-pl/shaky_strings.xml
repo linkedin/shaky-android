@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Potrząśnij, aby wysłać opinię</string>
     <string name="shaky_dialog_message">Potrząsnąleś(-aś) swoim urządzeniem! Czy chcesz wysłać opinię o swoim doświadczeniu?</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">Napisz opinię.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="delete">Usuń</string>
 </resources>
+<!-- This translation has been auto-propagated by AutoComplete. -->

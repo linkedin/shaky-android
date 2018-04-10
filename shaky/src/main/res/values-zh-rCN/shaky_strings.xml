@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">摇一摇，发送反馈</string>
     <string name="shaky_dialog_message">您的设备摇了一下。想跟我们分享您的使用体验吗？</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">欢迎提出您的宝贵意见！</string>
     <string name="shaky_empty_feedback_confirm">确定</string>
+    <string name="shaky_add_attachment">添加附件</string>
+    <string name="delete">删除</string>
 </resources>

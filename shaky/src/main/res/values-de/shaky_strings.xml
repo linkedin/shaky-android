@@ -16,11 +16,12 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Schütteln, um Feedback zu senden</string>
     <string name="shaky_dialog_message">Sie haben Ihr Gerät geschüttelt. Möchten Sie Feedback geben?</string>
     <string name="shaky_dialog_positive">Feedback senden</string>
-    <string name="shaky_dialog_negative">Ablehnen</string>
+    <string name="shaky_dialog_negative">Verwerfen</string>
 
     <string name="shaky_feedback_title">Feedback senden</string>
 
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">Bitte verfassen Sie Ihr Feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="delete">Löschen</string>
 </resources>
+<!-- This translation has been auto-propagated by AutoComplete. -->

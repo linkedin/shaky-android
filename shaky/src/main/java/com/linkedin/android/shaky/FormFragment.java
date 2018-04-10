@@ -61,6 +61,7 @@ public class FormFragment extends Fragment {
     private static final String KEY_ADD_ATTACHMENT = "addAttachment";
     private static final String ALL = "*/*";
     private static final int ATTACHMENT_REQUEST_CODE = 0x1234;
+    private static final String SCREENSHOT = "screenshot.png";
     private LinearLayout attachmentsView;
     private final OnAttachmentClickListener onAttachmentClickListener = new OnAttachmentClickListener() {
         @Override
@@ -130,7 +131,7 @@ public class FormFragment extends Fragment {
                 }
             });
             attachmentsView.removeAllViews();
-            addAttachment(screenshotUri, getString(R.string.shaky_screenshot), false);
+            addAttachment(screenshotUri, SCREENSHOT, false);
         } else {
             addAttachmentButton.setVisibility(View.GONE);
             attachmentImageView.setImageURI(screenshotUri);
@@ -318,9 +319,8 @@ public class FormFragment extends Fragment {
         }
 
         private String getFilename(@NonNull Uri fileUri, @Nullable String defaultFilename) {
-            String name = TextUtils.isEmpty(defaultFilename) ? Utils.getFilename(rootView.getContext(), fileUri)
-                                                             : defaultFilename;
-            return name;
+            return TextUtils.isEmpty(defaultFilename) ? Utils.getFilename(rootView.getContext(), fileUri)
+                                                      : defaultFilename;
         }
     }
 

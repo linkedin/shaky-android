@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Rist for å sende tilbakemelding</string>
     <string name="shaky_dialog_message">Du ristet enheten din! Vil du sende tilbakemelding om denne funksjonen?</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">Skriv tilbakemelding.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="delete">Slett</string>
 </resources>
+<!-- This translation has been auto-propagated by AutoComplete. -->

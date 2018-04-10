@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">برجاء هز الجوال لتفعيل تقنية إرسال الملاحظات</string>
     <string name="shaky_dialog_message">لقد قمت بهز جوالك. هل ترغب في إرسال ملاحظات أو تقييم بشأن تجربتك؟</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">برجاء كتابة تقييمك.</string>
     <string name="shaky_empty_feedback_confirm">موافق</string>
+    <string name="delete">حذف</string>
 </resources>
+<!-- This translation has been auto-propagated by AutoComplete. -->

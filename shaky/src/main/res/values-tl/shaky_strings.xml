@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Alugin upang maipadala ang feedback</string>
     <string name="shaky_dialog_message">Inalog mo ang iyong device! Gusto mo bang magpadala ng iyong feedback tungkol sa iyong karanasan?</string>
@@ -57,4 +58,6 @@
 
     <string name="shaky_empty_feedback_message">Pakisulat ang iyong feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="delete">Tanggalin</string>
 </resources>
+<!-- This translation has been auto-propagated by AutoComplete. -->

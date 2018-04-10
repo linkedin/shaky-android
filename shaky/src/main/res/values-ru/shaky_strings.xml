@@ -14,12 +14,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Встряхните, чтобы отправить отзыв</string>
     <string name="shaky_dialog_message">Вы встряхнули своё устройство. Хотите отправить отзыв об использовании приложения?</string>
     <string name="shaky_dialog_positive">Отправить отзыв</string>
-    <string name="shaky_dialog_negative">Отклонить</string>
+    <string name="shaky_dialog_negative">Пропустить</string>
 
     <string name="shaky_feedback_title">Отправить отзыв</string>
 
@@ -55,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">Напишите свой отзыв</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="delete">Удалить</string>
 </resources>
+<!-- This translation has been auto-propagated by AutoComplete. -->
