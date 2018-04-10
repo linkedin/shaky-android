@@ -16,44 +16,47 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Scuturaţi pentru a trimite feedback</string>
-    <string name="shaky_dialog_message">V-aţi scuturat dispozitivul! Doriţi săne trimiteţi feedback cu privire la experienţa dvs.?</string>
+    <string name="shaky_dialog_message">V-aţi scuturat dispozitivul! Doriţi să trimiteţi feedback cu privire la experienţa dvs.?</string>
     <string name="shaky_dialog_positive">Trimiteți feedback</string>
     <string name="shaky_dialog_negative">Respingeți</string>
 
     <string name="shaky_feedback_title">Trimiteți feedback</string>
 
-    <string name="shaky_collecting_feedback">Colectare date de depanare…</string>
+    <string name="shaky_collecting_feedback">Colectare date depanare…</string>
 
     <string name="shaky_row1_title">Raportaţi un defect</string>
-    <string name="shaky_row1_subtitle">Ceva pare în neregulă.</string>
+    <string name="shaky_row1_subtitle">Ceva nu pare să fie în regulă.</string>
     <string name="shaky_bug_title">Raport de defect</string>
     <string name="shaky_bug_hint">Descrieţi defectul</string>
 
-    <string name="shaky_row2_title">Solicitaţi o caracteristică nouă</string>
+    <string name="shaky_row2_title">Solicitaţi o funcţionalitate nouă</string>
     <string name="shaky_row2_subtitle">Ar fi excelent dacă…</string>
-    <string name="shaky_feature_title">Solicitare caracteristică</string>
+    <string name="shaky_feature_title">Solicitare de funcţionalitate</string>
     <string name="shaky_feature_hint">Scrieţi solicitarea dvs.</string>
 
     <string name="shaky_row3_title">Trimiteţi feedback la aplicaţie</string>
-    <string name="shaky_row3_subtitle">Spuneţi-ne ce părere aveţi!</string>
+    <string name="shaky_row3_subtitle">Spuneţi-ne cum ne descurcăm!</string>
     <string name="shaky_general_title">Feedback general</string>
     <string name="shaky_general_hint">Scrieţi feedbackul dvs.</string>
 
     <string name="shaky_message_hint">Scrieţi feedbackul dvs.</string>
-    <string name="shaky_image_action">Atingeţi pentru a edita imaginea</string>
+    <string name="shaky_image_action">Apăsaţi pentru a edita imaginea</string>
 
     <string name="shaky_form_submit">Trimiteți</string>
 
     <string name="shaky_draw_hint">Marcaţi zona sau zonele afectate</string>
-    <string name="shaky_draw_save">salvaţi</string>
+    <string name="shaky_draw_save">salvați</string>
     <string name="shaky_draw_clear">ștergeți</string>
     <string name="shaky_draw_brush">pensulă</string>
     <string name="shaky_draw_undo">anulați</string>
-    <string name="shaky_draw_brush_white">coloraţi cu alb</string>
+    <string name="shaky_draw_brush_white">corector</string>
     <string name="shaky_draw_brush_hint">Comută stilul pensulei</string>
 
     <string name="shaky_empty_feedback_message">Scrieţi feedbackul dvs.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Adăugaţi fişiere ataşate</string>
+    <string name="delete">Ștergeți</string>
 </resources>

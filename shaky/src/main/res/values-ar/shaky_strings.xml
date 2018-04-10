@@ -18,45 +18,45 @@
 <!-- i18n-resource -->
 <!-- i18n-revision-number: 34 -->
 <resources>
-    <string name="shaky_dialog_title">برجاء هز الجوال لتفعيل تقنية إرسال الملاحظات</string>
-    <string name="shaky_dialog_message">لقد قمت بهز جوالك. هل ترغب في إرسال ملاحظات أو تقييم بشأن تجربتك؟</string>
-    <string name="shaky_dialog_positive">إرسال ملاحظات</string>
+    <string name="shaky_dialog_title">قم بهز الجهاز لإرسال تقييم </string>
+    <string name="shaky_dialog_message">لقد قمت بهز الجهاز هل ترغب في إرسال تقييم بشأن تجربة استخدامك للتطبيق؟ </string>
+    <string name="shaky_dialog_positive">إرسال ملاحظات أو تقييم</string>
     <string name="shaky_dialog_negative">استبعاد</string>
 
     <string name="shaky_feedback_title">إرسال تقييم</string>
 
-    <string name="shaky_collecting_feedback">جاري جمع بيانات المعالجة…</string>
+    <string name="shaky_collecting_feedback">جارِ جمع البيانات المنقحة…</string>
 
-    <string name="shaky_row1_title">الإبلاغ عن مشكلة أو عطل</string>
-    <string name="shaky_row1_subtitle">يبدو أن هناك خطأ.</string>
-    <string name="shaky_bug_title">الإبلاغ عن خطأ أو عطل</string>
-    <string name="shaky_bug_hint">تفاصيل المشكلة أو الخطأ</string>
+    <string name="shaky_row1_title">الإبلاغ عن مشكلة</string>
+    <string name="shaky_row1_subtitle">عذرًا هناك مشكلة ما.</string>
+    <string name="shaky_bug_title">الإبلاغ عن عطل</string>
+    <string name="shaky_bug_hint">وصف المشكلة</string>
 
-    <string name="shaky_row2_title">طلب خاصية جديدة</string>
-    <string name="shaky_row2_subtitle">سيكون من الجيد أن…</string>
-    <string name="shaky_feature_title">طلب خاصية جديدة </string>
-    <string name="shaky_feature_hint">كتابة الطلب</string>
+    <string name="shaky_row2_title">طلب خاصية أو منتج جديد</string>
+    <string name="shaky_row2_subtitle">سيكون رائعًا لو…</string>
+    <string name="shaky_feature_title">طلب خاصية أو منتج</string>
+    <string name="shaky_feature_hint">كتابة طلبك</string>
 
-    <string name="shaky_row3_title">إرسال التقييم</string>
-    <string name="shaky_row3_subtitle">أخبرنا بتقييمك لعملنا.</string>
-    <string name="shaky_general_title">التقييم العام</string>
-    <string name="shaky_general_hint">اكتب تقييمك</string>
+    <string name="shaky_row3_title">إرسال تقييم التطبيق</string>
+    <string name="shaky_row3_subtitle">إخبرنا رأيك.</string>
+    <string name="shaky_general_title">تقييم عام</string>
+    <string name="shaky_general_hint">كتابة تقييمك</string>
 
     <string name="shaky_message_hint">كتابة تقييمك</string>
     <string name="shaky_image_action">أنقر لتحرير الصورة</string>
 
     <string name="shaky_form_submit">إرسال</string>
 
-    <string name="shaky_draw_hint">برجاء تحديد المنطقة/المناطق المتضررة</string>
+    <string name="shaky_draw_hint">برجاء وضع علامة على الأجزاء المقصودة</string>
     <string name="shaky_draw_save">حفظ</string>
     <string name="shaky_draw_clear">مسح</string>
-    <string name="shaky_draw_brush">رفض</string>
+    <string name="shaky_draw_brush">الفرشة</string>
     <string name="shaky_draw_undo">تراجع</string>
     <string name="shaky_draw_brush_white">مسح</string>
-    <string name="shaky_draw_brush_hint">تحديد نوع المحدد</string>
+    <string name="shaky_draw_brush_hint">لتحريك الفرشاة</string>
 
     <string name="shaky_empty_feedback_message">برجاء كتابة تقييمك.</string>
     <string name="shaky_empty_feedback_confirm">موافق</string>
+    <string name="shaky_add_attachment">إرفاق ملف</string>
     <string name="delete">حذف</string>
 </resources>
-<!-- This translation has been auto-propagated by AutoComplete. -->
