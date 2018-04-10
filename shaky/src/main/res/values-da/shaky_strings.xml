@@ -19,13 +19,13 @@
 <!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Ryst for at sende feedback</string>
-    <string name="shaky_dialog_message">Du rystede din enhed! Vil du indsende feedback om din oplevelse?</string>
+    <string name="shaky_dialog_message">Du rystede din enhed. Vil du give feedback om din oplevelse?</string>
     <string name="shaky_dialog_positive">Send feedback</string>
     <string name="shaky_dialog_negative">Afvis</string>
 
     <string name="shaky_feedback_title">Send feedback</string>
 
-    <string name="shaky_collecting_feedback">Indsamler fejlfindingsdata …</string>
+    <string name="shaky_collecting_feedback">Indsamler data …</string>
 
     <string name="shaky_row1_title">Rapportér en fejl</string>
     <string name="shaky_row1_subtitle">Der er noget galt.</string>
@@ -33,12 +33,12 @@
     <string name="shaky_bug_hint">Beskriv fejlen</string>
 
     <string name="shaky_row2_title">Anmod om en ny funktion</string>
-    <string name="shaky_row2_subtitle">Det ville være super, hvis …</string>
-    <string name="shaky_feature_title">Anmodning om funktion</string>
+    <string name="shaky_row2_subtitle">Det ville være cool, hvis …</string>
+    <string name="shaky_feature_title">Anmodning om ny funktion</string>
     <string name="shaky_feature_hint">Skriv din anmodning</string>
 
     <string name="shaky_row3_title">Send feedback om appen</string>
-    <string name="shaky_row3_subtitle">Giv os feedback</string>
+    <string name="shaky_row3_subtitle">Hvad synes du om appen?</string>
     <string name="shaky_general_title">Generel feedback</string>
     <string name="shaky_general_hint">Skriv din feedback</string>
 
@@ -47,16 +47,17 @@
 
     <string name="shaky_form_submit">Send</string>
 
-    <string name="shaky_draw_hint">Markér de berørte felter</string>
+    <string name="shaky_draw_hint">Markér de berørte områder</string>
     <string name="shaky_draw_save">gem</string>
-    <string name="shaky_draw_clear">ryd</string>
+    <string name="shaky_draw_clear">slet</string>
     <string name="shaky_draw_brush">pensel</string>
     <string name="shaky_draw_undo">fortryd</string>
-    <string name="shaky_draw_brush_white">radér</string>
-    <string name="shaky_draw_brush_hint">Vælger penseltype</string>
+    <string name="shaky_draw_brush_white">viskelæder</string>
+    <string name="shaky_draw_brush_hint">penseltype</string>
 
     <string name="shaky_empty_feedback_message">Skriv din feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Tilføj vedhæftninger</string>
     <string name="delete">Slet</string>
 </resources>
 <!-- This translation has been auto-propagated by AutoComplete. -->

@@ -57,6 +57,7 @@
 
     <string name="shaky_empty_feedback_message">Harap tulis feedback Anda.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Tambahkan lampiran</string>
     <string name="delete">Hapus</string>
 </resources>
 <!-- This translation has been auto-propagated by AutoComplete. -->

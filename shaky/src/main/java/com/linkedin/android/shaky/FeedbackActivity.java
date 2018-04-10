@@ -51,6 +51,10 @@ public class FeedbackActivity extends AppCompatActivity {
     private Bundle userData;
     private boolean addAttachmentShown;
 
+    // Replace a fragment won't call fragment.onSaveInstanceState() so we need to have a activity scope states
+    // to maintain the fragment's states, such as attachments
+    final Bundle fragmentStates = new Bundle();
+
     @NonNull
     public static Intent newIntent(@NonNull Context context,
                                    @Nullable Uri screenshotUri,

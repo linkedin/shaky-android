@@ -57,6 +57,7 @@
 
     <string name="shaky_empty_feedback_message">請輸入意見反映。</string>
     <string name="shaky_empty_feedback_confirm">確認</string>
+    <string name="shaky_add_attachment">新增附件</string>
     <string name="delete">刪除</string>
 </resources>
 <!-- This translation has been auto-propagated by AutoComplete. -->

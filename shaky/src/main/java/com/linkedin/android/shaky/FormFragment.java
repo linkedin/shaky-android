@@ -29,8 +29,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +36,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +59,8 @@ public class FormFragment extends Fragment {
     private static final String ALL = "*/*";
     private static final int ATTACHMENT_REQUEST_CODE = 0x1234;
     private static final String SCREENSHOT = "screenshot.png";
-    private LinearLayout attachmentsView;
-    private final OnAttachmentClickListener onAttachmentClickListener = new OnAttachmentClickListener() {
+    private final AttachmentViewHolder.OnAttachmentClickListener onAttachmentClickListener
+        = new AttachmentViewHolder.OnAttachmentClickListener() {
         @Override
         public void onRemoved(@NonNull Uri fileUri) {
             removeAttachment(fileUri);
@@ -77,6 +74,7 @@ public class FormFragment extends Fragment {
         }
     };
     private Uri screenshotUri;
+    private AttachmentListAdapter attachmentListAdapter;
 
     public static FormFragment newInstance(@NonNull String title,
                                            @NonNull String hint,
@@ -89,6 +87,7 @@ public class FormFragment extends Fragment {
         args.putBoolean(KEY_ADD_ATTACHMENT, addAttachmentShown);
 
         FormFragment fragment = new FormFragment();
+        fragment.setRetainInstance(true);
         fragment.setArguments(args);
         return fragment;
     }
@@ -105,10 +104,10 @@ public class FormFragment extends Fragment {
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.shaky_toolbar);
         EditText messageEditText = (EditText) view.findViewById(R.id.shaky_form_message);
-        attachmentsView = (LinearLayout) view.findViewById(R.id.attachments_view);
+        ListView attachmentsView = (ListView) view.findViewById(R.id.attachments_view);
         ImageView attachmentImageView = (ImageView) view.findViewById(R.id.shaky_form_attachment);
         Button addAttachmentButton = (Button) view.findViewById(R.id.add_attachment_button);
-
+        View screenshotView = view.findViewById(R.id.screenshot_view);
         screenshotUri = getArguments().getParcelable(KEY_SCREENSHOT_URI);
         boolean addAttachmentShown = getArguments().getBoolean(KEY_ADD_ATTACHMENT, false);
         String title = getArguments().getString(KEY_TITLE);
@@ -123,6 +122,7 @@ public class FormFragment extends Fragment {
         messageEditText.requestFocus();
 
         if (addAttachmentShown) {
+            attachmentsView.setVisibility(View.VISIBLE);
             addAttachmentButton.setVisibility(View.VISIBLE);
             addAttachmentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,12 +130,25 @@ public class FormFragment extends Fragment {
                     showDocumentPicker();
                 }
             });
-            attachmentsView.removeAllViews();
+            screenshotView.setVisibility(View.GONE);
+            attachmentListAdapter = new AttachmentListAdapter(getContext(), onAttachmentClickListener);
+            attachmentsView.setAdapter(attachmentListAdapter);
             addAttachment(screenshotUri, SCREENSHOT, false);
+            if (savedInstanceState == null) {
+                // try to restore from activity-scope states
+                if (getActivity() instanceof FeedbackActivity) {
+                    restoreAttachmentsState(((FeedbackActivity) getActivity()).fragmentStates);
+                }
+            } else {
+                // restore from instance states
+                restoreAttachmentsState(savedInstanceState);
+            }
         } else {
+            screenshotView.setVisibility(View.VISIBLE);
             addAttachmentButton.setVisibility(View.GONE);
             attachmentImageView.setImageURI(screenshotUri);
             attachmentImageView.setOnClickListener(createNavigationClickListener());
+            attachmentsView.setVisibility(View.GONE);
         }
     }
 
@@ -157,6 +170,27 @@ public class FormFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (outState != null && attachmentListAdapter != null) {
+            saveAttachmentsState(outState);
+        }
+    }
+
+    private void saveAttachmentsState(@NonNull Bundle outState) {
+        outState.putParcelableArrayList(EXTRA_ATTACHMENTS, attachmentListAdapter.getAttachmentUriList());
+    }
+
+    private void restoreAttachmentsState(@NonNull Bundle states) {
+        ArrayList<Uri> attachments = states.getParcelableArrayList(EXTRA_ATTACHMENTS);
+        if (attachments != null) {
+            for (Uri uri : attachments) {
+                addAttachment(uri, null, true);
+            }
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == ATTACHMENT_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
@@ -172,7 +206,6 @@ public class FormFragment extends Fragment {
                 }
                 Context context = getContext();
                 for (Uri uri : list) {
-                    Utils.persistFilePermissions(context, uri, intent);
                     addAttachment(uri, null, true);
                 }
             }
@@ -182,24 +215,18 @@ public class FormFragment extends Fragment {
     }
 
     private void addAttachment(@Nullable Uri fileUri, @Nullable String defaultFilename, boolean removable) {
-        if (fileUri == null) {
+        if (fileUri == null || attachmentListAdapter == null) {
             return;
         }
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.shaky_attachment_view, attachmentsView, false);
-        AttachmentViewHolder viewHolder = new AttachmentViewHolder(view, onAttachmentClickListener);
-        viewHolder.bind(fileUri, defaultFilename, removable);
-        attachmentsView.addView(view);
+        if (!attachmentListAdapter.containsAttachmentUri(fileUri)) {
+            // avoid duplicated attachments
+            attachmentListAdapter.add(new AttachmentData(fileUri, defaultFilename, removable));
+        }
     }
 
     private void removeAttachment(@NonNull Uri fileUri) {
-        for (int i = 0, count = attachmentsView.getChildCount(); i < count; i++) {
-            Object tag = attachmentsView.getChildAt(i).getTag();
-            if (tag instanceof Uri) {
-                if (tag.equals(fileUri)) {
-                    attachmentsView.removeViewAt(i);
-                    return;
-                }
-            }
+        if (attachmentListAdapter != null) {
+            attachmentListAdapter.remove(new AttachmentData(fileUri));
         }
     }
 
@@ -214,6 +241,10 @@ public class FormFragment extends Fragment {
     }
 
     private void editScreenshot() {
+        // replace fragments won't call onSaveInstanceStates() so we want to store the attachments within activity
+        if (attachmentListAdapter != null && getActivity() instanceof FeedbackActivity) {
+            saveAttachmentsState(((FeedbackActivity) getActivity()).fragmentStates);
+        }
         Intent intent = new Intent(ACTION_EDIT_IMAGE);
         LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
     }
@@ -229,7 +260,10 @@ public class FormFragment extends Fragment {
                     if (validate(message)) {
                         Intent intent = new Intent(ACTION_SUBMIT_FEEDBACK);
                         intent.putExtra(EXTRA_USER_MESSAGE, message);
-                        intent.putParcelableArrayListExtra(EXTRA_ATTACHMENTS, getAttachments());
+                        if (attachmentListAdapter != null) {
+                            intent.putParcelableArrayListExtra(EXTRA_ATTACHMENTS,
+                                                               attachmentListAdapter.getAttachmentUriList());
+                        }
                         LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
                         return true;
                     }
@@ -237,19 +271,6 @@ public class FormFragment extends Fragment {
                 return false;
             }
         };
-    }
-
-    private ArrayList<Uri> getAttachments() {
-        int attachmentCount = attachmentsView.getChildCount();
-        ArrayList<Uri> list = new ArrayList<>(attachmentCount - 1);
-        // ignore the first screenshot
-        for (int i = 1; i < attachmentCount; i++) {
-            Object tag = attachmentsView.getChildAt(i).getTag();
-            if (tag instanceof Uri) {
-                list.add((Uri) tag);
-            }
-        }
-        return list;
     }
 
     /**
@@ -271,63 +292,5 @@ public class FormFragment extends Fragment {
         }
 
         return true;
-    }
-
-    private static class AttachmentViewHolder {
-
-        private static final String IMAGE_PREFIX = "image/";
-        private final TextView filenameView;
-        private final ImageView thumbnailView;
-        private final ImageView deleteIcon;
-        private final View rootView;
-
-        AttachmentViewHolder(@NonNull View view, @NonNull final OnAttachmentClickListener listener) {
-            filenameView = (TextView) view.findViewById(R.id.filename_view);
-            deleteIcon = (ImageView) view.findViewById(R.id.delete_icon);
-            thumbnailView = (ImageView) view.findViewById(R.id.thumbnail_view);
-            rootView = view;
-            rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getTag() instanceof Uri) {
-                        listener.onClicked((Uri) v.getTag());
-                    }
-                }
-            });
-            deleteIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getTag() instanceof Uri) {
-                        listener.onRemoved((Uri) v.getTag());
-                    }
-                }
-            });
-        }
-
-        void bind(@NonNull Uri fileUri, @Nullable String defaultFilename, boolean removable) {
-            filenameView.setText(Html.fromHtml(getFilename(fileUri, defaultFilename)));
-            deleteIcon.setVisibility(removable ? View.VISIBLE : View.GONE);
-            rootView.setTag(fileUri);
-            deleteIcon.setTag(fileUri);
-            String mimeType = Utils.getMimeType(rootView.getContext(), fileUri);
-            if (mimeType != null && mimeType.startsWith(IMAGE_PREFIX)) {
-                thumbnailView.setVisibility(View.VISIBLE);
-                thumbnailView.setImageURI(fileUri);
-            } else {
-                thumbnailView.setVisibility(View.GONE);
-            }
-        }
-
-        private String getFilename(@NonNull Uri fileUri, @Nullable String defaultFilename) {
-            return TextUtils.isEmpty(defaultFilename) ? Utils.getFilename(rootView.getContext(), fileUri)
-                                                      : defaultFilename;
-        }
-    }
-
-    private interface OnAttachmentClickListener {
-
-        void onRemoved(@NonNull Uri fileUri);
-
-        void onClicked(@NonNull Uri fileUri);
     }
 }

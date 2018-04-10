@@ -48,15 +48,16 @@
     <string name="shaky_form_submit">Отправить</string>
 
     <string name="shaky_draw_hint">Обозначьте проблемное место(а) приложения</string>
-    <string name="shaky_draw_save">сохранить</string>
-    <string name="shaky_draw_clear">очистить</string>
-    <string name="shaky_draw_brush">обозначить</string>
-    <string name="shaky_draw_undo">отменить</string>
-    <string name="shaky_draw_brush_white">закрасить</string>
+    <string name="shaky_draw_save">Сохранить</string>
+    <string name="shaky_draw_clear">Очистить</string>
+    <string name="shaky_draw_brush">Обозначить</string>
+    <string name="shaky_draw_undo">Отменить</string>
+    <string name="shaky_draw_brush_white">Закрасить</string>
     <string name="shaky_draw_brush_hint">Переключатель стиля обозначения</string>
 
     <string name="shaky_empty_feedback_message">Напишите свой отзыв</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Добавить вложения</string>
     <string name="delete">Удалить</string>
 </resources>
 <!-- This translation has been auto-propagated by AutoComplete. -->

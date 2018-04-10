@@ -57,6 +57,7 @@
 
     <string name="shaky_empty_feedback_message">フィードバックを記入してください。</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">添付を追加</string>
     <string name="delete">削除</string>
 </resources>
 <!-- This translation has been auto-propagated by AutoComplete. -->

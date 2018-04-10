@@ -210,26 +210,6 @@ final class Utils {
         return newMediaType;
     }
 
-    /**
-     * Make the file uri persistent
-     */
-    static void persistFilePermissions(@NonNull Context context, @NonNull Uri uri, @Nullable Intent data) {
-        // Only works for API level 19 or above.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && data != null) {
-            final int takeFlags = data.getFlags()
-                & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-
-            // We're not guaranteed to get the permission grants for this uri. It's not fatal if we don't.
-            try {
-                context.getContentResolver().takePersistableUriPermission(uri, takeFlags);
-            } catch (SecurityException e) {
-                if (BuildConfig.DEBUG) {
-                    Log.e(TAG, "Could not persist permission grants for " + uri);
-                }
-            }
-        }
-    }
-
     @NonNull
     static String getFilename(@NonNull Context context, @NonNull Uri uri) {
         String scheme = uri.getScheme();

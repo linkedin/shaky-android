@@ -57,6 +57,7 @@
 
     <string name="shaky_empty_feedback_message">Skriv tilbakemelding.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Legg til vedlegg</string>
     <string name="delete">Slett</string>
 </resources>
 <!-- This translation has been auto-propagated by AutoComplete. -->

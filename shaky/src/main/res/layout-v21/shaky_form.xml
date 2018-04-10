@@ -33,7 +33,8 @@
         android:id="@+id/shaky_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/shaky_message_hint"
                 android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="5"
                 android:scrollbars="vertical"
                 android:textColor="@color/dark_gray"/>
 
@@ -61,8 +63,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/shaky_add_attachment"/>
 
-            <LinearLayout
+            <ListView
                 android:id="@+id/attachments_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/section_padding"/>
+
+            <LinearLayout
+                android:id="@+id/screenshot_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/section_padding"
@@ -92,4 +100,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

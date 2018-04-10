@@ -23,7 +23,7 @@
     <string name="shaky_dialog_positive">إرسال ملاحظات</string>
     <string name="shaky_dialog_negative">استبعاد</string>
 
-    <string name="shaky_feedback_title">إرسال ملاحظات</string>
+    <string name="shaky_feedback_title">إرسال تقييم</string>
 
     <string name="shaky_collecting_feedback">جاري جمع بيانات المعالجة…</string>
 

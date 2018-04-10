@@ -57,6 +57,7 @@
 
     <string name="shaky_empty_feedback_message">Schrijf uw feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Bijlagen toevoegen</string>
     <string name="delete">Verwijderen</string>
 </resources>
 <!-- This translation has been auto-propagated by AutoComplete. -->

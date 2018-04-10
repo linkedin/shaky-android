@@ -57,6 +57,7 @@
 
     <string name="shaky_empty_feedback_message">Napište prosím své připomínky.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Připojit přílohy</string>
     <string name="delete">Smazat</string>
 </resources>
 <!-- This translation has been auto-propagated by AutoComplete. -->
