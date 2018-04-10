@@ -55,4 +55,7 @@
 
     <string name="shaky_empty_feedback_message">Please write your feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Add attachments</string>
+    <string name="shaky_screenshot">Screenshot.png</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -69,4 +69,11 @@ public abstract class ShakeDelegate {
      * This method can be overridden to send data to a custom URL endpoint, etc.
      */
     public abstract void submit(Activity activity, Result result);
+
+    /**
+     * @return true if more attachments are allowed to be attached to the reports
+     */
+    public boolean isAddAttachmentFeatureEnabled() {
+        return false;
+    }
 }

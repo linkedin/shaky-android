@@ -24,6 +24,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
@@ -224,7 +225,8 @@ public class Shaky implements ShakeDetector.Listener {
      * Launches the main feedback activity with the bundle extra data.
      */
     private void startFeedbackActivity(@NonNull Result result) {
-        Intent intent = FeedbackActivity.newIntent(activity, result.getScreenshotUri(), result.getData());
+        Intent intent = FeedbackActivity.newIntent(activity, result.getScreenshotUri(), result.getData(),
+                                                   delegate.isAddAttachmentFeatureEnabled());
         activity.startActivity(intent);
     }
 
@@ -238,6 +240,15 @@ public class Shaky implements ShakeDetector.Listener {
         ArrayList<Uri> fileProviderAttachments = new ArrayList<>();
         for (Uri attachment : result.getAttachments()) {
             fileProviderAttachments.add(Utils.getProviderUri(activity, attachment));
+        }
+        // add extra attachments provided by the user
+        ArrayList<Parcelable> extraAttachments = intent.getParcelableArrayListExtra(FeedbackActivity.EXTRA_ATTACHMENTS);
+        if (extraAttachments != null && !extraAttachments.isEmpty()) {
+            for (Parcelable parcelable: extraAttachments) {
+                if (parcelable instanceof Uri) {
+                    fileProviderAttachments.add((Uri) parcelable);
+                }
+            }
         }
         result.setAttachments(fileProviderAttachments);
 
