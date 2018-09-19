@@ -18,6 +18,9 @@ jdk:
 script:
   - ./gradlew clean check
 
+before_install:
+  - yes | sdkmanager "platforms;android-28"
+
 branches:
   except:
     - gh-pages
