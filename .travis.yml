@@ -19,7 +19,7 @@ script:
   - ./gradlew clean check
 
 before_install:
-  - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager --licenses
 
 branches:
   except:
