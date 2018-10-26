@@ -7,13 +7,25 @@ repositories {
     jcenter()
 }
 
-dependencies {
-    compile gradleApi()
-    compile localGroovy()
+/*
+    maven plug-in transitively brings in guava 18.0 which creates errors in build due to missing method.
+    We will have to force the version to at least 21 to resolve it.
+ */
+configurations.runtimeClasspath {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'com.google.guava' && details.requested.name == 'guava') {
+            details.useVersion '21.0'
+        }
+    }
+}
 
-    compile 'org.ajoberstar:gradle-git:1.2.0'
-    compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.2'
-    compile('org.jfrog.buildinfo:build-info-extractor-gradle:4.4.0') {
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+
+    implementation 'org.ajoberstar:gradle-git:1.2.0'
+    implementation group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.2'
+    implementation ('org.jfrog.buildinfo:build-info-extractor-gradle:4.4.0') {
         exclude module: 'groovy-all'
     }
 }
