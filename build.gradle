@@ -29,7 +29,7 @@ ext {
     buildToolsVersion = '28.0.3'
     minSdkVersion = 15
     targetSdkVersion = 27
-    supportLibrariesVersion = '27.1.1'
+    supportLibrariesVersion = '1.0.0'
 }
 
 apply plugin: 'com.jfrog.artifactory'

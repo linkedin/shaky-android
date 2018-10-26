@@ -4,7 +4,8 @@
           xmlns:tools="http://schemas.android.com/tools">
 
     <!-- for MultipleAttachmentShakeDelegate example -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".ShakyApplication"
@@ -26,7 +27,7 @@
         </activity>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">

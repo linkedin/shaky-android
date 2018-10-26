@@ -16,7 +16,7 @@
 package com.linkedin.android.shaky.app;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.linkedin.android.shaky.EmailShakeDelegate;
 import com.linkedin.android.shaky.Shaky;
 

@@ -31,10 +31,10 @@ android {
 
 dependencies {
     api 'com.squareup:seismic:1.0.2'
-    implementation "com.android.support:appcompat-v7:$supportLibrariesVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibrariesVersion"
-    implementation "com.android.support:support-v4:$supportLibrariesVersion"
-    implementation "com.android.support:support-annotations:$supportLibrariesVersion"
+    implementation "androidx.appcompat:appcompat:$supportLibrariesVersion"
+    implementation "androidx.recyclerview:recyclerview:$supportLibrariesVersion"
+    implementation "androidx.legacy:legacy-support-v4:$supportLibrariesVersion"
+    implementation "androidx.annotation:annotation:$supportLibrariesVersion"
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.9.5'

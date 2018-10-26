@@ -20,4 +20,5 @@ android {
 
 dependencies {
     implementation project(':shaky')
+    implementation "androidx.annotation:annotation:$supportLibrariesVersion"
 }
