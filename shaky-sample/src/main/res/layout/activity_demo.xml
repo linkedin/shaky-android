@@ -14,6 +14,13 @@
         android:text="@string/shake_me"/>
 
     <Button
+        android:id="@+id/toast_button"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_toast"/>
+
+    <Button
         android:id="@+id/demo_button"
         style="?attr/borderlessButtonStyle"
         android:layout_width="match_parent"
