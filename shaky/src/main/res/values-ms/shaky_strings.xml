@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Goncang untuk hantar maklum balas</string>
     <string name="shaky_dialog_message">Anda menggoncang peranti anda! Adakah anda mahu menghantar maklum balas tentang pengalaman anda?</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">Sila tuliskan maklum balas anda.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Tambahkan lampiran</string>
+    <string name="delete">Padam</string>
 </resources>

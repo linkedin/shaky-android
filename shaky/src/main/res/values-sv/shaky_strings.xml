@@ -16,44 +16,47 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Skaka för att skicka feedback</string>
-    <string name="shaky_dialog_message">Du har skakat enheten! Vill du skicka feedback om din upplevelse?</string>
+    <string name="shaky_dialog_message">Du skakade mobilen! Vill du skicka feedback om din upplevelse?</string>
     <string name="shaky_dialog_positive">Skicka feedback</string>
-    <string name="shaky_dialog_negative">Avvisa</string>
+    <string name="shaky_dialog_negative">Ignorera</string>
 
     <string name="shaky_feedback_title">Skicka feedback</string>
 
     <string name="shaky_collecting_feedback">Samlar in felsökningsdata …</string>
 
     <string name="shaky_row1_title">Rapportera en bugg</string>
-    <string name="shaky_row1_subtitle">Ett fel har uppstått.</string>
+    <string name="shaky_row1_subtitle">Något är fel.</string>
     <string name="shaky_bug_title">Buggrapport</string>
     <string name="shaky_bug_hint">Beskriv buggen</string>
 
-    <string name="shaky_row2_title">Önska ny funktion</string>
-    <string name="shaky_row2_subtitle">Det vore häftigt om …</string>
-    <string name="shaky_feature_title">Funktionsbeskrivning</string>
-    <string name="shaky_feature_hint">Skriv din önskan</string>
+    <string name="shaky_row2_title">Be om en ny funktion</string>
+    <string name="shaky_row2_subtitle">Det vore jättebra om …</string>
+    <string name="shaky_feature_title">Funktionsförfrågan</string>
+    <string name="shaky_feature_hint">Förfrågan</string>
 
-    <string name="shaky_row3_title">Skicka feedback</string>
+    <string name="shaky_row3_title">Skicka feedback om appen</string>
     <string name="shaky_row3_subtitle">Berätta vad du tycker!</string>
     <string name="shaky_general_title">Allmän feedback</string>
     <string name="shaky_general_hint">Skriv feedback</string>
 
     <string name="shaky_message_hint">Skriv feedback</string>
-    <string name="shaky_image_action">Tryck för att redigera bilden</string>
+    <string name="shaky_image_action">Tryck för att redigera bild</string>
 
     <string name="shaky_form_submit">Skicka</string>
 
-    <string name="shaky_draw_hint">Markera de områden som påverkas</string>
+    <string name="shaky_draw_hint">Markera påverkade områden</string>
     <string name="shaky_draw_save">spara</string>
     <string name="shaky_draw_clear">rensa</string>
-    <string name="shaky_draw_brush">pensel</string>
+    <string name="shaky_draw_brush">brush</string>
     <string name="shaky_draw_undo">ångra</string>
-    <string name="shaky_draw_brush_white">korrigering</string>
-    <string name="shaky_draw_brush_hint">Välj mellan penslar</string>
+    <string name="shaky_draw_brush_white">whiteout</string>
+    <string name="shaky_draw_brush_hint">Slå på/av brush</string>
 
-    <string name="shaky_empty_feedback_message">Skriv din feedback.</string>
+    <string name="shaky_empty_feedback_message">Skriv feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Bifoga fil</string>
+    <string name="delete">Ta bort</string>
 </resources>

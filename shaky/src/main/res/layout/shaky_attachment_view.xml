@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="#008080"
+                android:minHeight="?android:listPreferredItemHeight"
+                android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/thumbnail_view"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:importantForAccessibility="no"
+        tools:src="@tools:sample/avatars"
+        tools:targetApi="jelly_bean"/>
+
+    <TextView
+        android:id="@+id/filename_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/thumbnail_view"
+        android:layout_toLeftOf="@+id/delete_icon"
+        android:layout_toRightOf="@+id/thumbnail_view"
+        android:layout_toStartOf="@+id/delete_icon"
+        android:padding="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:text="screenshot.png"/>
+
+    <ImageView
+        android:id="@+id/delete_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/delete"
+        android:padding="8dp"
+        android:src="@android:drawable/ic_menu_delete"/>
+
+</RelativeLayout>

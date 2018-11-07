@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -28,6 +29,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 /**
  * The main activity used capture and send feedback.
@@ -40,18 +43,27 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String MESSAGE = "message";
     static final String TITLE = "title";
     static final String USER_DATA = "userData";
+    static final String EXTRA_ATTACHMENTS = "extraAttachments";
+    static final String ADD_ATTACHMENT = "addAttachment";
 
     private Uri imageUri;
     private @FeedbackItem.FeedbackType int feedbackType;
     private Bundle userData;
+    private boolean addAttachmentShown;
+
+    // Replace a fragment won't call fragment.onSaveInstanceState() so we need to have a activity scope states
+    // to maintain the fragment's states, such as attachments
+    final Bundle fragmentStates = new Bundle();
 
     @NonNull
     public static Intent newIntent(@NonNull Context context,
                                    @Nullable Uri screenshotUri,
-                                   @Nullable Bundle userData) {
+                                   @Nullable Bundle userData,
+                                   boolean addAttachmentShown) {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
+        intent.putExtra(ADD_ATTACHMENT, addAttachmentShown);
         return intent;
     }
 
@@ -63,7 +75,7 @@ public class FeedbackActivity extends AppCompatActivity {
 
         imageUri = getIntent().getParcelableExtra(SCREENSHOT_URI);
         userData = getIntent().getBundleExtra(USER_DATA);
-
+        addAttachmentShown = getIntent().getBooleanExtra(ADD_ATTACHMENT, false);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -110,7 +122,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private void startFormFragment(@FeedbackItem.FeedbackType int feedbackType) {
         String title = getString(getTitleResId(feedbackType));
         String hint = getString(getHintResId(feedbackType));
-        changeToFragment(FormFragment.newInstance(title, hint, imageUri));
+        changeToFragment(FormFragment.newInstance(title, hint, imageUri, addAttachmentShown));
     }
 
     /**
@@ -142,18 +154,23 @@ public class FeedbackActivity extends AppCompatActivity {
             } else if (DrawFragment.ACTION_DRAWING_COMPLETE.equals(intent.getAction())) {
                 onBackPressed();
             } else if (FormFragment.ACTION_SUBMIT_FEEDBACK.equals(intent.getAction())) {
-                submitFeedbackIntent(intent.getStringExtra(FormFragment.EXTRA_USER_MESSAGE));
+                submitFeedbackIntent(intent.getStringExtra(FormFragment.EXTRA_USER_MESSAGE),
+                                     intent.getParcelableArrayListExtra(FormFragment.EXTRA_ATTACHMENTS));
             }
         }
     };
 
-    private void submitFeedbackIntent(@Nullable String userMessage) {
+    private void submitFeedbackIntent(@Nullable String userMessage,
+                                      @Nullable ArrayList<Parcelable> attachments) {
         Intent intent = new Intent(ACTION_END_FEEDBACK_FLOW);
 
         intent.putExtra(SCREENSHOT_URI, imageUri);
         intent.putExtra(TITLE, getString(getTitleResId(feedbackType)));
         intent.putExtra(MESSAGE, userMessage);
         intent.putExtra(USER_DATA, userData);
+        if (attachments != null && !attachments.isEmpty()) {
+            intent.putParcelableArrayListExtra(EXTRA_ATTACHMENTS, attachments);
+        }
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         finish();

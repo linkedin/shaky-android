@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">搖一搖，傳送意見反映</string>
     <string name="shaky_dialog_message">您好像搖了行動裝置！您想傳送意見反映嗎？</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">請輸入意見反映。</string>
     <string name="shaky_empty_feedback_confirm">確認</string>
+    <string name="shaky_add_attachment">新增附件</string>
+    <string name="delete">刪除</string>
 </resources>

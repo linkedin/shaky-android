@@ -16,6 +16,7 @@
 -->
 <!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Agita el teléfono para enviar comentarios</string>
     <string name="shaky_dialog_message">Has agitado tu teléfono. ¿Quieres enviar comentarios sobre tu experiencia?</string>
@@ -56,4 +57,6 @@
 
     <string name="shaky_empty_feedback_message">Escribe tus comentarios</string>
     <string name="shaky_empty_feedback_confirm">Aceptar</string>
+    <string name="shaky_add_attachment">Añadir adjuntos</string>
+    <string name="delete">Borrar</string>
 </resources>

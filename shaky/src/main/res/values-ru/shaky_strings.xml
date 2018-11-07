@@ -14,12 +14,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!-- i18n-derived -->
 <!-- i18n-resource -->
+<!-- i18n-revision-number: 34 -->
 <resources>
     <string name="shaky_dialog_title">Встряхните, чтобы отправить отзыв</string>
     <string name="shaky_dialog_message">Вы встряхнули своё устройство. Хотите отправить отзыв об использовании приложения?</string>
     <string name="shaky_dialog_positive">Отправить отзыв</string>
-    <string name="shaky_dialog_negative">Отклонить</string>
+    <string name="shaky_dialog_negative">Пропустить</string>
 
     <string name="shaky_feedback_title">Отправить отзыв</string>
 
@@ -46,13 +48,15 @@
     <string name="shaky_form_submit">Отправить</string>
 
     <string name="shaky_draw_hint">Обозначьте проблемное место(а) приложения</string>
-    <string name="shaky_draw_save">сохранить</string>
-    <string name="shaky_draw_clear">очистить</string>
-    <string name="shaky_draw_brush">обозначить</string>
-    <string name="shaky_draw_undo">отменить</string>
-    <string name="shaky_draw_brush_white">закрасить</string>
+    <string name="shaky_draw_save">Сохранить</string>
+    <string name="shaky_draw_clear">Очистить</string>
+    <string name="shaky_draw_brush">Обозначить</string>
+    <string name="shaky_draw_undo">Отменить</string>
+    <string name="shaky_draw_brush_white">Закрасить</string>
     <string name="shaky_draw_brush_hint">Переключатель стиля обозначения</string>
 
     <string name="shaky_empty_feedback_message">Напишите свой отзыв</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+    <string name="shaky_add_attachment">Добавить вложения</string>
+    <string name="delete">Удалить</string>
 </resources>
