@@ -2,6 +2,14 @@ plugins {
     id 'groovy'
 }
 
+// Our dependencies are pulling in older version of guava,
+// but agp3 requires guava 23. So, we force it here
+configurations.runtimeClasspath {
+    resolutionStrategy {
+        force 'com.google.guava:guava:23.0'
+    }
+}
+
 repositories {
     mavenLocal()
     jcenter()
