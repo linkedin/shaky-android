@@ -21,7 +21,7 @@ Download the latest .aar via Maven:
 
 or Gradle:
 ```
-	compile 'com.linkedin.shaky:shaky:1.1.1'
+	implementation 'com.linkedin.shaky:shaky:1.1.1'
 ```
 
 ## Getting Started

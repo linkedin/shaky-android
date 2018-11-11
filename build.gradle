@@ -1,12 +1,13 @@
 buildscript {
     repositories {
+        google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4'
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.4.0"
     }
 }
@@ -15,11 +16,8 @@ subprojects {
     plugins.apply('checkstyle')
 
     repositories {
+        google()
         jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
     }
 
     tasks.withType(Javadoc).all { enabled = false }
@@ -27,7 +25,6 @@ subprojects {
 
 ext {
     compileSdkVersion = 28
-    buildToolsVersion = '28.0.0'
     minSdkVersion = 15
     targetSdkVersion = 27
     supportLibrariesVersion = '27.1.1'

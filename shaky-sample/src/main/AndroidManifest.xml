@@ -3,9 +3,6 @@
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- for MultipleAttachmentShakeDelegate example -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
-
     <application
         android:name=".ShakyApplication"
         android:allowBackup="false"

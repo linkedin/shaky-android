@@ -8,7 +8,6 @@ group = GROUP_ID
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -26,6 +25,10 @@ android {
 
     lintOptions {
         abortOnError true
+
+        // Lint check is catching false positives. Fixed in AGP 3.4
+        // https://issuetracker.google.com/issues/118518625
+        disable 'WrongThread'
     }
 }
 
@@ -38,8 +41,8 @@ dependencies {
     compile "com.android.support:support-annotations:$supportLibrariesVersion"
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.9.5'
-    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.mockito:mockito-core:2.19.0'
+    testCompile 'org.robolectric:robolectric:3.7.1'
 }
 
 version = VERSION_NAME
