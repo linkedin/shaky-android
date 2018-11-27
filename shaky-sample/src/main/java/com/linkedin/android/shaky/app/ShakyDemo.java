@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -36,6 +37,13 @@ public class ShakyDemo extends Activity {
         Random random = new Random();
         int color = Color.rgb(random.nextInt(RGB_MAX), random.nextInt(RGB_MAX), random.nextInt(RGB_MAX));
         tv.setBackgroundColor(color);
+
+        findViewById(R.id.toast_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), R.string.toast_text, Toast.LENGTH_LONG).show();
+            }
+        });
 
         findViewById(R.id.demo_button).setOnClickListener(new View.OnClickListener() {
             @Override

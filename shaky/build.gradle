@@ -8,7 +8,6 @@ group = GROUP_ID
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -26,19 +25,24 @@ android {
 
     lintOptions {
         abortOnError true
+
+        // Lint check is catching false positives. Fixed in AGP 3.4
+        // https://issuetracker.google.com/issues/118518625
+        disable 'WrongThread'
     }
 }
 
 dependencies {
     api 'com.squareup:seismic:1.0.2'
+    implementation 'com.jraska:falcon:2.1.1'
     implementation "androidx.appcompat:appcompat:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.annotation:annotation:1.0.0"
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:1.9.5'
-    testImplementation 'org.robolectric:robolectric:3.0'
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+    testImplementation 'org.robolectric:robolectric:3.7.1'
 }
 
 version = VERSION_NAME

@@ -15,13 +15,13 @@ Download the latest .aar via Maven:
 	<dependency>
 	  <groupId>com.linkedin.shaky</groupId>
 	  <artifactId>shaky</artifactId>
-	  <version>1.1.1</version>
+	  <version>1.2.0</version>
 	</dependency>
 ```
 
 or Gradle:
 ```
-	compile 'com.linkedin.shaky:shaky:1.1.1'
+	implementation 'com.linkedin.shaky:shaky:1.2.0'
 ```
 
 ## Getting Started

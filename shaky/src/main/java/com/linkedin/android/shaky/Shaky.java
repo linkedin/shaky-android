@@ -30,6 +30,7 @@ import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.view.View;
+import com.jraska.falcon.Falcon;
 import com.squareup.seismic.ShakeDetector;
 
 import java.util.ArrayList;
@@ -164,8 +165,15 @@ public class Shaky implements ShakeDetector.Listener {
     @Nullable
     @UiThread
     private Bitmap getScreenshotBitmap() {
-        View view = activity.getWindow().getDecorView().getRootView();
-        return Utils.capture(view);
+        try {
+            // Attempt to use Falcon to take the screenshot
+            return Falcon.takeScreenshotBitmap(activity);
+        } catch (Falcon.UnableToTakeScreenshotException exception) {
+            // Fallback to using the default screenshot capture mechanism if Falcon does not work (e.g. if it has not
+            // been updated to work on newer versions of Android yet)
+            View view = activity.getWindow().getDecorView().getRootView();
+            return Utils.capture(view);
+        }
     }
 
     private void dismissCollectFeedbackDialogIfNecessary() {

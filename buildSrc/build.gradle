@@ -2,6 +2,14 @@ plugins {
     id 'groovy'
 }
 
+// Our dependencies are pulling in older version of guava,
+// but agp3 requires guava 23. So, we force it here
+configurations.runtimeClasspath {
+    resolutionStrategy {
+        force 'com.google.guava:guava:23.0'
+    }
+}
+
 repositories {
     mavenLocal()
     jcenter()
@@ -25,7 +33,7 @@ dependencies {
 
     implementation 'org.ajoberstar:gradle-git:1.2.0'
     implementation group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.2'
-    implementation ('org.jfrog.buildinfo:build-info-extractor-gradle:4.4.0') {
+    implementation ('org.jfrog.buildinfo:build-info-extractor-gradle:4.8.1') {
         exclude module: 'groovy-all'
     }
 }
