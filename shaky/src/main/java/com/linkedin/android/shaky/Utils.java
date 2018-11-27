@@ -15,14 +15,15 @@
  */
 package com.linkedin.android.shaky;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
-import android.support.v4.content.FileProvider;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+import androidx.core.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 
@@ -71,6 +72,8 @@ final class Utils {
      */
     @Nullable
     @WorkerThread
+    // suppress lint check for AGP 3.2 https://issuetracker.google.com/issues/116776070
+    @SuppressLint("WrongThread")
     static File writeBitmapToFile(@NonNull Bitmap bitmap, @NonNull File file) {
         FileOutputStream fileStream = null;
         try {

@@ -21,7 +21,7 @@
               android:background="@android:color/white"
               android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/shaky_toolbar"
         style="@style/ToolbarStyle"
         android:layout_width="match_parent"

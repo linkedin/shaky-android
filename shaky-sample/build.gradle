@@ -18,5 +18,6 @@ android {
 }
 
 dependencies {
-    compile project(':shaky')
+    implementation project(':shaky')
+    implementation "androidx.annotation:annotation:1.0.0"
 }

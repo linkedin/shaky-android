@@ -18,7 +18,7 @@ package com.linkedin.android.shaky;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 class LifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 

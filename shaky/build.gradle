@@ -33,16 +33,16 @@ android {
 }
 
 dependencies {
-    compile 'com.squareup:seismic:1.0.2'
-    compile 'com.jraska:falcon:2.1.1'
-    compile "com.android.support:appcompat-v7:$supportLibrariesVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibrariesVersion"
-    compile "com.android.support:support-v4:$supportLibrariesVersion"
-    compile "com.android.support:support-annotations:$supportLibrariesVersion"
+    api 'com.squareup:seismic:1.0.2'
+    implementation 'com.jraska:falcon:2.1.1'
+    implementation "androidx.appcompat:appcompat:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation "androidx.annotation:annotation:1.0.0"
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.19.0'
-    testCompile 'org.robolectric:robolectric:3.7.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+    testImplementation 'org.robolectric:robolectric:3.7.1'
 }
 
 version = VERSION_NAME
