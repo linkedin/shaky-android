@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 2.0.0 (2018-11-27)
+
+- Migrate to AndroidX libraries
+
 ## Version 1.2.0 (2018-11-08)
 
 - Auto-captialize input fields (#17)
