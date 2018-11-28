@@ -100,7 +100,7 @@ publishing {
                     }
 
                     dependencies {
-                        configurations.compile.allDependencies.each { ModuleDependency dp ->
+                        configurations.implementation.allDependencies.each { ModuleDependency dp ->
                             dependency {
                                 resolveStrategy = Closure.DELEGATE_ONLY
                                 groupId dp.group
