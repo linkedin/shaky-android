@@ -1,7 +1,12 @@
 # Change Log
 
+## Version 2.0.1 (2018-11-28)
+
+- Fix transitive dependency configuration
+
 ## Version 2.0.0 (2018-11-27)
 
+- NOTE: This release did not correctly publish dependency information. Use 2.0.1 instead.
 - Migrate to AndroidX libraries
 
 ## Version 1.2.0 (2018-11-08)
