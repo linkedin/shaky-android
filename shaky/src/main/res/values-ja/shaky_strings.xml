@@ -56,4 +56,12 @@
 
     <string name="shaky_empty_feedback_message">フィードバックを記入してください。</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+
+    <string name="shaky_sensitivity_high">高</string>
+    <string name="shaky_sensitivity_medium">中</string>
+    <string name="shaky_sensitivity_low">低</string>
+    <string name="shaky_sensor_sensitivity">センサー感度</string>
+
+    <string name="shaky_setting">設定</string>
+    <string name="shaky_general_ok_string">OK</string>
 </resources>

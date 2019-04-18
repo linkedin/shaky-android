@@ -56,4 +56,12 @@
 
     <string name="shaky_empty_feedback_message">Veuillez rédiger votre feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+
+    <string name="shaky_sensitivity_high">Élevée</string>
+    <string name="shaky_sensitivity_medium">Moyenne</string>
+    <string name="shaky_sensitivity_low">Faible</string>
+    <string name="shaky_sensor_sensitivity">Sensitivité du capteur</string>
+
+    <string name="shaky_setting">Préférences</string>
+    <string name="shaky_general_ok_string">OK</string>
 </resources>

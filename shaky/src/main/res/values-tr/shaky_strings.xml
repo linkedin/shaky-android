@@ -56,4 +56,12 @@
 
     <string name="shaky_empty_feedback_message">Lütfen geri bildiriminizi yazın.</string>
     <string name="shaky_empty_feedback_confirm">Tamam</string>
+
+    <string name="shaky_sensitivity_high">Yüksek</string>
+    <string name="shaky_sensitivity_medium">Orta</string>
+    <string name="shaky_sensitivity_low">Düşük</string>
+    <string name="shaky_sensor_sensitivity">Sensör Hassaslığı </string>
+
+    <string name="shaky_setting">Ayarlar</string>
+    <string name="shaky_general_ok_string">Tamam</string>
 </resources>

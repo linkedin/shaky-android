@@ -15,18 +15,20 @@
  */
 package com.linkedin.android.shaky;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * Auto-dismissing dialog that prompts the user to kick-off the feedback flow.
@@ -34,16 +36,20 @@ import java.util.concurrent.TimeUnit;
 public class SendFeedbackDialog extends DialogFragment {
 
     public static final String ACTION_START_FEEDBACK_FLOW = "StartFeedbackFlow";
+    public static final String SHOULD_DISPLAY_SETTING_UI = "ShouldDisplaySettingUI";
 
     private static final long DISMISS_TIMEOUT_MS = TimeUnit.SECONDS.toMillis(5);
 
     private Handler handler;
     private Runnable runnable;
+    private boolean isSettingEnabled;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        isSettingEnabled = getArguments().getBoolean(SHOULD_DISPLAY_SETTING_UI, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
                                                               R.style.AppCompatAlertDialog);
@@ -60,6 +66,23 @@ public class SendFeedbackDialog extends DialogFragment {
             }
         });
         builder.setNegativeButton(R.string.shaky_dialog_negative, null);
+        if (isSettingEnabled) {
+            // TODO: add translated resource reference those here.
+            builder.setNeutralButton(getResources().getString(R.string.shaky_setting), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        ShakySettingDialog shakySettingDialog = new ShakySettingDialog();
+                        int currentSensitivity = getArguments().getInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, ShakeDelegate.SENSITIVITY_MEDIUM);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, currentSensitivity);
+                        shakySettingDialog.setArguments(bundle);
+                        shakySettingDialog.show(activity.getFragmentManager(), ShakySettingDialog.SHAKY_SETTING_DIALOG);
+                    }
+                }
+            });
+        }
 
         final AlertDialog dialog = builder.create();
 

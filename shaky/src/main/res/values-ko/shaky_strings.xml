@@ -56,4 +56,12 @@
 
     <string name="shaky_empty_feedback_message">의견을 쓰세요.</string>
     <string name="shaky_empty_feedback_confirm">확인</string>
+
+    <string name="shaky_sensitivity_high">높음</string>
+    <string name="shaky_sensitivity_medium">중간</string>
+    <string name="shaky_sensitivity_low">낮음</string>
+    <string name="shaky_sensor_sensitivity">흔들기 민감도</string>
+
+    <string name="shaky_setting">설정</string>
+    <string name="shaky_general_ok_string">확인</string>
 </resources>

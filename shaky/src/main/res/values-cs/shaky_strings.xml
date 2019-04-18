@@ -56,4 +56,12 @@
 
     <string name="shaky_empty_feedback_message">Napište prosím své připomínky.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+
+    <string name="shaky_sensitivity_high">Denní maximum</string>
+    <string name="shaky_sensitivity_medium">Střední</string>
+    <string name="shaky_sensitivity_low">Denní minimum</string>
+    <string name="shaky_sensor_sensitivity">Citlivost senzoru</string>
+
+    <string name="shaky_setting">Nastavení</string>
+    <string name="shaky_general_ok_string">Ok</string>
 </resources>

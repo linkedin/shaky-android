@@ -40,6 +40,8 @@ public abstract class ShakeDelegate {
     public static final int SENSITIVITY_MEDIUM = 23;
     public static final int SENSITIVITY_HARD = 24;
 
+    @SensitivityLevel
+    private static int sensitivityLevel = SENSITIVITY_MEDIUM;
     /**
      * @return true if shake detection should be enabled, false otherwise
      */
@@ -48,11 +50,28 @@ public abstract class ShakeDelegate {
     }
 
     /**
+     * @return true if setting is accessible in shaky UI, false otherwise
+     */
+    public boolean isSettingEnabled() {
+        return false;
+    }
+
+    /**
      * @return desired sensitivity level, defaults to 'medium'
      */
     @SensitivityLevel
     public int getSensitivityLevel() {
-        return SENSITIVITY_MEDIUM;
+        return sensitivityLevel;
+    }
+
+    /**
+     * Sets the shake sensitivity in memory. Please note that it is caller's responsibility to
+     * persist the setting in storage such as {@link android.content.SharedPreferences}.
+     *
+     * @param sensitivityLevel
+     */
+    public void setSensitivityLevel(@SensitivityLevel int sensitivityLevel) {
+        this.sensitivityLevel = sensitivityLevel;
     }
 
     /**

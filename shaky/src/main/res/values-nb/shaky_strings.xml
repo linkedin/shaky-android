@@ -56,4 +56,12 @@
 
     <string name="shaky_empty_feedback_message">Skriv tilbakemelding.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+
+    <string name="shaky_sensitivity_high">Høyeste</string>
+    <string name="shaky_sensitivity_medium">Middels</string>
+    <string name="shaky_sensitivity_low">Laveste</string>
+    <string name="shaky_sensor_sensitivity">Sensorfølsomhet</string>
+
+    <string name="shaky_setting">Innstillinger</string>
+    <string name="shaky_general_ok_string">OK</string>
 </resources>
