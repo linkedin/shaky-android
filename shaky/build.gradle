@@ -111,6 +111,14 @@ publishing {
                     }
                 }
             }
+
+            //Makes it useful to debug locally and inspect the maven publication
+            //To see the maven publication files in 'build/repo' run './gradlew publish'            
+            repositories {
+                maven {
+                    url = "$buildDir/repo"
+                }
+            }
         }
     }
 }
