@@ -1,3 +1,5 @@
+import com.linkedin.gradle.DistributeTask
+
 buildscript {
     repositories {
         google()
@@ -31,3 +33,22 @@ ext {
 }
 
 apply plugin: 'com.jfrog.artifactory'
+
+artifactory {
+    contextUrl = 'https://linkedin.jfrog.io/linkedin'
+    publish {
+        repoKey = 'shaky-android'
+        username = System.getenv('ARTIFACTORY_USER') ?: ''
+        password = System.getenv('ARTIFACTORY_KEY') ?: ''
+
+        defaults {
+            publications ('aar')
+            publishArtifacts = true
+        }
+    }
+    clientConfig.setIncludeEnvVars(false)
+}
+
+task distributeBuild(type: DistributeTask) {
+    dependsOn ':artifactoryPublish', 'shaky:artifactoryPublish'
+}
