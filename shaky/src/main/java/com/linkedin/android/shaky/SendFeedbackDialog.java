@@ -67,7 +67,6 @@ public class SendFeedbackDialog extends DialogFragment {
         });
         builder.setNegativeButton(R.string.shaky_dialog_negative, null);
         if (isSettingEnabled) {
-            // TODO: add translated resource reference those here.
             builder.setNeutralButton(getResources().getString(R.string.shaky_setting), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
