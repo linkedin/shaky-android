@@ -50,9 +50,9 @@ public abstract class ShakeDelegate {
     }
 
     /**
-     * @return true if setting is accessible in shaky UI, false otherwise
+     * @return true if a button to access Shaky settings should be shown in the UI, false otherwise
      */
-    public boolean isSettingEnabled() {
+    public boolean shouldShowSettingsUI() {
         return false;
     }
 
