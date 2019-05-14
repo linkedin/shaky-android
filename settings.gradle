@@ -1,4 +1,4 @@
-rootProject.name = 'shaky-root'
+rootProject.name = 'shaky-android'
 
 include ':shaky'
 include ':shaky-sample'
