@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 2.0.2 (2019-05-14)
+
+- Allow configuring shake sensitivity from the feedback UI [#30](https://github.com/linkedin/shaky-android/pull/30)
+
 ## Version 2.0.1 (2018-11-28)
 
 - Fix transitive dependency configuration
