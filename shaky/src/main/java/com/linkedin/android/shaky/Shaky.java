@@ -24,17 +24,20 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.hardware.SensorManager;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
-import androidx.annotation.VisibleForTesting;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import android.os.Bundle;
 import android.view.View;
+
 import com.jraska.falcon.Falcon;
 import com.squareup.seismic.ShakeDetector;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
+import androidx.annotation.VisibleForTesting;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * Listens for a shake and then starts the feedback submission flow.
@@ -67,6 +70,7 @@ public class Shaky implements ShakeDetector.Listener {
         IntentFilter filter = new IntentFilter();
         filter.addAction(SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW);
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
+        filter.addAction(ShakySettingDialog.UPDATE_SHAKY_SENSITIVITY);
         LocalBroadcastManager.getInstance(appContext).registerReceiver(createReceiver(), filter);
     }
 
@@ -89,6 +93,11 @@ public class Shaky implements ShakeDetector.Listener {
         }
 
         doStartFeedbackFlow();
+    }
+
+    public void setSensitivity(@ShakeDelegate.SensitivityLevel int sensitivityLevel) {
+        delegate.setSensitivityLevel(sensitivityLevel);
+        shakeDetector.setSensitivity(getDetectorSensitivityLevel());
     }
 
     void setActivity(@Nullable Activity activity) {
@@ -135,7 +144,12 @@ public class Shaky implements ShakeDetector.Listener {
             return;
         }
 
-        new SendFeedbackDialog().show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
+        Bundle arguments = new Bundle();
+        arguments.putBoolean(SendFeedbackDialog.SHOULD_DISPLAY_SETTING_UI, delegate.isSettingEnabled());
+        arguments.putInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, delegate.getSensitivityLevel());
+        SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();
+        sendFeedbackDialog.setArguments(arguments);
+        sendFeedbackDialog.show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
     }
 
     /**
@@ -204,6 +218,8 @@ public class Shaky implements ShakeDetector.Listener {
                     }
                 } else if (FeedbackActivity.ACTION_END_FEEDBACK_FLOW.equals(intent.getAction())) {
                     delegate.submit(activity, unpackResult(intent));
+                } else if (ShakySettingDialog.UPDATE_SHAKY_SENSITIVITY.equals(intent.getAction())) {
+                    setSensitivity(intent.getIntExtra(ShakySettingDialog.SHAKY_NEW_SENSITIVITY, ShakeDelegate.SENSITIVITY_MEDIUM));
                 }
             }
         };

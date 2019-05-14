@@ -55,4 +55,12 @@
 
     <string name="shaky_empty_feedback_message">Напишите свой отзыв</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
+
+    <string name="shaky_sensitivity_high">Высокий</string>
+    <string name="shaky_sensitivity_medium">Средний</string>
+    <string name="shaky_sensitivity_low">Низкий</string>
+    <string name="shaky_sensor_sensitivity">Уровень чувствительности сенсора</string>
+
+    <string name="shaky_setting">Настройки</string>
+    <string name="shaky_general_ok_string">ОК</string>
 </resources>

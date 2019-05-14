@@ -56,4 +56,12 @@
 
     <string name="shaky_empty_feedback_message">โปรดเขียนคำติชมของคุณ</string>
     <string name="shaky_empty_feedback_confirm">ตกลง</string>
+
+    <string name="shaky_sensitivity_high">สูง</string>
+    <string name="shaky_sensitivity_medium">กลาง</string>
+    <string name="shaky_sensitivity_low">ต่ำ</string>
+    <string name="shaky_sensor_sensitivity">ความไวเซ็นเซอร์</string>
+
+    <string name="shaky_setting">การตั้งค่า</string>
+    <string name="shaky_general_ok_string">ตกลง</string>
 </resources>
