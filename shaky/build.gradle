@@ -1,4 +1,4 @@
-apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
@@ -110,5 +110,19 @@ publishing {
                 }
             }
         }
+    }
+}
+
+bintray {   
+    user = "szczepiq"
+    key = System.getenv("BINTRAY_API_KEY")
+    publications = ['aar']  
+    //publish = true  
+    pkg {
+        repo = 'maven'
+        name = 'shaky'
+        userOrg = 'linkedin'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/linkedin/shaky-android'
     }
 }
