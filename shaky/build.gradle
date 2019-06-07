@@ -109,6 +109,13 @@ publishing {
                     }
                 }
             }
+
+            //For local debugging of maven publications run './gradlew publish' and check 'build/repo'
+            repositories {
+                maven {
+                    url = "$rootProject.buildDir/repo"
+                }
+            }
         }
     }
 }
