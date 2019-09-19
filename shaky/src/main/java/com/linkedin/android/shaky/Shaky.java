@@ -57,11 +57,12 @@ public class Shaky implements ShakeDetector.Listener {
     private final ShakeDetector shakeDetector;
 
     private Activity activity;
+    private Context appContext;
     private long lastShakeTime;
     private CollectDataTask collectDataTask;
 
     Shaky(@NonNull Context context, @NonNull ShakeDelegate delegate) {
-        Context appContext = context.getApplicationContext();
+        appContext = context.getApplicationContext();
         this.delegate = delegate;
         shakeDetector = new ShakeDetector(this);
 
@@ -261,7 +262,7 @@ public class Shaky implements ShakeDetector.Listener {
         // add file provider data to all attachments
         ArrayList<Uri> fileProviderAttachments = new ArrayList<>();
         for (Uri attachment : result.getAttachments()) {
-            fileProviderAttachments.add(Utils.getProviderUri(activity, attachment));
+            fileProviderAttachments.add(Utils.getProviderUri(appContext, attachment));
         }
         result.setAttachments(fileProviderAttachments);
 
