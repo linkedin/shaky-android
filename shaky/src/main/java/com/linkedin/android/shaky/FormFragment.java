@@ -19,6 +19,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,12 +28,13 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import androidx.annotation.IdRes;
+import androidx.annotation.MenuRes;
 
 /**
  * The main form used to send feedback.
@@ -41,22 +44,23 @@ public class FormFragment extends Fragment {
     static final String ACTION_SUBMIT_FEEDBACK = "ActionSubmitFeedback";
     static final String ACTION_EDIT_IMAGE = "ActionEditImage";
     static final String EXTRA_USER_MESSAGE = "ExtraUserMessage";
-    static final int DEFAULT_SUBMIT_ICON = R.id.action_submit;
+    // If you want to change the send icon, you must create a new menu
+    static final @MenuRes int DEFAULT_MENU = R.menu.shaky_feedback_activity_actions;
 
     private static final String KEY_SCREENSHOT_URI = "ScreenshotUri";
     private static final String KEY_TITLE = "title";
     private static final String KEY_HINT = "hint";
-    private static final String KEY_SEND_ICON = "sendIcon";
+    private static final String KEY_MENU = "menu";
 
     public static FormFragment newInstance(@NonNull String title,
                                            @NonNull String hint,
                                            @Nullable Uri screenshotUri,
-                                           @Nullable @IdRes int sendIcon) {
+                                           @Nullable @MenuRes int menu) {
         Bundle args = new Bundle();
         args.putParcelable(KEY_SCREENSHOT_URI, screenshotUri);
         args.putString(KEY_TITLE, title);
         args.putString(KEY_HINT, hint);
-        args.putInt(KEY_SEND_ICON, sendIcon);
+        args.putInt(KEY_MENU, menu);
 
         FormFragment fragment = new FormFragment();
         fragment.setArguments(args);
@@ -78,7 +82,7 @@ public class FormFragment extends Fragment {
         ImageView attachmentImageView = (ImageView) view.findViewById(R.id.shaky_form_attachment);
 
         Uri screenshotUri = getArguments().getParcelable(KEY_SCREENSHOT_URI);
-        int sendIconResource = getArguments().getInt(KEY_SEND_ICON);
+        int sendIconResource = getArguments().getInt(KEY_MENU);
 
         String title = getArguments().getString(KEY_TITLE);
         toolbar.setTitle(title);
