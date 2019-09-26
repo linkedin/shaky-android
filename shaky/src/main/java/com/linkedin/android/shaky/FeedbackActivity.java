@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.IdRes;
 
 /**
  * The main activity used capture and send feedback.
@@ -40,18 +41,22 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String MESSAGE = "message";
     static final String TITLE = "title";
     static final String USER_DATA = "userData";
+    static final String SEND_ICON = "sendIcon";
 
     private Uri imageUri;
     private @FeedbackItem.FeedbackType int feedbackType;
     private Bundle userData;
+    private @IdRes int sendIcon;
 
     @NonNull
     public static Intent newIntent(@NonNull Context context,
                                    @Nullable Uri screenshotUri,
-                                   @Nullable Bundle userData) {
+                                   @Nullable Bundle userData,
+                                   @Nullable @IdRes int sendIcon) {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
+        intent.putExtra(SEND_ICON, sendIcon);
         return intent;
     }
 
@@ -63,6 +68,7 @@ public class FeedbackActivity extends AppCompatActivity {
 
         imageUri = getIntent().getParcelableExtra(SCREENSHOT_URI);
         userData = getIntent().getBundleExtra(USER_DATA);
+        sendIcon = getIntent().getIntExtra(SEND_ICON, FormFragment.DEFAULT_SUBMIT_ICON);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -110,7 +116,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private void startFormFragment(@FeedbackItem.FeedbackType int feedbackType) {
         String title = getString(getTitleResId(feedbackType));
         String hint = getString(getHintResId(feedbackType));
-        changeToFragment(FormFragment.newInstance(title, hint, imageUri));
+        changeToFragment(FormFragment.newInstance(title, hint, imageUri, sendIcon));
     }
 
     /**

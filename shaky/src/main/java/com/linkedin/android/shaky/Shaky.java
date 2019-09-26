@@ -249,7 +249,7 @@ public class Shaky implements ShakeDetector.Listener {
      * Launches the main feedback activity with the bundle extra data.
      */
     private void startFeedbackActivity(@NonNull Result result) {
-        Intent intent = FeedbackActivity.newIntent(activity, result.getScreenshotUri(), result.getData());
+        Intent intent = FeedbackActivity.newIntent(activity, result.getScreenshotUri(), result.getData(), delegate.sendIcon);
         activity.startActivity(intent);
     }
 

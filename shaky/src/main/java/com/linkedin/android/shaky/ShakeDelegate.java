@@ -18,6 +18,7 @@ package com.linkedin.android.shaky;
 import android.app.Activity;
 import androidx.annotation.WorkerThread;
 import androidx.annotation.IntDef;
+import androidx.annotation.IdRes;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -42,6 +43,9 @@ public abstract class ShakeDelegate {
 
     @SensitivityLevel
     private static int sensitivityLevel = SENSITIVITY_MEDIUM;
+    // Allows user to customize the send icon at the end
+    @IdRes protected int sendIcon;
+
     /**
      * @return true if shake detection should be enabled, false otherwise
      */
