@@ -16,6 +16,8 @@
 package com.linkedin.android.shaky;
 
 import android.app.Activity;
+
+import androidx.annotation.MenuRes;
 import androidx.annotation.WorkerThread;
 import androidx.annotation.IntDef;
 
@@ -42,6 +44,11 @@ public abstract class ShakeDelegate {
 
     @SensitivityLevel
     private static int sensitivityLevel = SENSITIVITY_MEDIUM;
+    /** Allows user to customize the send icon at the end. Needs to be the menu itself because you cannot
+     * change the send icon unless you send in a new menu, Also needs a value or else it crashes
+     */
+    @MenuRes protected int resMenu = FormFragment.DEFAULT_MENU;
+
     /**
      * @return true if shake detection should be enabled, false otherwise
      */
