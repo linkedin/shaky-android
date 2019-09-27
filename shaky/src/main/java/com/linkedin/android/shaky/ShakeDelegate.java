@@ -20,7 +20,6 @@ import android.app.Activity;
 import androidx.annotation.MenuRes;
 import androidx.annotation.WorkerThread;
 import androidx.annotation.IntDef;
-import androidx.annotation.IdRes;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
