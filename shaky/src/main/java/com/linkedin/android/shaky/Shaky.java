@@ -55,22 +55,27 @@ public class Shaky implements ShakeDetector.Listener {
 
     private final ShakeDelegate delegate;
     private final ShakeDetector shakeDetector;
+    @Nullable
+    private final ShakyFlowCallback shakyFlowCallback;
 
     private Activity activity;
     private Context appContext;
     private long lastShakeTime;
     private CollectDataTask collectDataTask;
 
-    Shaky(@NonNull Context context, @NonNull ShakeDelegate delegate) {
+    Shaky(@NonNull Context context, @NonNull ShakeDelegate delegate, @Nullable ShakyFlowCallback callback) {
         appContext = context.getApplicationContext();
         this.delegate = delegate;
+        this.shakyFlowCallback = callback;
         shakeDetector = new ShakeDetector(this);
 
         shakeDetector.setSensitivity(getDetectorSensitivityLevel());
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW);
+        filter.addAction(SendFeedbackDialog.ACTION_DIALOG_DISMISSED_BY_USER);
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
+        filter.addAction(FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER);
         filter.addAction(ShakySettingDialog.UPDATE_SHAKY_SENSITIVITY);
         LocalBroadcastManager.getInstance(appContext).registerReceiver(createReceiver(), filter);
     }
@@ -82,13 +87,28 @@ public class Shaky implements ShakeDetector.Listener {
      */
     @NonNull
     public static Shaky with(@NonNull Application application, @NonNull ShakeDelegate delegate) {
-        Shaky shaky = new Shaky(application.getApplicationContext(), delegate);
+        return with(application, delegate, null);
+    }
+
+    /**
+     * Entry point into this API.
+     *
+     * Registers shaky to the current application.
+     */
+    @NonNull
+    public static Shaky with(@NonNull Application application,
+                             @NonNull ShakeDelegate delegate,
+                             @Nullable ShakyFlowCallback callback) {
+        Shaky shaky = new Shaky(application.getApplicationContext(), delegate, callback);
         LifecycleCallbacks lifecycleCallbacks = new LifecycleCallbacks(shaky);
         application.registerActivityLifecycleCallbacks(lifecycleCallbacks);
         return shaky;
     }
 
     public void startFeedbackFlow() {
+        if (shakyFlowCallback != null) {
+            shakyFlowCallback.onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_MANUALLY);
+        }
         if (!canStartFeedbackFlow()) {
             return;
         }
@@ -115,6 +135,9 @@ public class Shaky implements ShakeDetector.Listener {
 
     private void doStartFeedbackFlow() {
         new CollectDataDialog().show(activity.getFragmentManager(), COLLECT_DATA_TAG);
+        if (shakyFlowCallback != null) {
+            shakyFlowCallback.onCollectingData();
+        }
 
         collectDataTask = new CollectDataTask(activity, delegate, createCallback());
         collectDataTask.execute(getScreenshotBitmap());
@@ -141,6 +164,9 @@ public class Shaky implements ShakeDetector.Listener {
 
     @Override
     public void hearShake() {
+        if (shakyFlowCallback != null) {
+            shakyFlowCallback.onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
+        }
         if (shouldIgnoreShake() || !canStartFeedbackFlow()) {
             return;
         }
@@ -151,6 +177,9 @@ public class Shaky implements ShakeDetector.Listener {
         SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();
         sendFeedbackDialog.setArguments(arguments);
         sendFeedbackDialog.show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
+        if (shakyFlowCallback != null) {
+            shakyFlowCallback.onUserPromptShown();
+        }
     }
 
     /**
@@ -160,6 +189,9 @@ public class Shaky implements ShakeDetector.Listener {
     boolean shouldIgnoreShake() {
         long now = System.currentTimeMillis();
         if (now < lastShakeTime + SHAKE_COOLDOWN_MS) {
+            if (shakyFlowCallback != null) {
+                shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_TOO_FREQUENT);
+            }
             return true;
         }
         lastShakeTime = now;
@@ -171,10 +203,19 @@ public class Shaky implements ShakeDetector.Listener {
      */
     @VisibleForTesting
     boolean canStartFeedbackFlow() {
-        return activity != null
-                && !(activity instanceof FeedbackActivity)
+        if (activity == null) {
+            if (shakyFlowCallback != null) {
+                shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_NO_RESUMED_ACTIVITY);
+            }
+            return false;
+        }
+        boolean canStart = !(activity instanceof FeedbackActivity)
                 && activity.getFragmentManager().findFragmentByTag(SEND_FEEDBACK_TAG) == null
                 && activity.getFragmentManager().findFragmentByTag(COLLECT_DATA_TAG) == null;
+        if (!canStart && shakyFlowCallback != null) {
+            shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_ALREADY_STARTED);
+        }
+        return canStart;
     }
 
     @Nullable
@@ -217,10 +258,21 @@ public class Shaky implements ShakeDetector.Listener {
                     if (activity != null) {
                         doStartFeedbackFlow();
                     }
+                } else if (SendFeedbackDialog.ACTION_DIALOG_DISMISSED_BY_USER.equals(intent.getAction())
+                        || FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER.equals(intent.getAction())) {
+                    if (shakyFlowCallback != null) {
+                        shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_BY_USER);
+                    }
                 } else if (FeedbackActivity.ACTION_END_FEEDBACK_FLOW.equals(intent.getAction())) {
                     delegate.submit(activity, unpackResult(intent));
+                    if (shakyFlowCallback != null) {
+                        shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_SUBMITTED);
+                    }
                 } else if (ShakySettingDialog.UPDATE_SHAKY_SENSITIVITY.equals(intent.getAction())) {
                     setSensitivity(intent.getIntExtra(ShakySettingDialog.SHAKY_NEW_SENSITIVITY, ShakeDelegate.SENSITIVITY_MEDIUM));
+                    if (shakyFlowCallback != null) {
+                        shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_SENSITIVITY_UPDATED);
+                    }
                 }
             }
         };
@@ -240,6 +292,11 @@ public class Shaky implements ShakeDetector.Listener {
 
                 if (shouldStartFeedbackActivity) {
                     startFeedbackActivity(result == null ? new Result() : result);
+                    return;
+                }
+
+                if (shakyFlowCallback != null) {
+                    shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_NO_RESUMED_ACTIVITY);
                 }
             }
         };
@@ -251,6 +308,10 @@ public class Shaky implements ShakeDetector.Listener {
     private void startFeedbackActivity(@NonNull Result result) {
         Intent intent = FeedbackActivity.newIntent(activity, result.getScreenshotUri(), result.getData(), delegate.resMenu);
         activity.startActivity(intent);
+
+        if (shakyFlowCallback != null) {
+            shakyFlowCallback.onConfiguringFeedback();
+        }
     }
 
     private Result unpackResult(Intent intent) {
