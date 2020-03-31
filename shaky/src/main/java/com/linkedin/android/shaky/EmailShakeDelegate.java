@@ -28,6 +28,7 @@ import java.util.ArrayList;
  */
 public class EmailShakeDelegate extends ShakeDelegate {
     private String[] to;
+    @SensitivityLevel
     private int sensitivityLevel = ShakeDelegate.SENSITIVITY_MEDIUM;
 
     public EmailShakeDelegate(@NonNull String[] to) {
@@ -44,6 +45,7 @@ public class EmailShakeDelegate extends ShakeDelegate {
     }
 
     @Override
+    @ShakeDelegate.SensitivityLevel
     public int getSensitivityLevel() {
         return sensitivityLevel;
     }
@@ -51,6 +53,7 @@ public class EmailShakeDelegate extends ShakeDelegate {
     /**
      * Optionally override sensitivityLevel to one of ShakeDelegate.SENSITIVITY_*
      */
+    @Override
     public void setSensitivityLevel(@ShakeDelegate.SensitivityLevel int newLevel) {
         sensitivityLevel = newLevel;
     }
@@ -59,6 +62,7 @@ public class EmailShakeDelegate extends ShakeDelegate {
      * Creates the email {@link Intent} and attaches all attachments.
      * Subclasses should override this method to customize the email Intent.
      */
+    @NonNull
     public Intent onSubmit(@NonNull Result result) {
         return createEmailIntent(to, result.getTitle(), result.getMessage(), result.getAttachments());
     }
