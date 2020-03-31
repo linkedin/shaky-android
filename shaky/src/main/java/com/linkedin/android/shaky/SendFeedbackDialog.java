@@ -42,14 +42,11 @@ public class SendFeedbackDialog extends DialogFragment {
 
     private Handler handler;
     private Runnable runnable;
-    private boolean isSettingEnabled;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        isSettingEnabled = getArguments().getBoolean(SHOULD_DISPLAY_SETTING_UI, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
                                                               R.style.AppCompatAlertDialog);
@@ -66,7 +63,7 @@ public class SendFeedbackDialog extends DialogFragment {
             }
         });
         builder.setNegativeButton(R.string.shaky_dialog_negative, null);
-        if (isSettingEnabled) {
+        if (getArguments().getBoolean(SHOULD_DISPLAY_SETTING_UI, false)) {
             builder.setNeutralButton(getResources().getString(R.string.shaky_setting), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
