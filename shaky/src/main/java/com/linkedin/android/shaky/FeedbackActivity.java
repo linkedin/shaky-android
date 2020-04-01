@@ -36,6 +36,7 @@ import androidx.annotation.MenuRes;
 public class FeedbackActivity extends AppCompatActivity {
 
     static final String ACTION_END_FEEDBACK_FLOW = "EndFeedbackFlow";
+    static final String ACTION_ACTIVITY_CLOSED_BY_USER = "ActivityClosedByUser";
 
     static final String SCREENSHOT_URI = "screenshotUri";
     static final String MESSAGE = "message";
@@ -52,7 +53,7 @@ public class FeedbackActivity extends AppCompatActivity {
     public static Intent newIntent(@NonNull Context context,
                                    @Nullable Uri screenshotUri,
                                    @Nullable Bundle userData,
-                                   @Nullable @MenuRes int resMenu) {
+                                   @MenuRes int resMenu) {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
@@ -95,6 +96,14 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onPause();
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ACTION_ACTIVITY_CLOSED_BY_USER);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
+        super.onBackPressed();
     }
 
     /**

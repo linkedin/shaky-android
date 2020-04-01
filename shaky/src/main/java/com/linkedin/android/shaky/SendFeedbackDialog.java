@@ -36,20 +36,18 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 public class SendFeedbackDialog extends DialogFragment {
 
     public static final String ACTION_START_FEEDBACK_FLOW = "StartFeedbackFlow";
+    public static final String ACTION_DIALOG_DISMISSED_BY_USER = "DialogDismissedByUser";
     public static final String SHOULD_DISPLAY_SETTING_UI = "ShouldDisplaySettingUI";
 
     private static final long DISMISS_TIMEOUT_MS = TimeUnit.SECONDS.toMillis(5);
 
     private Handler handler;
     private Runnable runnable;
-    private boolean isSettingEnabled;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        isSettingEnabled = getArguments().getBoolean(SHOULD_DISPLAY_SETTING_UI, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
                                                               R.style.AppCompatAlertDialog);
@@ -65,8 +63,14 @@ public class SendFeedbackDialog extends DialogFragment {
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         });
-        builder.setNegativeButton(R.string.shaky_dialog_negative, null);
-        if (isSettingEnabled) {
+        builder.setNegativeButton(R.string.shaky_dialog_negative, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(ACTION_DIALOG_DISMISSED_BY_USER);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+            }
+        });
+        if (getArguments().getBoolean(SHOULD_DISPLAY_SETTING_UI, false)) {
             builder.setNeutralButton(getResources().getString(R.string.shaky_setting), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
