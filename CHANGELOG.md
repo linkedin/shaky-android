@@ -1,5 +1,11 @@
 # Change Log
 
+## Version 2.0.3 (2020-04-01)
+
+- Fix calling nullable activity directly in broadcast receiver [#37]((https://github.com/linkedin/shaky-android/pull/37)
+- Adding the option to customize the send icon [#38](https://github.com/linkedin/shaky-android/pull/38)
+- Added callback during the feedback submission flow [#40](https://github.com/linkedin/shaky-android/pull/40)
+
 ## Version 2.0.2 (2019-05-14)
 
 - Allow configuring shake sensitivity from the feedback UI [#30](https://github.com/linkedin/shaky-android/pull/30)
