@@ -17,9 +17,10 @@ package com.linkedin.android.shaky;
 
 import android.app.Activity;
 
-import androidx.annotation.MenuRes;
-import androidx.annotation.WorkerThread;
 import androidx.annotation.IntDef;
+import androidx.annotation.MenuRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -87,12 +88,12 @@ public abstract class ShakeDelegate {
      * submission, such as user data, app version, etc.
      */
     @WorkerThread
-    public void collectData(Activity activity, Result data) {
+    public void collectData(@NonNull Activity activity, @NonNull Result data) {
     }
 
     /**
      * Called when the user submits the Feedback form. Creates and starts an email Intent.
      * This method can be overridden to send data to a custom URL endpoint, etc.
      */
-    public abstract void submit(Activity activity, Result result);
+    public abstract void submit(@NonNull Activity activity, @NonNull Result result);
 }
