@@ -27,17 +27,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jraska.falcon.Falcon;
-import com.squareup.seismic.ShakeDetector;
-
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import com.jraska.falcon.Falcon;
+import com.squareup.seismic.ShakeDetector;
+
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Listens for a shake and then starts the feedback submission flow.
@@ -58,6 +58,7 @@ public class Shaky implements ShakeDetector.Listener {
     @Nullable
     private final ShakyFlowCallback shakyFlowCallback;
 
+    @Nullable
     private Activity activity;
     private Context appContext;
     private long lastShakeTime;
@@ -264,7 +265,9 @@ public class Shaky implements ShakeDetector.Listener {
                         shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_BY_USER);
                     }
                 } else if (FeedbackActivity.ACTION_END_FEEDBACK_FLOW.equals(intent.getAction())) {
-                    delegate.submit(activity, unpackResult(intent));
+                    if (activity != null) {
+                        delegate.submit(activity, unpackResult(intent));
+                    }
                     if (shakyFlowCallback != null) {
                         shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_SUBMITTED);
                     }
