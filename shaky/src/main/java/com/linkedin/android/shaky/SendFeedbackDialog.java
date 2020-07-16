@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,8 @@ public class SendFeedbackDialog extends DialogFragment {
     public static final String ACTION_START_FEEDBACK_FLOW = "StartFeedbackFlow";
     public static final String ACTION_DIALOG_DISMISSED_BY_USER = "DialogDismissedByUser";
     public static final String SHOULD_DISPLAY_SETTING_UI = "ShouldDisplaySettingUI";
+    public static final String CUSTOM_TITLE = "CustomTitle";
+    public static final String CUSTOM_MESSAGE = "CustomMessage";
 
     private static final long DISMISS_TIMEOUT_MS = TimeUnit.SECONDS.toMillis(5);
 
@@ -54,8 +57,23 @@ public class SendFeedbackDialog extends DialogFragment {
 
         View popupView = View.inflate(getActivity().getApplicationContext(),
                                       R.layout.shaky_popup, null);
-        builder.setView(popupView);
 
+        String customTitle = getArguments().getString(CUSTOM_TITLE);
+        if (customTitle != null) {
+            TextView titleView = (TextView) popupView.findViewById(R.id.shaky_dialog_title);
+            if (titleView != null) {
+                titleView.setText(customTitle);
+            }
+        }
+        String customMessage = getArguments().getString(CUSTOM_MESSAGE);
+        if (customMessage != null) {
+            TextView messageView = (TextView) popupView.findViewById(R.id.shaky_dialog_message);
+            if (messageView != null) {
+                messageView.setText(customMessage);
+            }
+        }
+
+        builder.setView(popupView);
         builder.setPositiveButton(R.string.shaky_dialog_positive, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

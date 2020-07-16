@@ -20,6 +20,7 @@ import android.app.Activity;
 import androidx.annotation.IntDef;
 import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
 import java.lang.annotation.Retention;
@@ -62,6 +63,24 @@ public abstract class ShakeDelegate {
      */
     public boolean shouldShowSettingsUI() {
         return false;
+    }
+
+    /**
+     * @return the title of the dialog that appears on shake, or null if the default title should be
+     * used
+     */
+    @Nullable
+    public String getDialogTitle() {
+        return null;
+    }
+
+    /**
+     * @return the message of the dialog that appears on shake, or null if the default message should
+     * be used
+     */
+    @Nullable
+    public String getDialogMessage() {
+        return null;
     }
 
     /**
