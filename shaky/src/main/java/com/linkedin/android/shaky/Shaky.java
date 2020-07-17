@@ -173,6 +173,12 @@ public class Shaky implements ShakeDetector.Listener {
         }
 
         Bundle arguments = new Bundle();
+        if (delegate.getDialogTitle() != null) {
+            arguments.putString(SendFeedbackDialog.CUSTOM_TITLE, delegate.getDialogTitle());
+        }
+        if (delegate.getDialogMessage() != null) {
+            arguments.putString(SendFeedbackDialog.CUSTOM_MESSAGE, delegate.getDialogMessage());
+        }
         arguments.putBoolean(SendFeedbackDialog.SHOULD_DISPLAY_SETTING_UI, delegate.shouldShowSettingsUI());
         arguments.putInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, delegate.getSensitivityLevel());
         SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();

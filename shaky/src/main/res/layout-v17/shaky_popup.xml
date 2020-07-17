@@ -45,7 +45,8 @@
             android:textAlignment="textStart"
             android:paddingBottom="@dimen/title_padding"
             android:textSize="@dimen/title_textsize"
-            android:textColor="@color/title"/>
+            android:textColor="@color/title"
+            android:id="@+id/shaky_dialog_title"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,7 +55,8 @@
             android:gravity="start"
             android:textAlignment="textStart"
             android:textSize="@dimen/content_textsize"
-            android:textColor="@color/content"/>
+            android:textColor="@color/content"
+            android:id="@+id/shaky_dialog_message"/>
 
     </LinearLayout>
 
