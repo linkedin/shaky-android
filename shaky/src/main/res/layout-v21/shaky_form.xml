@@ -45,6 +45,13 @@
             android:paddingTop="@dimen/content_top_padding"
             tools:context=".FeedbackActivity">
 
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/section_padding"
+                android:visibility="gone"
+                android:id="@+id/subtype_spinner"/>
+
             <EditText
                 android:id="@+id/shaky_form_message"
                 android:layout_width="match_parent"

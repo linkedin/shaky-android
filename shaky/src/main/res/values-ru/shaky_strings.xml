@@ -63,4 +63,11 @@
 
     <string name="shaky_setting">Настройки</string>
     <string name="shaky_general_ok_string">ОК</string>
+
+    <string name="shaky_select_subcategory">Выберите подкатегорию</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>Сбой в работе приложения</item>
+        <item>Произошла ошибка</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Выберите подкатегорию</string>
 </resources>

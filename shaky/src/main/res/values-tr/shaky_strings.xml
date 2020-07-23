@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">Ayarlar</string>
     <string name="shaky_general_ok_string">Tamam</string>
+
+    <string name="shaky_select_subcategory">Alt kategori seç</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>Uygulama çöktü</item>
+        <item>Çalışmayan şeyler var </item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Lütfen bir alt kategori seçin</string>
 </resources>

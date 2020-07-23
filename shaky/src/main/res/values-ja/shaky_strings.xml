@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">設定</string>
     <string name="shaky_general_ok_string">OK</string>
+
+    <string name="shaky_select_subcategory">サブカテゴリーを選択</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>アプリがクラッシュした</item>
+        <item>不具合がある</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">サブカテゴリーを選択してください</string>
 </resources>

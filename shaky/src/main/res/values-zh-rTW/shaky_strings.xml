@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">設定</string>
     <string name="shaky_general_ok_string">OK</string>
+
+    <string name="shaky_select_subcategory">選擇子分類</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>App　損毀</item>
+        <item>系統出現問題</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">請選擇子分類</string>
 </resources>

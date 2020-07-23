@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">Instellingen</string>
     <string name="shaky_general_ok_string">OK</string>
+
+    <string name="shaky_select_subcategory">Subcategorie selecteren</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>De app is gecrasht</item>
+        <item>Iets doet het niet</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Selecteer een subcategorie</string>
 </resources>

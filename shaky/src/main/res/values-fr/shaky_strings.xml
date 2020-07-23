@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">Préférences</string>
     <string name="shaky_general_ok_string">OK</string>
+
+    <string name="shaky_select_subcategory">Sélectionner une sous-catégorie</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>L’appli a cessé de fonctionner</item>
+        <item>Quelque chose ne fonctionne pas</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Veuillez sélectionner une sous-catégorie.</string>
 </resources>

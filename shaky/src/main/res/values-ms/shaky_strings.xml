@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">Tetapan</string>
     <string name="shaky_general_ok_string">OK</string>
+
+    <string name="shaky_select_subcategory">Pilih subkategori</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>Aplikasi ranap</item>
+        <item>Sesuatu rosak</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Sila pilih subkategori</string>
 </resources>

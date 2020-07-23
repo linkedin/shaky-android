@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">Nastavení</string>
     <string name="shaky_general_ok_string">Ok</string>
+
+    <string name="shaky_select_subcategory">Vybrat podkategorii</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>Aplikace selhala</item>
+        <item>Něco nefunguje</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Vyberte podkategorii</string>
 </resources>

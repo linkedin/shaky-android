@@ -328,6 +328,7 @@ public class Shaky implements ShakeDetector.Listener {
         result.setScreenshotUri((Uri) intent.getParcelableExtra(FeedbackActivity.SCREENSHOT_URI));
         result.setTitle(intent.getStringExtra(FeedbackActivity.TITLE));
         result.setMessage(intent.getStringExtra(FeedbackActivity.MESSAGE));
+        result.setSubcategory(intent.getStringExtra(FeedbackActivity.SUBCATEGORY));
 
         // add file provider data to all attachments
         ArrayList<Uri> fileProviderAttachments = new ArrayList<>();
