@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">Pengaturan</string>
     <string name="shaky_general_ok_string">OKE</string>
+
+    <string name="shaky_select_subcategory">Pilih subkategori</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>Aplikasi berhenti mendadak</item>
+        <item>Terjadi kesalahan</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Silakan pilih subkategori</string>
 </resources>

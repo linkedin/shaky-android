@@ -43,6 +43,7 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String TITLE = "title";
     static final String USER_DATA = "userData";
     static final String RES_MENU = "resMenu";
+    static final String SUBCATEGORY = "subcategory";
 
     private Uri imageUri;
     private @FeedbackItem.FeedbackType int feedbackType;
@@ -125,7 +126,12 @@ public class FeedbackActivity extends AppCompatActivity {
     private void startFormFragment(@FeedbackItem.FeedbackType int feedbackType) {
         String title = getString(getTitleResId(feedbackType));
         String hint = getString(getHintResId(feedbackType));
-        changeToFragment(FormFragment.newInstance(title, hint, imageUri, resMenu));
+        String[] subtypes = null;
+        if (feedbackType == FeedbackItem.BUG) {
+            subtypes = new String[]{Subcategories.Bug.CRASH, Subcategories.Bug.NON_FATAL};
+        }
+        changeToFragment(FormFragment.newInstance(title, hint, imageUri, resMenu,
+            R.array.shaky_bug_subcategories, subtypes));
     }
 
     /**
@@ -157,18 +163,20 @@ public class FeedbackActivity extends AppCompatActivity {
             } else if (DrawFragment.ACTION_DRAWING_COMPLETE.equals(intent.getAction())) {
                 onBackPressed();
             } else if (FormFragment.ACTION_SUBMIT_FEEDBACK.equals(intent.getAction())) {
-                submitFeedbackIntent(intent.getStringExtra(FormFragment.EXTRA_USER_MESSAGE));
+                submitFeedbackIntent(intent.getStringExtra(FormFragment.EXTRA_USER_MESSAGE),
+                    intent.getStringExtra(FormFragment.EXTRA_SUBCATEGORY));
             }
         }
     };
 
-    private void submitFeedbackIntent(@Nullable String userMessage) {
+    private void submitFeedbackIntent(@Nullable String userMessage, @Nullable String subcategory) {
         Intent intent = new Intent(ACTION_END_FEEDBACK_FLOW);
 
         intent.putExtra(SCREENSHOT_URI, imageUri);
         intent.putExtra(TITLE, getString(getTitleResId(feedbackType)));
         intent.putExtra(MESSAGE, userMessage);
         intent.putExtra(USER_DATA, userData);
+        intent.putExtra(SUBCATEGORY, subcategory);
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         finish();

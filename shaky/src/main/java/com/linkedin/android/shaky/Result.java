@@ -31,6 +31,7 @@ public class Result {
     private static final String TITLE = PREFIX + ".title";
     private static final String SCREENSHOT_URI = PREFIX + ".screenshotUri";
     private static final String ATTACHMENTS = PREFIX + ".attachments";
+    private static final String SUBCATEGORY = PREFIX + ".subcategory";
 
     private final Bundle data;
     private ArrayList<Uri> attachments;
@@ -90,6 +91,15 @@ public class Result {
 
     void setAttachments(ArrayList<Uri> attachments) {
         this.attachments = attachments;
+    }
+
+    @Nullable
+    public String getSubcategory() {
+        return data.getString(SUBCATEGORY);
+    }
+
+    void setSubcategory(@Nullable String subcategory) {
+        data.putString(SUBCATEGORY, subcategory);
     }
 
     /**

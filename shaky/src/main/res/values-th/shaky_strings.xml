@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">การตั้งค่า</string>
     <string name="shaky_general_ok_string">ตกลง</string>
+
+    <string name="shaky_select_subcategory">เลือกหมวดหมู่ย่อย</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>แอปขัดข้อง</item>
+        <item>มีบางอย่างเสียหาย</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">โปรดเลือกหมวดหมู่ย่อย</string>
 </resources>

@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">Setări</string>
     <string name="shaky_general_ok_string">OK</string>
+
+    <string name="shaky_select_subcategory">Selectați o subcategorie</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>Aplicația s-a defectat</item>
+        <item>Ceva este în neregulă</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Vă rugăm să selectați o subcategorie</string>
 </resources>

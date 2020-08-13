@@ -63,4 +63,11 @@
 
     <string name="shaky_setting">Settings</string>
     <string name="shaky_general_ok_string">OK</string>
+
+    <string name="shaky_select_subcategory">Select a subcategory</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>The app crashed</item>
+        <item>Something is broken</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Please select a subcategory</string>
 </resources>

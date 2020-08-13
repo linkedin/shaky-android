@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">Indstillinger</string>
     <string name="shaky_general_ok_string">OK</string>
+
+    <string name="shaky_select_subcategory">Vælg en underkategori</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>Appen crashede.</item>
+        <item>Der gik noget galt</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">Vælg en underkategori</string>
 </resources>

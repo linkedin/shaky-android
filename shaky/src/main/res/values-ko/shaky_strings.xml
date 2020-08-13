@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">설정</string>
     <string name="shaky_general_ok_string">확인</string>
+
+    <string name="shaky_select_subcategory">하위분야 선택</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>앱 크래시</item>
+        <item>동작 오류</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">하위분야를 선택하세요</string>
 </resources>

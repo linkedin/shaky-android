@@ -64,4 +64,11 @@
 
     <string name="shaky_setting">设置</string>
     <string name="shaky_general_ok_string">确定</string>
+
+    <string name="shaky_select_subcategory">选择子类别</string>
+    <string-array name="shaky_bug_subcategories">
+        <item>APP 闪退</item>
+        <item>功能出错</item>
+    </string-array>
+    <string name="shaky_subcategory_not_selected_message">请选择子类别</string>
 </resources>
