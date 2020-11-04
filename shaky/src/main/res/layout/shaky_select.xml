@@ -15,19 +15,18 @@
   limitations under the License.
 -->
 <LinearLayout android:id="@+id/shaky_fragment"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@android:color/white"
-              android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/shakySelectBackgroundColor"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/shaky_toolbar"
-        style="@style/ToolbarStyle"
+        android:theme="?attr/shakyToolbarTheme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"/>
+        android:layout_height="wrap_content"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/shaky_recyclerView"
@@ -35,7 +34,7 @@
         android:layout_height="wrap_content"
         android:drawSelectorOnTop="true"
         android:overScrollMode="never"
-        android:paddingTop="@dimen/content_top_padding"
+        android:paddingTop="@dimen/shaky_content_top_padding"
         android:scrollbars="none"/>
 
 </LinearLayout>

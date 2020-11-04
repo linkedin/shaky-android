@@ -22,14 +22,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.ContextThemeWrapper;
 import android.view.View;
-
 import android.widget.TextView;
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Auto-dismissing dialog that prompts the user to kick-off the feedback flow.
@@ -41,6 +45,7 @@ public class SendFeedbackDialog extends DialogFragment {
     public static final String SHOULD_DISPLAY_SETTING_UI = "ShouldDisplaySettingUI";
     public static final String CUSTOM_TITLE = "CustomTitle";
     public static final String CUSTOM_MESSAGE = "CustomMessage";
+    public static final String THEME = "Theme";
 
     private static final long DISMISS_TIMEOUT_MS = TimeUnit.SECONDS.toMillis(5);
 
@@ -52,10 +57,17 @@ public class SendFeedbackDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
-                                                              R.style.AppCompatAlertDialog);
+        @StyleRes int theme = getArguments().getInt(THEME, FeedbackActivity.MISSING_RESOURCE);
+        // We have to pass some kind of theme to Alert.Builder's constructor, as the Context-only
+        // constructor makes different assumptions about the theme passed to it
+        final AlertDialog.Builder builder;
+        if (theme != FeedbackActivity.MISSING_RESOURCE) {
+            builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.ShakyBasePopupTheme), theme);
+        } else {
+            builder = new AlertDialog.Builder(getActivity(), R.style.ShakyBasePopupTheme);
+        }
 
-        View popupView = View.inflate(getActivity().getApplicationContext(),
+        View popupView = View.inflate(builder.getContext(),
                                       R.layout.shaky_popup, null);
 
         String customTitle = getArguments().getString(CUSTOM_TITLE);

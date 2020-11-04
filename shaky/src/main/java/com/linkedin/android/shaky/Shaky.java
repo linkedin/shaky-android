@@ -179,6 +179,9 @@ public class Shaky implements ShakeDetector.Listener {
         if (delegate.getDialogMessage() != null) {
             arguments.putString(SendFeedbackDialog.CUSTOM_MESSAGE, delegate.getDialogMessage());
         }
+        if (delegate.getPopupTheme() != null) {
+            arguments.putInt(SendFeedbackDialog.THEME, delegate.getPopupTheme());
+        }
         arguments.putBoolean(SendFeedbackDialog.SHOULD_DISPLAY_SETTING_UI, delegate.shouldShowSettingsUI());
         arguments.putInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, delegate.getSensitivityLevel());
         SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();
@@ -315,7 +318,11 @@ public class Shaky implements ShakeDetector.Listener {
      * Launches the main feedback activity with the bundle extra data.
      */
     private void startFeedbackActivity(@NonNull Result result) {
-        Intent intent = FeedbackActivity.newIntent(activity, result.getScreenshotUri(), result.getData(), delegate.resMenu);
+        Intent intent = FeedbackActivity.newIntent(activity,
+                result.getScreenshotUri(),
+                result.getData(),
+                delegate.resMenu,
+                delegate.getTheme() != null ? delegate.getTheme() : FeedbackActivity.MISSING_RESOURCE);
         activity.startActivity(intent);
 
         if (shakyFlowCallback != null) {

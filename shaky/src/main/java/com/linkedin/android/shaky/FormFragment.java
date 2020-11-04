@@ -29,6 +29,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AlertDialog;
@@ -59,6 +60,9 @@ public class FormFragment extends Fragment {
     private static final String KEY_MENU = "menu";
     private static final String KEY_SUBTYPE_LABELS = "subtypeLabels";
     private static final String KEY_SUBTYPES = "subtypes";
+    private static final String KEY_THEME = "theme";
+
+    @Nullable private LayoutInflater inflater;
 
     /**
      * Factory method for creating a {@link FormFragment}
@@ -73,7 +77,9 @@ public class FormFragment extends Fragment {
      * @param subtypes Subtypes of this feedback type, if subtypes apply. Must be the same length and
      *                 order as the subtype labels array from the "subtypeLabels" param
      * @return A new {@link FormFragment}
+     * @deprecated External users should not directly create {@link FormFragment}
      */
+    @Deprecated
     public static FormFragment newInstance(@NonNull String title,
                                            @NonNull String hint,
                                            @Nullable Uri screenshotUri,
@@ -104,7 +110,9 @@ public class FormFragment extends Fragment {
      * @param menu Resource ID of the "Send" icon
      *
      * @return A new {@link FormFragment}
+     * @deprecated External users should not directly create {@link FormFragment}
      */
+    @Deprecated
     public static FormFragment newInstance(@NonNull String title, @NonNull String hint,
         @Nullable Uri screenshotUri, @MenuRes int menu) {
         return newInstance(title, hint, screenshotUri, menu, null, null);
@@ -113,7 +121,9 @@ public class FormFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.shaky_form, container, false);
+        this.inflater = Utils.applyThemeToInflater(inflater,
+                getArguments().getInt(KEY_THEME, FeedbackActivity.MISSING_RESOURCE));
+        return this.inflater.inflate(R.layout.shaky_form, container, false);
     }
 
     @Override
@@ -140,7 +150,7 @@ public class FormFragment extends Fragment {
 
         String title = getArguments().getString(KEY_TITLE);
         toolbar.setTitle(title);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationIcon(R.drawable.shaky_ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(createNavigationClickListener());
         toolbar.inflateMenu(sendIconResource);
         toolbar.setOnMenuItemClickListener(createMenuClickListener(messageEditText, spinner));
@@ -212,8 +222,7 @@ public class FormFragment extends Fragment {
     }
 
     private void showAlertDialog(@NonNull String message) {
-        AlertDialog alertDialog =
-            new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialog).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(inflater.getContext()).create();
         alertDialog.setMessage(message);
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.shaky_general_ok_string),
             new DialogInterface.OnClickListener() {
@@ -254,7 +263,7 @@ public class FormFragment extends Fragment {
         public View getDropDownView(int position, @Nullable View convertView,
             @NonNull ViewGroup parent) {
             return makeTextView(adapterLabels[position], convertView, parent,
-                android.R.layout.simple_spinner_dropdown_item);
+                R.layout.shaky_spinner_item);
         }
 
         private TextView makeTextView(@NonNull CharSequence adapterLabel, @Nullable View convertView,
@@ -263,11 +272,73 @@ public class FormFragment extends Fragment {
             if (convertView != null) {
                 textView = (TextView) convertView;
             } else {
-                textView = (TextView) LayoutInflater.from(getContext())
-                    .inflate(layoutResource, parent, false);
+                textView = (TextView) inflater.inflate(layoutResource, parent, false);
             }
             textView.setText(adapterLabel);
             return textView;
+        }
+    }
+
+    static class Builder {
+        @NonNull private String title;
+        @NonNull private String hint;
+        @Nullable private Uri screenshotUri;
+        @Nullable @MenuRes private Integer menu;
+        @Nullable @ArrayRes Integer subtypeLabels;
+        @Nullable String[] subtypes;
+        @Nullable @StyleRes Integer theme;
+
+        Builder(@NonNull String title, @NonNull String hint) {
+            this.title = title;
+            this.hint = hint;
+        }
+
+        @NonNull
+        Builder setScreenshotUri(@Nullable Uri screenshotUri) {
+            this.screenshotUri = screenshotUri;
+            return this;
+        }
+
+        @NonNull
+        Builder setMenu(@Nullable @MenuRes Integer menu) {
+            this.menu = menu;
+            return this;
+        }
+
+        @NonNull
+        Builder setSubtypes(@Nullable @ArrayRes Integer subtypeLabels, @Nullable String[] subtypes) {
+            if ((subtypeLabels == null) ^ (subtypes == null)) {
+                throw new IllegalArgumentException("If one of subtypes and subtypeLables is specified the other must also be specified");
+            }
+            this.subtypeLabels = subtypeLabels;
+            this.subtypes = subtypes;
+            return this;
+        }
+
+        @NonNull
+        Builder setTheme(@Nullable @StyleRes Integer theme) {
+            this.theme = theme;
+            return this;
+        }
+
+        @NonNull
+        FormFragment build() {
+            Bundle args = new Bundle();
+            args.putParcelable(KEY_SCREENSHOT_URI, screenshotUri);
+            args.putString(KEY_TITLE, title);
+            args.putString(KEY_HINT, hint);
+            args.putInt(KEY_MENU, menu);
+            args.putStringArray(KEY_SUBTYPES, subtypes);
+            if (subtypeLabels != null) {
+                args.putInt(KEY_SUBTYPE_LABELS, subtypeLabels);
+            }
+            if (theme != null) {
+                args.putInt(KEY_THEME, theme);
+            }
+
+            FormFragment fragment = new FormFragment();
+            fragment.setArguments(args);
+            return fragment;
         }
     }
 }

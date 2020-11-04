@@ -21,6 +21,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import androidx.annotation.WorkerThread;
 
 import java.lang.annotation.Retention;
@@ -99,6 +100,26 @@ public abstract class ShakeDelegate {
      */
     public void setSensitivityLevel(@SensitivityLevel int sensitivityLevel) {
         this.sensitivityLevel = sensitivityLevel;
+    }
+
+    /**
+     * @return a custom theme to apply to the screens of the feedback flow. Look at shaky_attrs.xml
+     * for possible attributes to set
+     *
+     * @return
+     */
+    @Nullable
+    public Integer getTheme() {
+        return null;
+    }
+
+    /**
+     * @return a custom theme to apply to the pop-up that appears when the user shakes. Look at
+     * shaky_attrs.xml for possible attributes to set
+     */
+    @Nullable
+    public Integer getPopupTheme() {
+        return null;
     }
 
     /**

@@ -50,6 +50,7 @@ public class DrawFragment extends Fragment {
     private static final String TAG = DrawFragment.class.getSimpleName();
 
     private static final String KEY_IMAGE_URI = "imageUri";
+    private static final String KEY_THEME = "theme";
 
     private static final int FULL_QUALITY = 100;
 
@@ -58,10 +59,19 @@ public class DrawFragment extends Fragment {
 
     /**
      * Creates a new instance with the given image uri.
+     * @deprecated External users should not create {@link DrawFragment} directly
      */
+    @Deprecated
     public static DrawFragment newInstance(@Nullable Uri imageUri) {
+        return newInstance(imageUri, null);
+    }
+
+    static DrawFragment newInstance(@Nullable Uri imageUri, @Nullable Integer theme) {
         Bundle args = new Bundle();
         args.putParcelable(KEY_IMAGE_URI, imageUri);
+        if (theme != null) {
+            args.putInt(KEY_THEME, theme);
+        }
 
         DrawFragment fragment = new DrawFragment();
         fragment.setArguments(args);
@@ -71,6 +81,8 @@ public class DrawFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        inflater = Utils.applyThemeToInflater(inflater,
+                getArguments().getInt(KEY_THEME, FeedbackActivity.MISSING_RESOURCE));
         return inflater.inflate(R.layout.shaky_draw, container, false);
     }
 

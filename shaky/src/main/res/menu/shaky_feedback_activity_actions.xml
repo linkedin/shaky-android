@@ -18,7 +18,7 @@
       xmlns:compat="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_submit"
-          android:icon="@drawable/ic_send_white_24dp"
+          android:icon="@drawable/shaky_ic_send_white_24dp"
           android:title="@string/shaky_form_submit"
           compat:showAsAction="always" />
 

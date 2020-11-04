@@ -31,7 +31,7 @@ public class CollectDataDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ProgressDialog dialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialog) {
+        ProgressDialog dialog = new ProgressDialog(getActivity()) {
             @Override
             public void onBackPressed() {
                 // don't call super, so the back button won't close the dialog

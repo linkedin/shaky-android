@@ -4,4 +4,5 @@
     <string name="manual_feedback_trigger" translatable="false">Manually start feedback</string>
     <string name="show_toast" translatable="false">Show Toast</string>
     <string name="toast_text" translatable="false">This is a toast.</string>
+    <string name="christmas_theme" translatable="false">Use Christmas theme</string>
 </resources>

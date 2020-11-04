@@ -22,9 +22,12 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.FileProvider;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
@@ -131,5 +134,17 @@ final class Utils {
     static Uri getProviderUri(@NonNull Context context, @NonNull Uri uri) {
         File file = new File(uri.getPath());
         return getProviderUri(context, file);
+    }
+
+    /**
+     * Return a new {@link android.view.LayoutInflater} that uses the given theme if the theme is valid,
+     * or the given inflater otherwise
+     */
+    @NonNull
+    static LayoutInflater applyThemeToInflater(@NonNull LayoutInflater inflater, @StyleRes int theme) {
+        if (theme != FeedbackActivity.MISSING_RESOURCE) {
+            return inflater.cloneInContext(new ContextThemeWrapper(inflater.getContext(), theme));
+        }
+        return inflater;
     }
 }
