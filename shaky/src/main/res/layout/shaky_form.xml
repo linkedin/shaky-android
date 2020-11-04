@@ -15,19 +15,17 @@
   limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@android:color/white"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/shakyFormBackgroundColor"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/shaky_toolbar"
-        style="@style/ToolbarStyle"
+        android:theme="?attr/shakyToolbarTheme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"/>
+        android:layout_height="wrap_content"/>
 
     <ScrollView
         android:id="@+id/shaky_scrollView"
@@ -39,51 +37,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:focusable="true"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/content_area_padding"
-            android:paddingRight="@dimen/content_area_padding"
-            android:paddingTop="@dimen/content_top_padding"
+            android:paddingLeft="@dimen/shaky_content_area_padding"
+            android:paddingRight="@dimen/shaky_content_area_padding"
+            android:paddingTop="@dimen/shaky_content_top_padding"
             tools:context=".FeedbackActivity">
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/section_padding"
+                android:layout_marginBottom="@dimen/shaky_section_padding"
+                android:theme="@style/ShakyBaseSpinnerTheme"
                 android:visibility="gone"
                 android:id="@+id/subtype_spinner"/>
 
             <EditText
                 android:id="@+id/shaky_form_message"
+                android:theme="@style/ShakyBaseEditTextTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="top"
                 android:hint="@string/shaky_message_hint"
                 android:inputType="textCapSentences|textMultiLine"
                 android:scrollbars="vertical"
-                android:textColor="@color/dark_gray"/>
+                android:textColor="?attr/shakyFormEditTextTextColor"
+                android:textColorHint="?attr/shakyFormEditTextHintColor" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/section_padding"
+                android:layout_marginTop="@dimen/shaky_section_padding"
                 android:clipToPadding="false"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/shaky_form_attachment"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/screenshot_height"
+                    android:layout_height="@dimen/shaky_screenshot_height"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
                     android:background="@android:color/white"
                     android:clickable="true"
-                    android:contentDescription="@string/shaky_image_action"/>
+                    android:focusable="true"
+                    android:contentDescription="@string/shaky_image_action"
+                    android:elevation="@dimen/shaky_soft_shadow"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/shaky_image_action"
+                    android:textColor="?attr/shakyContentColor"
                     android:gravity="start"
-                    android:layout_marginTop="@dimen/content_top_padding"
+                    android:textAlignment="textStart"
+                    android:layout_marginTop="@dimen/shaky_content_top_padding"
                     android:layout_gravity="center_horizontal"/>
 
             </LinearLayout>

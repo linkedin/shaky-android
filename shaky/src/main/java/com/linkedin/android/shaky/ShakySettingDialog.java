@@ -31,8 +31,7 @@ public class ShakySettingDialog extends DialogFragment {
 
         currentSensitivityLevel = getArguments().getInt(SHAKY_CURRENT_SENSITIVITY);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
-                R.style.AppCompatAlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle(getResources().getString(R.string.shaky_sensor_sensitivity));
         final Intent intent = new Intent(UPDATE_SHAKY_SENSITIVITY);

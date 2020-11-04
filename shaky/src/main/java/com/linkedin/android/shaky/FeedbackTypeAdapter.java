@@ -37,8 +37,8 @@ class FeedbackTypeAdapter extends RecyclerView.Adapter<FeedbackTypeAdapter.RowVi
     private final LayoutInflater inflater;
     private final FeedbackItem[] itemsList;
 
-    FeedbackTypeAdapter(@NonNull Context context, @NonNull FeedbackItem[] itemsList) {
-        this.inflater = LayoutInflater.from(context);
+    FeedbackTypeAdapter(@NonNull LayoutInflater inflater, @NonNull FeedbackItem[] itemsList) {
+        this.inflater = inflater;
         this.itemsList = itemsList;
     }
 

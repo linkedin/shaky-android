@@ -18,24 +18,23 @@
 			  xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="?attr/selectableItemBackground"
               android:clickable="true"
               android:focusable="true"
               android:gravity="center_vertical"
               android:minHeight="?android:attr/listPreferredItemHeight"
               android:orientation="horizontal"
-              android:padding="@dimen/button_padding">
+              android:padding="@dimen/shaky_button_padding">
 
     <ImageView
         android:id="@+id/shaky_row_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/icon_padding"
+        android:layout_margin="@dimen/shaky_icon_padding"
         android:adjustViewBounds="true"
         android:gravity="center_vertical"
         android:scaleType="centerInside"
 		tools:ignore="ContentDescription"
-        android:src="@drawable/img_lightbulb_56dp"/>
+        android:src="@drawable/shaky_img_lightbulb_56dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,11 +45,12 @@
             android:id="@+id/shaky_row_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/row_textspacing"
+            android:layout_marginBottom="@dimen/shaky_row_textspacing"
             android:gravity="start"
+            android:textAlignment="textStart"
             android:text="@string/shaky_row1_title"
-            android:textColor="@color/dark_gray"
-            android:textSize="@dimen/row_title_textsize"/>
+            android:textColor="?attr/shakyCategoryListItemTitleColor"
+            android:textSize="@dimen/shaky_row_title_textsize"/>
 
         <TextView
             android:id="@+id/shaky_row_description"
@@ -58,7 +58,8 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:gravity="start"
+            android:textAlignment="textStart"
             android:text="@string/shaky_row3_subtitle"
-            android:textColor="@color/gray"/>
+            android:textColor="?attr/shakyCategoryListItemSubtitleColor"/>
     </LinearLayout>
 </LinearLayout>

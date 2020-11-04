@@ -28,6 +28,8 @@ android {
         // https://issuetracker.google.com/issues/118518625
         disable 'WrongThread'
     }
+
+    resourcePrefix 'shaky_'
 }
 
 dependencies {

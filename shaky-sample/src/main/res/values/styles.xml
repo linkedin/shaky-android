@@ -11,4 +11,38 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="ShakyChristmasToolbarTheme" parent="@style/ShakyBaseToolbarTheme">
+        <item name="android:background">@color/red</item>
+    </style>
+
+    <style name="ShakyChristmasAlertDialogTheme" parent="ShakyBaseAlertDialogTheme" >
+        <item name="android:colorBackground">@color/green</item>
+        <item name="android:colorAccent">@color/light_red</item>
+    </style>
+
+    <style name="ShakyChristmasImageEditorButtonTheme" parent="ShakyBaseImageEditorButtonTheme">
+        <item name="android:backgroundTint">@color/red</item>
+    </style>
+
+    <style name="ShakyChristmasTheme">
+        <item name="shakyBackgroundColor">@color/green</item>
+        <item name="shakyToolbarTheme">@style/ShakyChristmasToolbarTheme</item>
+        <item name="shakyImageEditorBackgroundColor">@color/green</item>
+        <item name="shakyTitleColor">@android:color/white</item>
+        <item name="shakyContentColor">@android:color/white</item>
+        <item name="shakyImageEditorButtonTheme">@style/ShakyChristmasImageEditorButtonTheme</item>
+        <item name="shakyFormEditTextAccentColor">@color/red</item>
+        <item name="shakyFormEditTextTextColor">@android:color/white</item>
+        <item name="shakyFormDropdownTextColor">@android:color/white</item>
+        <item name="shakyFormDropdownBackgroundColor">@color/red</item>
+        <item name="shakyAlertDialogTheme">@style/ShakyChristmasAlertDialogTheme</item>
+    </style>
+
+    <style name="ShakyChristmasPopupTheme" parent="">
+        <item name="shakyPopupBackgroundColor">@color/green</item>
+        <item name="shakyPopupButtonColor">@color/light_red</item>
+        <item name="shakyPopupTitleColor">@android:color/white</item>
+        <item name="shakyPopupContentColor">@android:color/white</item>
+    </style>
+
 </resources>

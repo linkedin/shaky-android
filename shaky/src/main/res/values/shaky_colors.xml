@@ -15,11 +15,7 @@
   limitations under the License.
 -->
 <resources>
-    <item name="dark_gray" type="color">#313335</item>
-    <item name="gray" type="color">#86888A</item>
-    <item name="accent_blue" type="color">#00A0DC</item>
-
-    <!-- theme settings -->
-    <item name="content" type="color">@color/gray</item>
-    <item name="title" type="color">@color/dark_gray</item>
+    <item name="shaky_dark_gray" type="color">#313335</item>
+    <item name="shaky_gray" type="color">#86888A</item>
+    <item name="shaky_blue" type="color">#00A0DC</item>
 </resources>

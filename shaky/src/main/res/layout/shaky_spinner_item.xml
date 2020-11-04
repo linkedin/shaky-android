@@ -1,8 +1,8 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?android:attr/spinnerItemStyle"
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?android:attr/spinnerDropDownItemStyle"
     android:singleLine="true"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?attr/dropdownListPreferredItemHeight"
     android:ellipsize="marquee"
     android:textAlignment="inherit"
-    android:textColor="@color/dark_gray"/>
+    android:textColor="?attr/shakyFormDropdownTextColor"/>

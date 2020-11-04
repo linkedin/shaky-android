@@ -24,6 +24,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -44,21 +45,26 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String USER_DATA = "userData";
     static final String RES_MENU = "resMenu";
     static final String SUBCATEGORY = "subcategory";
+    static final String THEME = "theme";
+    static final int MISSING_RESOURCE = 0;
 
     private Uri imageUri;
     private @FeedbackItem.FeedbackType int feedbackType;
     private Bundle userData;
     private @MenuRes int resMenu;
+    private @StyleRes Integer customTheme;
 
     @NonNull
     public static Intent newIntent(@NonNull Context context,
                                    @Nullable Uri screenshotUri,
                                    @Nullable Bundle userData,
-                                   @MenuRes int resMenu) {
+                                   @MenuRes int resMenu,
+                                   @StyleRes int theme) {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
         intent.putExtra(RES_MENU, resMenu);
+        intent.putExtra(THEME, theme);
         return intent;
     }
 
@@ -66,8 +72,11 @@ public class FeedbackActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTheme(R.style.ShakyBaseTheme);
+
         setContentView(R.layout.shaky_feedback);
 
+        customTheme = getIntent().getIntExtra(THEME, MISSING_RESOURCE);
         imageUri = getIntent().getParcelableExtra(SCREENSHOT_URI);
         userData = getIntent().getBundleExtra(USER_DATA);
         resMenu = getIntent().getIntExtra(RES_MENU, FormFragment.DEFAULT_MENU);
@@ -75,7 +84,7 @@ public class FeedbackActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.shaky_fragment_container, new SelectFragment())
+                    .add(R.id.shaky_fragment_container, SelectFragment.newInstance(customTheme))
                     .commit();
         }
     }
@@ -130,15 +139,19 @@ public class FeedbackActivity extends AppCompatActivity {
         if (feedbackType == FeedbackItem.BUG) {
             subtypes = new String[]{Subcategories.Bug.CRASH, Subcategories.Bug.NON_FATAL};
         }
-        changeToFragment(FormFragment.newInstance(title, hint, imageUri, resMenu,
-            R.array.shaky_bug_subcategories, subtypes));
+        changeToFragment(new FormFragment.Builder(title, hint)
+                .setScreenshotUri(imageUri)
+                .setMenu(resMenu)
+                .setSubtypes(subtypes != null ? R.array.shaky_bug_subcategories : null, subtypes)
+                .setTheme(customTheme)
+                .build());
     }
 
     /**
      * Swap the view container for a draw fragment, restores the previous fragment if one exists.
      */
     private void startDrawFragment() {
-        changeToFragment(DrawFragment.newInstance(imageUri));
+        changeToFragment(DrawFragment.newInstance(imageUri, customTheme));
     }
 
     private void setFeedbackType(@FeedbackItem.FeedbackType int feedbackType) {

@@ -16,9 +16,11 @@
 package com.linkedin.android.shaky.app;
 
 import android.app.Activity;
+import android.app.Application;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -37,6 +39,23 @@ public class ShakyDemo extends Activity {
         Random random = new Random();
         int color = Color.rgb(random.nextInt(RGB_MAX), random.nextInt(RGB_MAX), random.nextInt(RGB_MAX));
         tv.setBackgroundColor(color);
+
+        findViewById(R.id.theme_checkbox).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof CheckBox) {
+                    CheckBox checkBox = (CheckBox) v;
+                    ShakyApplication application = (ShakyApplication) getApplication();
+                    if (checkBox.isChecked()) {
+                        application.setShakyTheme(R.style.ShakyChristmasTheme);
+                        application.setShakyPopupTheme(R.style.ShakyChristmasPopupTheme);
+                    } else {
+                        application.setShakyTheme(null);
+                        application.setShakyPopupTheme(null);
+                    }
+                }
+            }
+        });
 
         findViewById(R.id.toast_button).setOnClickListener(new View.OnClickListener() {
             @Override

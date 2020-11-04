@@ -16,23 +16,22 @@
 -->
 <resources>
     <!-- padding -->
-    <dimen name="content_area_padding">24dp</dimen>
-    <dimen name="title_padding">20dp</dimen>
-    <dimen name="button_padding">8dp</dimen>
-    <dimen name="content_top_padding">8dp</dimen>
-    <dimen name="section_padding">16dp</dimen>
-
-    <dimen name="screenshot_height">200dp</dimen>
+    <dimen name="shaky_content_area_padding">24dp</dimen>
+    <dimen name="shaky_title_padding">20dp</dimen>
+    <dimen name="shaky_button_padding">8dp</dimen>
+    <dimen name="shaky_content_top_padding">8dp</dimen>
+    <dimen name="shaky_section_padding">16dp</dimen>
+    <dimen name="shaky_icon_padding">8dp</dimen>
 
     <!-- textsize -->
-    <dimen name="title_textsize">20sp</dimen>
-    <dimen name="content_textsize">16sp</dimen>
+    <dimen name="shaky_title_textsize">20sp</dimen>
+    <dimen name="shaky_content_textsize">16sp</dimen>
+    <dimen name="shaky_row_title_textsize">18sp</dimen>
+    <dimen name="shaky_row_textspacing">2sp</dimen>
 
-    <dimen name="row_title_textsize">18sp</dimen>
-    <dimen name="row_textspacing">2sp</dimen>
-    <dimen name="icon_padding">8dp</dimen>
+    <dimen name="shaky_screenshot_height">200dp</dimen>
 
-    <dimen name="soft_shadow">2dp</dimen>
+    <dimen name="shaky_soft_shadow">2dp</dimen>
 
-    <dimen name="frame_width">4dp</dimen>
+    <dimen name="shaky_frame_width">4dp</dimen>
 </resources>

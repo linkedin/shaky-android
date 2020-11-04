@@ -15,12 +15,69 @@
   limitations under the License.
 -->
 <resources>
-    <style name="AppCompatAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/accent_blue</item>
+
+    <style name="ShakyBaseAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorBackground">?attr/shakyBackgroundColor</item>
+        <item name="android:textColorPrimary">?attr/shakyTitleColor</item>
+        <item name="android:colorAccent">@color/shaky_blue</item>
     </style>
 
-    <style name="ToolbarStyle" parent="">
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    <style name="ShakyBaseEditTextTheme">
+        <item name="colorAccent">?attr/shakyFormEditTextAccentColor</item>
+        <item name="android:backgroundTint">?attr/shakyFormEditTextAccentColor</item>
+    </style>
+
+    <style name="ShakyBaseSpinnerTheme">
+        <item name="android:backgroundTint">?attr/shakyFormDropdownBackgroundColor</item>
+    </style>
+
+    <style name="ShakyBaseToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:background">@color/shaky_blue</item>
+    </style>
+
+    <style name="ShakyBaseImageEditorButtonTheme">
+        <item name="android:backgroundTint">@color/shaky_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ShakyBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Common -->
+        <item name="shakyBackgroundColor">@android:color/white</item>
+        <item name="shakyTitleColor">@color/shaky_dark_gray</item>
+        <item name="shakyContentColor">@color/shaky_gray</item>
+        <item name="shakyToolbarTheme">@style/ShakyBaseToolbarTheme</item>
+
+        <!-- Category Select -->
+        <item name="shakySelectBackgroundColor">?attr/shakyBackgroundColor</item>
+        <item name="shakyCategoryListItemTitleColor">?attr/shakyTitleColor</item>
+        <item name="shakyCategoryListItemSubtitleColor">?attr/shakyContentColor</item>
+
+        <!-- Image Editor -->
+        <item name="shakyImageEditorBackgroundColor">@color/shaky_gray</item>
+        <item name="shakyImageEditorButtonTheme">@style/ShakyBaseImageEditorButtonTheme</item>
+
+        <!-- Feedback Form -->
+        <item name="shakyFormBackgroundColor">?attr/shakyBackgroundColor</item>
+        <item name="shakyFormDropdownTextColor">@color/shaky_dark_gray</item>
+        <item name="shakyFormDropdownBackgroundColor">?attr/shakyBackgroundColor</item>
+        <item name="shakyFormEditTextTextColor">@color/shaky_dark_gray</item>
+        <item name="shakyFormEditTextHintColor">@color/shaky_gray</item>
+        <item name="shakyFormEditTextAccentColor">@color/shaky_blue</item>
+
+        <!-- AlertDialog -->
+        <item name="shakyAlertDialogTheme">@style/ShakyBaseAlertDialogTheme</item>
+        <item name="alertDialogTheme">?attr/shakyAlertDialogTheme</item>
+    </style>
+
+    <style name="ShakyBasePopupTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Shake Pop-up -->
+        <item name="shakyPopupBackgroundColor">@android:color/white</item>
+        <item name="shakyPopupTitleColor">@color/shaky_dark_gray</item>
+        <item name="shakyPopupContentColor">@color/shaky_gray</item>
+        <item name="shakyPopupButtonColor">@color/shaky_blue</item>
+        <item name="colorAccent">?attr/shakyPopupButtonColor</item>
+        <item name="colorBackgroundFloating">?attr/shakyPopupBackgroundColor</item>
     </style>
 </resources>
