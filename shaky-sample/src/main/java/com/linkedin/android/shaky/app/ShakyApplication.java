@@ -52,6 +52,12 @@ public class ShakyApplication extends Application {
                 return popupTheme;
             }
 
+            @Nullable
+            @Override
+            public String getSelectScreenSubtitle() {
+                return "Did you encounter a problem? You can turn on \"Shake to send feedback\" " +
+                        "below and shake your device where the problem was to take a screenshot";
+            }
         }, new ShakyFlowCallback() {
             @Override
             public void onShakyStarted(@ShakyFlowCallback.ShakyStartedReason int reason) {

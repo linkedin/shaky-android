@@ -53,7 +53,8 @@ public abstract class ShakeDelegate {
     @MenuRes protected int resMenu = FormFragment.DEFAULT_MENU;
 
     /**
-     * @return true if shake detection should be enabled, false otherwise
+     * @return true if shake detection should be enabled, false otherwise. If enabled, the user can
+     * still turn off shaking through the UI. If disabled, UI to toggle shaking won't be shown.
      */
     public boolean isEnabled() {
         return true;
@@ -119,6 +120,22 @@ public abstract class ShakeDelegate {
      */
     @Nullable
     public Integer getPopupTheme() {
+        return null;
+    }
+
+    /**
+     * @return the title of the category select screen, or null if the default title should be shown
+     */
+    @Nullable
+    public String getSelectScreenTitle() {
+        return null;
+    }
+
+    /**
+     * @return the subtitle of the category select screen, or null if no subtitle should be shown
+     */
+    @Nullable
+    public String getSelectScreenSubtitle() {
         return null;
     }
 

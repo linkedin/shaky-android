@@ -51,8 +51,11 @@
 
         <!-- Category Select -->
         <item name="shakySelectBackgroundColor">?attr/shakyBackgroundColor</item>
+        <item name="shakySelectTitleColor">?attr/shakyTitleColor</item>
+        <item name="shakySelectSubtitleColor">?attr/shakyContentColor</item>
         <item name="shakyCategoryListItemTitleColor">?attr/shakyTitleColor</item>
         <item name="shakyCategoryListItemSubtitleColor">?attr/shakyContentColor</item>
+        <item name="shakyCategoryListDividerColor">?attr/shakyCategoryListItemSubtitleColor</item>
 
         <!-- Image Editor -->
         <item name="shakyImageEditorBackgroundColor">@color/shaky_gray</item>
