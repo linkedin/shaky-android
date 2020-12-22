@@ -1,5 +1,12 @@
 # Change Log
 
+## Version 3.0.0 (2020-12-22)
+
+- Add ability to customize title and message of shaky dialog [#43](https://github.com/linkedin/shaky-android/pull/43)
+- Add subcategories for Bug feedback type [#44](https://github.com/linkedin/shaky-android/pull/44)
+- Make UI themeable [#47](https://github.com/linkedin/shaky-android/pull/47)
+- Bump minSdk to 21 [#47](https://github.com/linkedin/shaky-android/pull/47)
+
 ## Version 2.0.3 (2020-04-01)
 
 - Fix calling nullable activity directly in broadcast receiver [#37]((https://github.com/linkedin/shaky-android/pull/37)
