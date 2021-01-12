@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- LinkedIn Color theme -->
         <!-- https://brand.linkedin.com/visual-identity/color-palettes -->
         <item name="colorAccent">@color/blue</item>
