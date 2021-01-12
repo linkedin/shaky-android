@@ -69,6 +69,7 @@
         <!-- AlertDialog -->
         <item name="shakyAlertDialogTheme">@style/ShakyBaseAlertDialogTheme</item>
         <item name="alertDialogTheme">?attr/shakyAlertDialogTheme</item>
+        <item name="materialAlertDialogTheme">?attr/shakyAlertDialogTheme</item>
     </style>
 
     <style name="ShakyBasePopupTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
