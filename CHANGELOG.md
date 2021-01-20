@@ -1,6 +1,9 @@
 # Change Log
 
 ## Version 3.0.0 (2020-12-22)
+- Fix alert dialog styling by setting "materialAlertDialogTheme" [#51](https://github.com/linkedin/shaky-android/pull/51)
+
+## Version 3.0.0 (2020-12-22)
 
 - Add ability to customize title and message of shaky dialog [#43](https://github.com/linkedin/shaky-android/pull/43)
 - Add subcategories for Bug feedback type [#44](https://github.com/linkedin/shaky-android/pull/44)
