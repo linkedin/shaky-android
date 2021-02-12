@@ -1,5 +1,5 @@
 # Shaky
-[![Build Status](https://travis-ci.org/linkedin/shaky-android.svg?branch=master)](https://travis-ci.org/linkedin/shaky-android)
+[![Build Status](https://img.shields.io/github/workflow/status/linkedin/shaky-android/Merge%20checks)](https://img.shields.io/github/workflow/status/linkedin/shaky-android/Merge%20checks)
 
 Shake-to-feedback plugin for Android.
 
