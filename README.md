@@ -80,3 +80,19 @@ to collect extra app data including device logs, user data, etc. You will also n
 
 If you want to programmatically trigger the feedback collection flow, rather than listening for shake events, you can call `Shaky#startFeedbackFlow()` on the
 object returned by `Shaky.with()`. See the demo app for a full example of how to do this.
+
+## Snapshots
+
+You can use snapshot builds to test the latest unreleased changes. A new snapshot is published
+after every merge to the main branch by the [Deploy Snapshot Github Action workflow](.github/workflows/deploy-snapshot.yml).
+
+Just add the Sonatype snapshot repository to your Gradle scripts:
+```gradle
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+```
+
+You can find the latest snapshot version to use in the [gradle.properties](gradle.properties) file.

@@ -1,8 +1,5 @@
-apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
-
-group = GROUP_ID
+apply from: "$rootDir/gradle/publishing.gradle"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -23,10 +20,6 @@ android {
 
     lintOptions {
         abortOnError true
-
-        // Lint check is catching false positives. Fixed in AGP 3.4
-        // https://issuetracker.google.com/issues/118518625
-        disable 'WrongThread'
     }
 
     resourcePrefix 'shaky_'
@@ -44,81 +37,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.19.0'
     testImplementation 'org.robolectric:robolectric:3.7.1'
-}
-
-version = VERSION_NAME
-
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-publishing {
-    publications {
-        aar(MavenPublication) {
-
-            artifact("$buildDir/outputs/aar/${project.getName()}-release.aar") {
-                builtBy assemble
-            }
-            artifact sourcesJar
-            artifact javadocJar
-
-            pom.withXml {
-                asNode().children().last() + {
-                    resolveStrategy = Closure.DELEGATE_FIRST
-
-                    description = LIBRARY_DESCRIPTION
-                    url 'https://github.com/linkedin/shaky-android'
-                    scm {
-                        url 'https://github.com/linkedin/shaky-android'
-                        connection 'scm:git:git://github.com/linkedin/shaky-android.git'
-                        developerConnection 'https://github.com/linkedin/shaky-android.git'
-                    }
-                    licenses {
-                        license {
-                            name 'The Apache Software License, Version 2.0'
-                            url 'http://www.apache.org/license/LICENSE-2.0.txt'
-                            distribution 'repo'
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id 'com.linkedin'
-                            name 'LinkedIn Corp.'
-                            email ''
-                        }
-                    }
-
-                    dependencies {
-                        configurations.implementation.allDependencies.each { ModuleDependency dp ->
-                            dependency {
-                                resolveStrategy = Closure.DELEGATE_ONLY
-                                groupId dp.group
-                                artifactId dp.name
-                                version dp.version
-                            }
-                        }
-                    }
-                }
-            }
-
-            //For local debugging of maven publications run './gradlew publish' and check 'build/repo'
-            repositories {
-                maven {
-                    url = "$rootProject.buildDir/repo"
-                }
-            }
-        }
-    }
 }
