@@ -1,6 +1,9 @@
 # Change Log
 
-## Version 3.0.0 (2020-12-22)
+## Version 3.0.2 (2020-02-17)
+- First Maven Central release [#56](https://github.com/linkedin/shaky-android/pull/56)
+
+## Version 3.0.1 (2020-12-22)
 - Fix alert dialog styling by setting "materialAlertDialogTheme" [#51](https://github.com/linkedin/shaky-android/pull/51)
 
 ## Version 3.0.0 (2020-12-22)
@@ -12,7 +15,7 @@
 
 ## Version 2.0.3 (2020-04-01)
 
-- Fix calling nullable activity directly in broadcast receiver [#37]((https://github.com/linkedin/shaky-android/pull/37)
+- Fix calling nullable activity directly in broadcast receiver [#37](https://github.com/linkedin/shaky-android/pull/37)
 - Adding the option to customize the send icon [#38](https://github.com/linkedin/shaky-android/pull/38)
 - Added callback during the feedback submission flow [#40](https://github.com/linkedin/shaky-android/pull/40)
 
