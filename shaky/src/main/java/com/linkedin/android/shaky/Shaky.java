@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
@@ -36,6 +37,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.jraska.falcon.Falcon;
 import com.squareup.seismic.ShakeDetector;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -47,6 +50,16 @@ import java.util.concurrent.TimeUnit;
  * flow will be terminated.
  */
 public class Shaky implements ShakeDetector.Listener {
+
+    public static final int SHAKE_ON = 25;
+    public static final int SHAKE_OFF = 26;
+
+    @IntDef({
+            SHAKE_ON,
+            SHAKE_OFF
+    })
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ShakeDetectionStatus {}
 
     private static final String SEND_FEEDBACK_TAG = "SendFeedback";
     private static final String COLLECT_DATA_TAG = "CollectFeedbackData";
@@ -62,6 +75,7 @@ public class Shaky implements ShakeDetector.Listener {
     private Activity activity;
     private Context appContext;
     private long lastShakeTime;
+    private boolean shakeTurnedOn = true;
     private CollectDataTask collectDataTask;
 
     Shaky(@NonNull Context context, @NonNull ShakeDelegate delegate, @Nullable ShakyFlowCallback callback) {
@@ -78,6 +92,7 @@ public class Shaky implements ShakeDetector.Listener {
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
         filter.addAction(FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER);
         filter.addAction(ShakySettingDialog.UPDATE_SHAKY_SENSITIVITY);
+        filter.addAction(SelectFragment.UPDATE_SHAKE_DETECTION_STATUS);
         LocalBroadcastManager.getInstance(appContext).registerReceiver(createReceiver(), filter);
     }
 
@@ -120,6 +135,10 @@ public class Shaky implements ShakeDetector.Listener {
     public void setSensitivity(@ShakeDelegate.SensitivityLevel int sensitivityLevel) {
         delegate.setSensitivityLevel(sensitivityLevel);
         shakeDetector.setSensitivity(getDetectorSensitivityLevel());
+    }
+
+    public void setShakeStatus(@ShakeDetectionStatus int status) {
+        shakeTurnedOn = status == SHAKE_ON;
     }
 
     void setActivity(@Nullable Activity activity) {
@@ -193,10 +212,14 @@ public class Shaky implements ShakeDetector.Listener {
     }
 
     /**
-     * @return true if a shake happened in the last {@link #SHAKE_COOLDOWN_MS}, false otherwise.
+     * @return true if a shake happened in the last {@link #SHAKE_COOLDOWN_MS} or shake detection
+     * is disabled, or false otherwise
      */
     @VisibleForTesting
     boolean shouldIgnoreShake() {
+        if (!shakeTurnedOn) {
+            return true;
+        }
         long now = System.currentTimeMillis();
         if (now < lastShakeTime + SHAKE_COOLDOWN_MS) {
             if (shakyFlowCallback != null) {
@@ -285,6 +308,8 @@ public class Shaky implements ShakeDetector.Listener {
                     if (shakyFlowCallback != null) {
                         shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_SENSITIVITY_UPDATED);
                     }
+                } else if (SelectFragment.UPDATE_SHAKE_DETECTION_STATUS.equals(intent.getAction())) {
+                    shakeTurnedOn = intent.getBooleanExtra(SelectFragment.SHAKE_TURNED_ON, false);
                 }
             }
         };
@@ -322,7 +347,9 @@ public class Shaky implements ShakeDetector.Listener {
                 result.getScreenshotUri(),
                 result.getData(),
                 delegate.resMenu,
-                delegate.getTheme() != null ? delegate.getTheme() : FeedbackActivity.MISSING_RESOURCE);
+                delegate.getTheme() != null ? delegate.getTheme() : FeedbackActivity.MISSING_RESOURCE,
+                delegate.getSelectScreenTitle(),
+                delegate.getSelectScreenSubtitle(), true, true);
         activity.startActivity(intent);
 
         if (shakyFlowCallback != null) {

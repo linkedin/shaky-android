@@ -15,11 +15,14 @@
  */
 package com.linkedin.android.shaky;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -27,23 +30,41 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 
 /**
  * Kicks off the feedback flow, pretty selector to choose the type of feedback.
  */
 public class SelectFragment extends Fragment {
 
+    public static final String UPDATE_SHAKE_DETECTION_STATUS = "UpdateShakeDetectionStatus";
+    public static final String SHAKE_TURNED_ON = "ShakeTurnedOn";
+
     private static final String KEY_THEME = "theme";
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_SUBTITLE = "subtitle";
+    private static final String KEY_SHAKE_TURNED_ON = "shakeTurnedOn";
+    private static final String KEY_SHAKE_ENABLED = "shakeEnabled";
 
     @Nullable private LayoutInflater inflater;
 
     @NonNull
-    static SelectFragment newInstance(@Nullable @StyleRes Integer theme) {
+    static SelectFragment newInstance(@Nullable @StyleRes Integer theme,
+                                      @Nullable String title,
+                                      @Nullable String subtitle,
+                                      boolean shakeTurnedOn,
+                                      boolean shakeEnabled) {
         SelectFragment fragment = new SelectFragment();
         Bundle args = new Bundle();
         if (theme != null) {
             args.putInt(KEY_THEME, theme);
         }
+        args.putString(KEY_TITLE, title);
+        args.putString(KEY_SUBTITLE, subtitle);
+        args.putBoolean(KEY_SHAKE_TURNED_ON, shakeTurnedOn);
+        args.putBoolean(KEY_SHAKE_ENABLED, shakeEnabled);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,6 +86,8 @@ public class SelectFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.shaky_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL));
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.shaky_toolbar);
         toolbar.setTitle(R.string.shaky_feedback_title);
@@ -75,6 +98,34 @@ public class SelectFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+
+        TextView title = view.findViewById(R.id.shaky_select_title);
+        String customTitle = getArguments().getString(KEY_TITLE);
+        if (customTitle != null) {
+            title.setText(customTitle);
+        }
+
+        TextView subtitle = view.findViewById(R.id.shaky_select_subtitle);
+        String customSubtitle = getArguments().getString(KEY_SUBTITLE);
+        if (customSubtitle != null) {
+            subtitle.setText(customSubtitle);
+            subtitle.setVisibility(View.VISIBLE);
+        }
+
+        Switch shakeToggle = view.findViewById(R.id.shaky_select_shake_switch);
+        shakeToggle.setChecked(getArguments().getBoolean(KEY_SHAKE_TURNED_ON, false));
+        if (getArguments().getBoolean(KEY_SHAKE_ENABLED)) {
+            shakeToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Intent intent = new Intent(UPDATE_SHAKE_DETECTION_STATUS);
+                    intent.putExtra(SHAKE_TURNED_ON, isChecked);
+                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+                }
+            });
+        } else {
+            shakeToggle.setVisibility(View.GONE);
+        }
     }
 
     @NonNull
