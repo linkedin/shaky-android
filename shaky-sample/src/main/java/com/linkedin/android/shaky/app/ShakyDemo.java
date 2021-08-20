@@ -60,7 +60,7 @@ public class ShakyDemo extends Activity {
         findViewById(R.id.toast_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), R.string.toast_text, Toast.LENGTH_LONG).show();
+                StyleableToast.Builder(v.getContext()).text(R.string.toast_text).textColor(Color.WHITE).backgroundColor(Color.parseColor("#0077B5")).show();
             }
         });
 
