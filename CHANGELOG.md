@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 3.0.3 (2020-10-19)
+- Rename "master" to "main"
+- Update seismic library and change to use sensor delay normal
+
 ## Version 3.0.2 (2020-02-17)
 - First Maven Central release [#56](https://github.com/linkedin/shaky-android/pull/56)
 
