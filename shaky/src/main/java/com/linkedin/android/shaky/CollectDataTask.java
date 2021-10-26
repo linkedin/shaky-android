@@ -15,6 +15,7 @@
  */
 package com.linkedin.android.shaky;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -36,7 +37,7 @@ class CollectDataTask extends AsyncTask<Bitmap, Void, Result> {
 
     private static final String SCREENSHOT_DIRECTORY = "/screenshots";
 
-    private final Activity activity;
+    @SuppressLint("StaticFieldLeak") private final Activity activity;
     private final ShakeDelegate delegate;
     private final Callback callback;
 

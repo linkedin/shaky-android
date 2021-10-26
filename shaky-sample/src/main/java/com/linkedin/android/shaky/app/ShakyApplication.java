@@ -15,13 +15,13 @@
  */
 package com.linkedin.android.shaky.app;
 
-import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
+import androidx.multidex.MultiDexApplication;
 import com.linkedin.android.shaky.EmailShakeDelegate;
 import com.linkedin.android.shaky.Shaky;
 import com.linkedin.android.shaky.ShakyFlowCallback;
@@ -29,7 +29,7 @@ import com.linkedin.android.shaky.ShakyFlowCallback;
 /**
  * Hello world example.
  */
-public class ShakyApplication extends Application {
+public class ShakyApplication extends MultiDexApplication {
     private static final String TAG = ShakyApplication.class.getSimpleName();
 
     private Shaky shaky;

@@ -8,6 +8,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -19,5 +20,5 @@ android {
 
 dependencies {
     implementation project(':shaky')
-    implementation "androidx.annotation:annotation:1.0.0"
+    implementation "androidx.annotation:annotation:1.2.0"
 }

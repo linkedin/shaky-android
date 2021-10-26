@@ -26,15 +26,17 @@ android {
 }
 
 dependencies {
-    api 'com.squareup:seismic:1.0.2'
+    api 'com.squareup:seismic:1.0.3'
+    api 'androidx.multidex:multidex:2.0.1'
     implementation 'com.jraska:falcon:2.1.1'
-    implementation "androidx.appcompat:appcompat:1.0.0"
-    implementation "com.google.android.material:material:1.1.0"
-    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.appcompat:appcompat:1.3.1"
+    implementation 'androidx.core:core:1.6.0'
+    implementation "com.google.android.material:material:1.4.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    implementation "androidx.annotation:annotation:1.0.0"
+    implementation "androidx.annotation:annotation:1.2.0"
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.19.0'
-    testImplementation 'org.robolectric:robolectric:3.7.1'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:3.11.2'
+    testImplementation 'org.robolectric:robolectric:4.6.1'
 }
