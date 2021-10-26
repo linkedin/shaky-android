@@ -152,7 +152,7 @@ public class Shaky implements ShakeDetector.Listener {
             return;
         }
 
-        shakeDetector.start((SensorManager) activity.getSystemService(Context.SENSOR_SERVICE));
+        shakeDetector.start((SensorManager) activity.getSystemService(Context.SENSOR_SERVICE), SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     /**
