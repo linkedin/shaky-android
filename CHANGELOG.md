@@ -1,5 +1,10 @@
 # Change Log
 
+## Version 3.0.4 (2020-11-2)
+- Bump to AGP7/Gradle7
+- Build with JDK 11
+- Keep target and build SDK to Java 1.8
+
 ## Version 3.0.3 (2020-10-20)
 - Rename "master" to "main" [#58](https://github.com/linkedin/shaky-android/pull/58)
 - Update seismic library and change to use sensor delay normal [#64](https://github.com/linkedin/shaky-android/pull/64)
