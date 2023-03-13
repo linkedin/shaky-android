@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">korrigering</string>
     <string name="shaky_draw_brush_hint">Välj mellan penslar</string>
 
+    <string name="shaky_select_view_save_and_next">Spara och nästa</string>
     <string name="shaky_empty_feedback_message">Skriv din feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

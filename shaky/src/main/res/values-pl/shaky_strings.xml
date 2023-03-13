@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">korektor</string>
     <string name="shaky_draw_brush_hint">Włącz styl pędzla</string>
 
+    <string name="shaky_select_view_save_and_next">Zapisz i dalej</string>
     <string name="shaky_empty_feedback_message">Napisz opinię.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

@@ -53,6 +53,8 @@
     <string name="shaky_draw_brush_white">whiteout</string>
     <string name="shaky_draw_brush_hint">Toggles the brush style</string>
 
+    <string name="shaky_select_view_save_and_next">save and next</string>
+
     <string name="shaky_empty_feedback_message">Please write your feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

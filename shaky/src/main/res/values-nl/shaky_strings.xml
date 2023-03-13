@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">vlakgom</string>
     <string name="shaky_draw_brush_hint">Schakelknop voor kwaststijl</string>
 
+    <string name="shaky_select_view_save_and_next">Opslaan en volgende</string>
     <string name="shaky_empty_feedback_message">Schrijf uw feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

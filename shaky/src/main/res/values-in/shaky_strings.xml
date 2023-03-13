@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">whiteout</string>
     <string name="shaky_draw_brush_hint">Ganti gaya brush</string>
 
+    <string name="shaky_select_view_save_and_next">Simpan dan selanjutnya</string>
     <string name="shaky_empty_feedback_message">Harap tulis feedback Anda.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

@@ -25,6 +25,7 @@ import android.graphics.Bitmap;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -132,6 +133,26 @@ public class Shaky implements ShakeDetector.Listener {
         } else {
             stop();
         }
+    }
+
+    public void setViewOwner(@Nullable View view, @Nullable String owner) {
+        if (view != null) {
+            view.setTag(R.id.shaky_owner_tag, owner);
+        }
+    }
+
+    @Nullable
+    public String getViewOwner(@Nullable View view) {
+        if(view == null) {
+            return null;
+        }
+
+        Object ownerTag = view.getTag(R.id.shaky_owner_tag);
+        if(ownerTag == null) {
+            return null;
+        }
+
+        return String.valueOf(ownerTag);
     }
 
     private void doStartFeedbackFlow() {
@@ -319,6 +340,7 @@ public class Shaky implements ShakeDetector.Listener {
      */
     private void startFeedbackActivity(@NonNull Result result) {
         Intent intent = FeedbackActivity.newIntent(activity,
+                result.getSubViews(),
                 result.getScreenshotUri(),
                 result.getData(),
                 delegate.resMenu,

@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 LinkedIn Corp.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -37,44 +37,35 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
- * Fragment to draw on an image.
- * Renders an image in the background and lets the user draw on it with {@link Paper}.
- *
- * TODO: on save, this overrides the given imageUri (preventing full-undo of drawing).
- * TODO: if the user rotates the device while drawing, the paths are not translated.
+ * Fragment to select a sub view on an image.
+ * Renders an image in the background and lets the user select a subview on it with {@link Slate}.
+ * <p>
+ * TODO: on save, this overrides the given imageUri (preventing full-undo of selecting).
+ * TODO: if the user rotates the device while drawing, the selections are not translated.
  */
-public class DrawFragment extends Fragment {
-
-    static final String ACTION_DRAWING_COMPLETE = "ActionDrawingComplete";
-    private static final String TAG = DrawFragment.class.getSimpleName();
-
+public class SelectViewFragment extends Fragment {
+    static final String ACTION_SELECT_COMPLETE = "ActionSelectingComplete";
+    private static final String TAG = SelectViewFragment.class.getSimpleName();
     private static final String KEY_IMAGE_URI = "imageUri";
+    private static final String KEY_SUB_VIEWS_LIST = "subViewsList";
     private static final String KEY_THEME = "theme";
-
     private static final int FULL_QUALITY = 100;
-
-    private Paper paper;
+    private Slate slate;
     private Uri imageUri;
 
-    /**
-     * Creates a new instance with the given image uri.
-     * @deprecated External users should not create {@link DrawFragment} directly
-     */
-    @Deprecated
-    public static DrawFragment newInstance(@Nullable Uri imageUri) {
-        return newInstance(imageUri, null);
-    }
-
-    static DrawFragment newInstance(@Nullable Uri imageUri, @Nullable Integer theme) {
+    static SelectViewFragment newInstance(@Nullable Uri imageUri, @Nullable Integer theme, @Nullable ArrayList<Subview> subViewList) {
         Bundle args = new Bundle();
         args.putParcelable(KEY_IMAGE_URI, imageUri);
+        args.putParcelableArrayList(KEY_SUB_VIEWS_LIST, subViewList);
+
         if (theme != null) {
             args.putInt(KEY_THEME, theme);
         }
 
-        DrawFragment fragment = new DrawFragment();
+        SelectViewFragment fragment = new SelectViewFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,15 +75,17 @@ public class DrawFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         inflater = Utils.applyThemeToInflater(inflater,
                 getArguments().getInt(KEY_THEME, FeedbackActivity.MISSING_RESOURCE));
-        return inflater.inflate(R.layout.shaky_draw, container, false);
+        return inflater.inflate(R.layout.shaky_select_view, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        paper = (Paper) view.findViewById(R.id.shaky_paper);
+        slate = (Slate) view.findViewById(R.id.shaky_slate);
         imageUri = getArguments().getParcelable(KEY_IMAGE_URI);
+        ArrayList<Subview> subViewList = getArguments().getParcelableArrayList(KEY_SUB_VIEWS_LIST);
+
         if (imageUri != null) {
             try {
                 // There seems to be an issue when using setImageUri that causes density to be chosen incorrectly
@@ -100,39 +93,27 @@ public class DrawFragment extends Fragment {
                 InputStream stream = getActivity().getContentResolver().openInputStream(imageUri);
 
                 Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                paper.setScaleType(ImageView.ScaleType.CENTER);
-                paper.setImageBitmap(bitmap);
+                slate.setScaleType(ImageView.ScaleType.MATRIX);
+                slate.setImageBitmap(bitmap);
             } catch (FileNotFoundException exception) {
                 Log.e("Screenshot error", exception.getMessage(), exception);
             }
         }
 
-        view.findViewById(R.id.shaky_button_undo).setOnClickListener(createUndoClickListener());
-        view.findViewById(R.id.shaky_button_clear).setOnClickListener(createClearClickListener());
+        slate.setupSubViews(subViewList);
+        slate.getViewTreeObserver().addOnGlobalLayoutListener(createViewTreeObserver());
+
         view.findViewById(R.id.shaky_button_save).setOnClickListener(createSaveClickListener());
-        view.findViewById(R.id.shaky_button_brush).setOnClickListener(createBrushClickListener());
-
-        if (savedInstanceState == null) {
-            Toast.makeText(getActivity(), getString(R.string.shaky_draw_hint), Toast.LENGTH_SHORT).show();
-        }
     }
 
-    private View.OnClickListener createClearClickListener() {
-        return new View.OnClickListener() {
+    private ViewTreeObserver.OnGlobalLayoutListener createViewTreeObserver() {
+        return new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void onClick(View v) {
-                paper.clear();
-            }
-        };
-    }
+            public void onGlobalLayout() {
+                slate.invalidate();
 
-    private View.OnClickListener createBrushClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Button brushButton = (Button) v;
-                paper.toggleBrush();
-                brushButton.setText(getString(paper.isThinBrush() ? R.string.shaky_draw_brush : R.string.shaky_draw_brush_white));
+                // Remove the listener to avoid multiple callbacks
+                slate.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         };
     }
@@ -141,21 +122,13 @@ public class DrawFragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bitmap bitmap = paper.capture();
+                slate.updateSelectedViews();
+                Bitmap bitmap = slate.capture();
                 if (bitmap != null) {
                     saveBitmap(bitmap);
                 }
-                Intent intent = new Intent(ACTION_DRAWING_COMPLETE);
+                Intent intent = new Intent(ACTION_SELECT_COMPLETE);
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
-            }
-        };
-    }
-
-    private View.OnClickListener createUndoClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                paper.undo();
             }
         };
     }

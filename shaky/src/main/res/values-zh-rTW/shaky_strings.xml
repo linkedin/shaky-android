@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">橡皮擦</string>
     <string name="shaky_draw_brush_hint">切換筆刷樣式</string>
 
+    <string name="shaky_select_view_save_and_next">保存并下一步</string>
     <string name="shaky_empty_feedback_message">請輸入意見反映。</string>
     <string name="shaky_empty_feedback_confirm">確認</string>
 

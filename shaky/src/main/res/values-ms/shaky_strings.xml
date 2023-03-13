@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">padam</string>
     <string name="shaky_draw_brush_hint">Tukar tetapan gaya berus</string>
 
+    <string name="shaky_select_view_save_and_next">Simpan dan seterusnya</string>
     <string name="shaky_empty_feedback_message">Sila tuliskan maklum balas anda.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

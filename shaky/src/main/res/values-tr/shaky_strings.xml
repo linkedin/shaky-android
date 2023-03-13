@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">daksille</string>
     <string name="shaky_draw_brush_hint">Fırça sitilini değiştir</string>
 
+    <string name="shaky_select_view_save_and_next">Kaydet ve sonraki</string>
     <string name="shaky_empty_feedback_message">Lütfen geri bildiriminizi yazın.</string>
     <string name="shaky_empty_feedback_confirm">Tamam</string>
 

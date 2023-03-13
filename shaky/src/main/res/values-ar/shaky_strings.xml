@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">مسح</string>
     <string name="shaky_draw_brush_hint">تحديد نوع المحدد</string>
 
+    <string name="shaky_select_view_save_and_next">حفظ وبعد ذلك</string>
     <string name="shaky_empty_feedback_message">برجاء كتابة تقييمك.</string>
     <string name="shaky_empty_feedback_confirm">موافق</string>
 

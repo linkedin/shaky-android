@@ -31,6 +31,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.MenuRes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The main activity used capture and send feedback.
  */
@@ -43,6 +46,7 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String MESSAGE = "message";
     static final String TITLE = "title";
     static final String USER_DATA = "userData";
+    static final String SUB_VIEWS = "subViews";
     static final String RES_MENU = "resMenu";
     static final String SUBCATEGORY = "subcategory";
     static final String THEME = "theme";
@@ -50,12 +54,16 @@ public class FeedbackActivity extends AppCompatActivity {
 
     private Uri imageUri;
     private @FeedbackItem.FeedbackType int feedbackType;
+
+    @NonNull private ArrayList<Subview> subviews;
+
     private Bundle userData;
     private @MenuRes int resMenu;
     private @StyleRes Integer customTheme;
 
     @NonNull
     public static Intent newIntent(@NonNull Context context,
+                                   @NonNull ArrayList<Subview> subViews,
                                    @Nullable Uri screenshotUri,
                                    @Nullable Bundle userData,
                                    @MenuRes int resMenu,
@@ -63,6 +71,7 @@ public class FeedbackActivity extends AppCompatActivity {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
+        intent.putExtra(SUB_VIEWS, subViews);
         intent.putExtra(RES_MENU, resMenu);
         intent.putExtra(THEME, theme);
         return intent;
@@ -79,6 +88,7 @@ public class FeedbackActivity extends AppCompatActivity {
         customTheme = getIntent().getIntExtra(THEME, MISSING_RESOURCE);
         imageUri = getIntent().getParcelableExtra(SCREENSHOT_URI);
         userData = getIntent().getBundleExtra(USER_DATA);
+        subviews = getIntent().getParcelableArrayListExtra(SUB_VIEWS);
         resMenu = getIntent().getIntExtra(RES_MENU, FormFragment.DEFAULT_MENU);
 
         if (savedInstanceState == null) {
@@ -98,6 +108,7 @@ public class FeedbackActivity extends AppCompatActivity {
         filter.addAction(FormFragment.ACTION_SUBMIT_FEEDBACK);
         filter.addAction(FormFragment.ACTION_EDIT_IMAGE);
         filter.addAction(DrawFragment.ACTION_DRAWING_COMPLETE);
+        filter.addAction(SelectViewFragment.ACTION_SELECT_COMPLETE);
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
     }
 
@@ -154,6 +165,17 @@ public class FeedbackActivity extends AppCompatActivity {
         changeToFragment(DrawFragment.newInstance(imageUri, customTheme));
     }
 
+    /**
+     * Swap the view container for a draw fragment, restores the previous fragment if one exists.
+     */
+    private void startSelectViewFragment() {
+        if(subviews.isEmpty()) {
+            startDrawFragment();
+        } else {
+            changeToFragment(SelectViewFragment.newInstance(imageUri, customTheme, subviews));
+        }
+    }
+
     private void setFeedbackType(@FeedbackItem.FeedbackType int feedbackType) {
         this.feedbackType = feedbackType;
     }
@@ -169,11 +191,14 @@ public class FeedbackActivity extends AppCompatActivity {
 
                 startFormFragment(feedbackType);
                 if (imageUri != null && feedbackType == FeedbackItem.BUG) {
-                    startDrawFragment();
+                    startSelectViewFragment();
                 }
             } else if (FormFragment.ACTION_EDIT_IMAGE.equals(intent.getAction())) {
+                startSelectViewFragment();
+            } else if (SelectViewFragment.ACTION_SELECT_COMPLETE.equals(intent.getAction())) {
                 startDrawFragment();
             } else if (DrawFragment.ACTION_DRAWING_COMPLETE.equals(intent.getAction())) {
+                onBackPressed();
                 onBackPressed();
             } else if (FormFragment.ACTION_SUBMIT_FEEDBACK.equals(intent.getAction())) {
                 submitFeedbackIntent(intent.getStringExtra(FormFragment.EXTRA_USER_MESSAGE),
@@ -188,7 +213,7 @@ public class FeedbackActivity extends AppCompatActivity {
         intent.putExtra(SCREENSHOT_URI, imageUri);
         intent.putExtra(TITLE, getString(getTitleResId(feedbackType)));
         intent.putExtra(MESSAGE, userMessage);
-        intent.putExtra(USER_DATA, userData);
+        intent.putExtra(SUB_VIEWS, subviews);
         intent.putExtra(SUBCATEGORY, subcategory);
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

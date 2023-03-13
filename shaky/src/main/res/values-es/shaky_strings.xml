@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">borrar</string>
     <string name="shaky_draw_brush_hint">Alternar el estilo de pincel</string>
 
+    <string name="shaky_select_view_save_and_next">Guardar y siguiente</string>
     <string name="shaky_empty_feedback_message">Escribe tus comentarios</string>
     <string name="shaky_empty_feedback_confirm">Aceptar</string>
 

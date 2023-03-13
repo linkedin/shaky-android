@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">涂白</string>
     <string name="shaky_draw_brush_hint">切换画笔类型</string>
 
+    <string name="shaky_select_view_save_and_next">保存並下一步</string>
     <string name="shaky_empty_feedback_message">欢迎提出您的宝贵意见！</string>
     <string name="shaky_empty_feedback_confirm">确定</string>
 

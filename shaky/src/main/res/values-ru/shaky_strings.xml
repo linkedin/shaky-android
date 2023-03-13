@@ -53,6 +53,7 @@
     <string name="shaky_draw_brush_white">закрасить</string>
     <string name="shaky_draw_brush_hint">Переключатель стиля обозначения</string>
 
+    <string name="shaky_select_view_save_and_next">Сохранить и далее</string>
     <string name="shaky_empty_feedback_message">Напишите свой отзыв</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

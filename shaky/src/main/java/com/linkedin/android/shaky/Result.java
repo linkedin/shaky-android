@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Wrapper class for the data collected.
@@ -31,10 +33,14 @@ public class Result {
     private static final String TITLE = PREFIX + ".title";
     private static final String SCREENSHOT_URI = PREFIX + ".screenshotUri";
     private static final String ATTACHMENTS = PREFIX + ".attachments";
+    private static final String SUB_VIEWS = PREFIX + ".subviews";
     private static final String SUBCATEGORY = PREFIX + ".subcategory";
 
     private final Bundle data;
     private ArrayList<Uri> attachments;
+
+    @Nullable
+    private ArrayList<Subview> subViews;
 
     Result(@NonNull Bundle data) {
         this.data = data;
@@ -91,6 +97,22 @@ public class Result {
 
     void setAttachments(ArrayList<Uri> attachments) {
         this.attachments = attachments;
+    }
+
+    @Nullable
+    public ArrayList<Subview> getSubViews() {
+        if (this.subViews == null) {
+            ArrayList<Subview> subViews = data.getParcelableArrayList(SUB_VIEWS);
+            if (subViews == null) {
+                subViews = new ArrayList<>();
+            }
+            this.subViews = subViews;
+        }
+        return this.subViews;
+    }
+
+    void setSubViews(@Nullable ArrayList<Subview> subViews) {
+        this.subViews = subViews;
     }
 
     @Nullable

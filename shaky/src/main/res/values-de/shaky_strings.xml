@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">Korrektur</string>
     <string name="shaky_draw_brush_hint">Pinselart ändern</string>
 
+    <string name="shaky_select_view_save_and_next">Speichern und weiter</string>
     <string name="shaky_empty_feedback_message">Bitte verfassen Sie Ihr Feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

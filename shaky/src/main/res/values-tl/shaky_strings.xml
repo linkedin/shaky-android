@@ -55,6 +55,7 @@
     <string name="shaky_draw_brush_white">whiteout</string>
     <string name="shaky_draw_brush_hint">I-toggle ang estilong brush</string>
 
+    <string name="shaky_select_view_save_and_next">I-save at susunod</string>
     <string name="shaky_empty_feedback_message">Pakisulat ang iyong feedback.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 

@@ -54,6 +54,7 @@
     <string name="shaky_draw_brush_white">cancellino</string>
     <string name="shaky_draw_brush_hint">Alterna gli stili del pennello</string>
 
+    <string name="shaky_select_view_save_and_next">Salva e avanti</string>
     <string name="shaky_empty_feedback_message">Scrivi i tuoi commenti.</string>
     <string name="shaky_empty_feedback_confirm">OK</string>
 
