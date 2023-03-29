@@ -17,12 +17,11 @@ package com.linkedin.android.shaky;
 
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Wrapper class for the data collected.
@@ -102,11 +101,7 @@ public class Result {
     @Nullable
     public ArrayList<Subview> getSubViews() {
         if (this.subViews == null) {
-            ArrayList<Subview> subViews = data.getParcelableArrayList(SUB_VIEWS);
-            if (subViews == null) {
-                subViews = new ArrayList<>();
-            }
-            this.subViews = subViews;
+            this.subViews = data.getParcelableArrayList(SUB_VIEWS) != null ? data.getParcelableArrayList(SUB_VIEWS) : new ArrayList<>();
         }
         return this.subViews;
     }

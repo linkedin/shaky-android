@@ -116,40 +116,33 @@ class CollectDataTask extends AsyncTask<Bitmap, Void, Result> {
     @WorkerThread
     private ArrayList<Subview> collectSubviewsIfNeeded(@Nullable String defaultOwnerEmail) {
         View contentView = activity.findViewById(android.R.id.content);
-        ArrayList<Subview> subViews = new ArrayList<>();
-        identifyVisibleSubviews(contentView, subViews, defaultOwnerEmail);
-        return subViews;
+        return identifyVisibleSubviews(contentView, defaultOwnerEmail);
     }
 
     /**
      * Goes through the view hierarchy of the given view, identifies the child views and
      * adds them to the subviews list
      */
-    private void identifyVisibleSubviews(@Nullable View view, @NonNull List<Subview> subViews, @Nullable String defaultEmail) {
+    private ArrayList<Subview> identifyVisibleSubviews(@Nullable View view, @Nullable String defaultEmail) {
+        ArrayList<Subview> subViews = new ArrayList<>();
+
         if (view == null) {
-            return;
+            return subViews;
         }
 
         if (view instanceof ViewGroup) {
             ViewGroup viewGroup = (ViewGroup) view;
-            int childCount = viewGroup.getChildCount();
-            if (childCount == 0) {
-                // Check if the leaf view is visible on screen
-                Subview subView = createSubview(view, defaultEmail);
-                if (subView != null) {
-                    subViews.add(subView);
-                }
-            } else {
-                for (int i = 0; i < childCount; i++) {
-                    identifyVisibleSubviews(viewGroup.getChildAt(i), subViews, defaultEmail);
-                }
-            }
-        } else {
-            Subview subView = createSubview(view, defaultEmail);
-            if (subView != null) {
-                subViews.add(subView);
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                subViews.addAll(identifyVisibleSubviews(viewGroup.getChildAt(i), defaultEmail));
             }
         }
+
+        Subview subView = createSubview(view, defaultEmail);
+        if (subView != null) {
+            subViews.add(subView);
+        }
+
+        return subViews;
     }
 
     /**
