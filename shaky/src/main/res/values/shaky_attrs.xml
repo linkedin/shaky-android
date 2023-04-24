@@ -24,8 +24,11 @@
 
     <!-- Category Select -->
     <attr name="shakySelectBackgroundColor" format="reference|color" />
+    <attr name="shakySelectTitleColor" format="reference|color" />
+    <attr name="shakySelectSubtitleColor" format="reference|color" />
     <attr name="shakyCategoryListItemTitleColor" format="reference|color" />
     <attr name="shakyCategoryListItemSubtitleColor" format="reference|color" />
+    <attr name="shakyCategoryListDividerColor" format="reference|color" />
 
     <!-- Image Editor -->
     <attr name="shakyImageEditorBackgroundColor" format="reference|color" />
