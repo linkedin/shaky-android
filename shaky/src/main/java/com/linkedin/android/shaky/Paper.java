@@ -15,6 +15,7 @@
  */
 package com.linkedin.android.shaky;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,8 +28,10 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +161,16 @@ public class Paper extends AppCompatImageView {
      * @return the current drawing as a Bitmap
      */
     public Bitmap capture() {
-        return Utils.capture(this);
+        Window window = null;
+        if (getContext() instanceof Activity) {
+            window = ((Activity)(getContext())).getWindow();
+        } else if (getContext() instanceof ContextThemeWrapper) {
+            Context baseContext = ((ContextThemeWrapper)getContext()).getBaseContext();
+            if (baseContext instanceof Activity) {
+                window = ((Activity)baseContext).getWindow();
+            }
+        }
+        return Utils.capture(this, window);
     }
 
     private void applyEvents() {

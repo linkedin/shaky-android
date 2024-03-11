@@ -19,16 +19,23 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.FileProvider;
+
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.PixelCopy;
 import android.view.View;
+import android.view.Window;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -103,15 +110,26 @@ final class Utils {
      * Saves the view as a Bitmap screenshot.
      */
     @Nullable
-    static Bitmap capture(View view) {
-        if (view.getWidth() == 0 || view.getHeight() == 0) {
-            return null;
-        }
+    static Bitmap capture(View view, Window window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+            int[] location = new int[2];
+            view.getLocationInWindow(location);
+            PixelCopy.request(window,
+                    new Rect(location[0], location[1], location[0] + view.getWidth(), location[1] +view.getHeight()),
+                    bitmap, copyResult -> {},
+                    new Handler(Looper.getMainLooper()));
+            return bitmap;
+        } else {
+            if (view.getWidth() == 0 || view.getHeight() == 0) {
+                return null;
+            }
 
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return bitmap;
+            Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+            Canvas canvas = new Canvas(bitmap);
+            view.draw(canvas);
+            return bitmap;
+        }
     }
 
     /**
