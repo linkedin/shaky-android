@@ -116,7 +116,7 @@ final class Utils {
             int[] location = new int[2];
             view.getLocationInWindow(location);
             PixelCopy.request(window,
-                    new Rect(location[0], location[1], location[0] + view.getWidth(), location[1] +view.getHeight()),
+                    new Rect(location[0], location[1], location[0] + view.getWidth(), location[1] + view.getHeight()),
                     bitmap, copyResult -> {},
                     new Handler(Looper.getMainLooper()));
             return bitmap;

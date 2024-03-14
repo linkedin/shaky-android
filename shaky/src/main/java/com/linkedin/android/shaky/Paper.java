@@ -169,6 +169,8 @@ public class Paper extends AppCompatImageView {
             if (baseContext instanceof Activity) {
                 window = ((Activity)baseContext).getWindow();
             }
+        } else {
+            return null;
         }
         return Utils.capture(this, window);
     }
