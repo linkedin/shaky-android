@@ -1,6 +1,4 @@
 # Change Log
-## Version 3.0.5 (2024-03-20)
-- Use PixelCopy API to create bitmap. This prevents IllegalStateException crash in devices Android O and beyond.
 
 ## Version 3.0.4 (2020-11-2)
 - Bump to AGP7/Gradle7
