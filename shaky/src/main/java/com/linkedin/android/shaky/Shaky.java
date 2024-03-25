@@ -238,7 +238,7 @@ public class Shaky implements ShakeDetector.Listener {
             // Fallback to using the default screenshot capture mechanism if Falcon does not work (e.g. if it has not
             // been updated to work on newer versions of Android yet)
             View view = activity.getWindow().getDecorView().getRootView();
-            return Utils.capture(view);
+            return Utils.capture(view, activity.getWindow());
         }
     }
 
