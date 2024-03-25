@@ -1,5 +1,10 @@
 # Change Log
 
+## Version 3.0.5 (2024-03-25)
+- Fix shaky crash due to : Software rendering doesn't support hardware bitmaps [#73](https://github.com/linkedin/shaky-android/pull/73)
+- Update several build dependencies
+- Update Falcon library
+
 ## Version 3.0.4 (2020-11-2)
 - Bump to AGP7/Gradle7
 - Build with JDK 11
