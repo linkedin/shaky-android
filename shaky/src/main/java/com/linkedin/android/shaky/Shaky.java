@@ -17,6 +17,7 @@ package com.linkedin.android.shaky;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.DialogFragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +50,7 @@ import java.util.concurrent.TimeUnit;
 public class Shaky implements ShakeDetector.Listener {
 
     private static final String SEND_FEEDBACK_TAG = "SendFeedback";
+    private static final String CUSTOM_DIALOG_TAG = "SendFeedback";
     private static final String COLLECT_DATA_TAG = "CollectFeedbackData";
 
     private static final long SHAKE_COOLDOWN_MS = TimeUnit.SECONDS.toMillis(5);
@@ -190,6 +192,14 @@ public class Shaky implements ShakeDetector.Listener {
         if (shakyFlowCallback != null) {
             shakyFlowCallback.onUserPromptShown();
         }
+    }
+
+    /**
+     * Custom dialog to be shown before the feedback flow
+     */
+    @VisibleForTesting
+    public void setCustomDialogFragment(@NonNull DialogFragment customDialogFragment) {
+        customDialogFragment.show(activity.getFragmentManager(), CUSTOM_DIALOG_TAG);
     }
 
     /**
