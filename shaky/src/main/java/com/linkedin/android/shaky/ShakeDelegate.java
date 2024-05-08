@@ -16,6 +16,7 @@
 package com.linkedin.android.shaky;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.MenuRes;
@@ -129,6 +130,14 @@ public abstract class ShakeDelegate {
      */
     @WorkerThread
     public void collectData(@NonNull Activity activity, @NonNull Result data) {
+    }
+
+    /**
+     * @return a custom dialog to be shown before the feedback flow
+     */
+    @Nullable
+    public DialogFragment getCustomDialog() {
+        return null;
     }
 
     /**
