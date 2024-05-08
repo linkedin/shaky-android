@@ -50,9 +50,9 @@ public class Shaky implements ShakeDetector.Listener {
 
     private static final String SEND_FEEDBACK_TAG = "SendFeedback";
     private static final String COLLECT_DATA_TAG = "CollectFeedbackData";
+    private static final String CUSTOM_DIALOG_TAG = "CustomDialog";
 
     private static final long SHAKE_COOLDOWN_MS = TimeUnit.SECONDS.toMillis(5);
-
     private final ShakeDelegate delegate;
     private final ShakeDetector shakeDetector;
     @Nullable
@@ -186,7 +186,11 @@ public class Shaky implements ShakeDetector.Listener {
         arguments.putInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, delegate.getSensitivityLevel());
         SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();
         sendFeedbackDialog.setArguments(arguments);
-        sendFeedbackDialog.show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
+        if (delegate.getCustomDialog() != null) {
+            delegate.getCustomDialog().show(activity.getFragmentManager(), CUSTOM_DIALOG_TAG);
+        } else {
+            sendFeedbackDialog.show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
+        }
         if (shakyFlowCallback != null) {
             shakyFlowCallback.onUserPromptShown();
         }
