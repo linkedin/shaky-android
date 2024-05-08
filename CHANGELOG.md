@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 3.0.6 (2024-05-08)
+-  adding a custom dialog [#74](https://github.com/linkedin/shaky-android/pull/74)
+
 ## Version 3.0.5 (2024-03-25)
 - Fix shaky crash due to : Software rendering doesn't support hardware bitmaps [#73](https://github.com/linkedin/shaky-android/pull/73)
 - Update several build dependencies
