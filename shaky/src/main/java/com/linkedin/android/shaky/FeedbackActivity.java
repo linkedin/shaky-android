@@ -46,6 +46,10 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String RES_MENU = "resMenu";
     static final String SUBCATEGORY = "subcategory";
     static final String THEME = "theme";
+    static final String SELECT_SCREEN_TITLE = "selectScreenTitle";
+    static final String SELECT_SCREEN_SUBTITLE = "selectScreenSubtitle";
+    static final String SHAKE_TURNED_ON = "shakeTurnedOn";
+    static final String SHAKE_ENABLED = "shakeEnabled";
     static final int MISSING_RESOURCE = 0;
 
     private Uri imageUri;
@@ -59,12 +63,20 @@ public class FeedbackActivity extends AppCompatActivity {
                                    @Nullable Uri screenshotUri,
                                    @Nullable Bundle userData,
                                    @MenuRes int resMenu,
-                                   @StyleRes int theme) {
+                                   @StyleRes int theme,
+                                   @Nullable String selectScreenTitle,
+                                   @Nullable String selectScreenSubtitle,
+                                   boolean shakeTurnedOn,
+                                   boolean shakeEnabled) {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
         intent.putExtra(RES_MENU, resMenu);
         intent.putExtra(THEME, theme);
+        intent.putExtra(SELECT_SCREEN_TITLE, selectScreenTitle);
+        intent.putExtra(SELECT_SCREEN_SUBTITLE, selectScreenSubtitle);
+        intent.putExtra(SHAKE_TURNED_ON, shakeTurnedOn);
+        intent.putExtra(SHAKE_ENABLED, shakeEnabled);
         return intent;
     }
 
@@ -84,7 +96,13 @@ public class FeedbackActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.shaky_fragment_container, SelectFragment.newInstance(customTheme))
+                    .add(R.id.shaky_fragment_container,
+                            SelectFragment.newInstance(
+                                    customTheme,
+                                    getIntent().getStringExtra(SELECT_SCREEN_TITLE),
+                                    getIntent().getStringExtra(SELECT_SCREEN_SUBTITLE),
+                                    getIntent().getBooleanExtra(SHAKE_TURNED_ON, false),
+                                    getIntent().getBooleanExtra(SHAKE_ENABLED, false)))
                     .commit();
         }
     }
