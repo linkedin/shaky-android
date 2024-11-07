@@ -20,6 +20,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ContextThemeWrapper;
@@ -61,10 +62,11 @@ public class SendFeedbackDialog extends DialogFragment {
         // We have to pass some kind of theme to Alert.Builder's constructor, as the Context-only
         // constructor makes different assumptions about the theme passed to it
         final AlertDialog.Builder builder;
+        boolean isApi35OrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
         if (theme != FeedbackActivity.MISSING_RESOURCE) {
-            builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.ShakyBasePopupTheme), theme);
+            builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), isApi35OrAbove? R.style.ShakyBasePopupTheme_Api35 : R.style.ShakyBasePopupTheme), theme);
         } else {
-            builder = new AlertDialog.Builder(getActivity(), R.style.ShakyBasePopupTheme);
+            builder = new AlertDialog.Builder(getActivity(), isApi35OrAbove? R.style.ShakyBasePopupTheme_Api35 : R.style.ShakyBasePopupTheme);
         }
 
         View popupView = View.inflate(builder.getContext(),

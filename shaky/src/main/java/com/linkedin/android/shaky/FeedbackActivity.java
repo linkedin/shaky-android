@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,7 +73,8 @@ public class FeedbackActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTheme(R.style.ShakyBaseTheme);
+        boolean isApi35OrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
+        setTheme(isApi35OrAbove? R.style.ShakyBaseTheme_Api35: R.style.ShakyBaseTheme);
 
         setContentView(R.layout.shaky_feedback);
 

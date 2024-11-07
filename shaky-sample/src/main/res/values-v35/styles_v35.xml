@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShakyChristmasToolbarTheme.Api35" parent="@style/ShakyBaseToolbarTheme.Api35">
+        <item name="android:background">@color/red</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyChristmasAlertDialogTheme.Api35" parent="ShakyBaseAlertDialogTheme.Api35">
+        <item name="android:colorBackground">@color/green</item>
+        <item name="android:colorAccent">@color/light_red</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyChristmasImageEditorButtonTheme.Api35" parent="ShakyBaseImageEditorButtonTheme.Api35">
+        <item name="android:backgroundTint">@color/red</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyChristmasTheme.Api35" parent="ShakyChristmasTheme">
+        <item name="shakyToolbarTheme">@style/ShakyChristmasToolbarTheme.Api35</item>
+        <item name="shakyImageEditorButtonTheme">@style/ShakyChristmasImageEditorButtonTheme.Api35</item>
+        <item name="shakyAlertDialogTheme">@style/ShakyChristmasAlertDialogTheme.Api35</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyChristmasPopupTheme.Api35" parent="ShakyChristmasPopupTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+</resources>

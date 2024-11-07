@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShakyBaseAlertDialogTheme.Api35" parent="ShakyBaseAlertDialogTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyBaseEditTextTheme.Api35" parent="ShakyBaseEditTextTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyBaseSpinnerTheme.Api35" parent="ShakyBaseSpinnerTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyBaseToolbarTheme.Api35" parent="ShakyBaseToolbarTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyBaseImageEditorButtonTheme.Api35" parent="ShakyBaseImageEditorButtonTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="ShakyBaseTheme.Api35" parent="ShakyBaseTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <!-- AlertDialog -->
+        <item name="shakyAlertDialogTheme">@style/ShakyBaseAlertDialogTheme.Api35</item>
+        <item name="shakyImageEditorButtonTheme">@style/ShakyBaseImageEditorButtonTheme.Api35</item>
+
+        <item name="alertDialogTheme">?attr/shakyAlertDialogTheme</item>
+        <item name="materialAlertDialogTheme">?attr/shakyAlertDialogTheme</item>
+    </style>
+
+    <style name="ShakyBasePopupTheme.Api35" parent="ShakyBasePopupTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+</resources>

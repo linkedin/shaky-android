@@ -4,7 +4,7 @@ apply plugin: 'signing'
 // Ideally AGP should provide sources and javadoc integration for their components:
 // https://issuetracker.google.com/issues/145670440
 tasks.register("sourcesJar", Jar) {
-    classifier 'sources'
+    getArchiveClassifier()
     from android.sourceSets.main.java.srcDirs
 }
 
@@ -16,7 +16,7 @@ tasks.register("javadoc", Javadoc) {
 
 tasks.register("javadocJar", Jar) {
     dependsOn javadoc
-    classifier 'javadoc'
+    getArchiveClassifier()
     from javadoc.destinationDir
 }
 
@@ -26,10 +26,10 @@ afterEvaluate {
     publishing {
         publications {
             maven(MavenPublication) {
-                from components.release
+                from components.findByName('release') ?: components.findByName('debug')
 
-                artifact sourcesJar
-                artifact javadocJar
+                //artifact sourcesJar
+                //artifact javadocJar
 
                 pom {
                     name = 'Shaky'

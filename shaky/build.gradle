@@ -12,8 +12,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
     }
 
     buildTypes {
@@ -28,6 +26,7 @@ android {
     }
 
     resourcePrefix 'shaky_'
+    namespace 'com.linkedin.android.shaky'
 }
 
 dependencies {
@@ -41,5 +40,5 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.12.4'
-    testImplementation 'org.robolectric:robolectric:4.9.2'
+    testImplementation 'org.robolectric:robolectric:4.14-beta-1'
 }

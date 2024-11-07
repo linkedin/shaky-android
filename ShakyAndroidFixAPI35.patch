@@ -1,0 +1,306 @@
+diff --git a/build.gradle b/build.gradle
+index 7bd5e1d..c80b030 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -6,7 +6,7 @@ buildscript {
+     }
+ 
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:7.4.1'
++        classpath 'com.android.tools.build:gradle:8.7.1'
+     }
+ }
+ 
+@@ -24,8 +24,8 @@ subprojects {
+ }
+ 
+ ext {
+-    compileSdkVersion = 31
+-    buildToolsVersion = '31.0.0'
++    compileSdkVersion = 35
++    buildToolsVersion = '35.0.0'
+     minSdkVersion = 21
+-    targetSdkVersion = 30
++    targetSdkVersion = 34
+ }
+diff --git a/gradle.properties b/gradle.properties
+index 9676910..88354b3 100644
+--- a/gradle.properties
++++ b/gradle.properties
+@@ -20,3 +20,6 @@ android.useAndroidX=true
+ 
+ GROUP_ID=com.linkedin.shaky
+ VERSION_NAME=3.0.7-SNAPSHOT
++android.defaults.buildfeatures.buildconfig=true
++android.nonTransitiveRClass=false
++android.nonFinalResIds=false
+diff --git a/gradle/publishing.gradle b/gradle/publishing.gradle
+index 6be83a2..fb6435d 100644
+--- a/gradle/publishing.gradle
++++ b/gradle/publishing.gradle
+@@ -4,7 +4,7 @@ apply plugin: 'signing'
+ // Ideally AGP should provide sources and javadoc integration for their components:
+ // https://issuetracker.google.com/issues/145670440
+ tasks.register("sourcesJar", Jar) {
+-    classifier 'sources'
++    getArchiveClassifier()
+     from android.sourceSets.main.java.srcDirs
+ }
+ 
+@@ -16,7 +16,7 @@ tasks.register("javadoc", Javadoc) {
+ 
+ tasks.register("javadocJar", Jar) {
+     dependsOn javadoc
+-    classifier 'javadoc'
++    getArchiveClassifier()
+     from javadoc.destinationDir
+ }
+ 
+@@ -26,7 +26,7 @@ afterEvaluate {
+     publishing {
+         publications {
+             maven(MavenPublication) {
+-                from components.release
++                from components.findByName('release') ?: components.findByName('debug')
+ 
+                 artifact sourcesJar
+                 artifact javadocJar
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+index 070cb70..19cfad9 100644
+--- a/gradle/wrapper/gradle-wrapper.properties
++++ b/gradle/wrapper/gradle-wrapper.properties
+@@ -1,5 +1,5 @@
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-7.6-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-bin.zip
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+diff --git a/shaky-sample/build.gradle b/shaky-sample/build.gradle
+index 62ebf93..a666166 100644
+--- a/shaky-sample/build.gradle
++++ b/shaky-sample/build.gradle
+@@ -20,6 +20,7 @@ android {
+             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+         }
+     }
++    namespace 'com.linkedin.android.shaky.app'
+ }
+ 
+ dependencies {
+diff --git a/shaky-sample/src/main/AndroidManifest.xml b/shaky-sample/src/main/AndroidManifest.xml
+index 548dc16..4c2b3fe 100644
+--- a/shaky-sample/src/main/AndroidManifest.xml
++++ b/shaky-sample/src/main/AndroidManifest.xml
+@@ -1,6 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<manifest package="com.linkedin.android.shaky.app"
+-          xmlns:android="http://schemas.android.com/apk/res/android"
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:tools="http://schemas.android.com/tools">
+     <!-- for MultipleAttachmentShakeDelegate example -->
+     <uses-permission android:name="android.permission.READ_LOGS"
+@@ -16,7 +15,8 @@
+ 
+         <activity
+             android:name=".ShakyDemo"
+-            android:label="@string/app_name">
++            android:label="@string/app_name"
++            android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN"/>
+ 
+diff --git a/shaky-sample/src/main/java/com/linkedin/android/shaky/app/ShakyDemo.java b/shaky-sample/src/main/java/com/linkedin/android/shaky/app/ShakyDemo.java
+index 9b2d435..32ce882 100644
+--- a/shaky-sample/src/main/java/com/linkedin/android/shaky/app/ShakyDemo.java
++++ b/shaky-sample/src/main/java/com/linkedin/android/shaky/app/ShakyDemo.java
+@@ -18,6 +18,7 @@ package com.linkedin.android.shaky.app;
+ import android.app.Activity;
+ import android.app.Application;
+ import android.graphics.Color;
++import android.os.Build;
+ import android.os.Bundle;
+ import android.view.View;
+ import android.widget.CheckBox;
+@@ -40,6 +41,7 @@ public class ShakyDemo extends Activity {
+         int color = Color.rgb(random.nextInt(RGB_MAX), random.nextInt(RGB_MAX), random.nextInt(RGB_MAX));
+         tv.setBackgroundColor(color);
+ 
++        boolean isApi35OrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
+         findViewById(R.id.theme_checkbox).setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+@@ -47,8 +49,8 @@ public class ShakyDemo extends Activity {
+                     CheckBox checkBox = (CheckBox) v;
+                     ShakyApplication application = (ShakyApplication) getApplication();
+                     if (checkBox.isChecked()) {
+-                        application.setShakyTheme(R.style.ShakyChristmasTheme);
+-                        application.setShakyPopupTheme(R.style.ShakyChristmasPopupTheme);
++                        application.setShakyTheme(isApi35OrAbove ? R.style.ShakyChristmasTheme_Api35: R.style.ShakyChristmasTheme);
++                        application.setShakyPopupTheme(isApi35OrAbove ? R.style.ShakyChristmasPopupTheme_Api35 : R.style.ShakyChristmasPopupTheme);
+                     } else {
+                         application.setShakyTheme(null);
+                         application.setShakyPopupTheme(null);
+diff --git a/shaky-sample/src/main/res/values-v35/styles_v35.xml b/shaky-sample/src/main/res/values-v35/styles_v35.xml
+new file mode 100644
+index 0000000..04c5d15
+--- /dev/null
++++ b/shaky-sample/src/main/res/values-v35/styles_v35.xml
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++
++    <style name="ShakyChristmasToolbarTheme.Api35" parent="@style/ShakyBaseToolbarTheme.Api35">
++        <item name="android:background">@color/red</item>
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyChristmasAlertDialogTheme.Api35" parent="ShakyBaseAlertDialogTheme.Api35">
++        <item name="android:colorBackground">@color/green</item>
++        <item name="android:colorAccent">@color/light_red</item>
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyChristmasImageEditorButtonTheme.Api35" parent="ShakyBaseImageEditorButtonTheme.Api35">
++        <item name="android:backgroundTint">@color/red</item>
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyChristmasTheme.Api35" parent="ShakyChristmasTheme">
++        <item name="shakyToolbarTheme">@style/ShakyChristmasToolbarTheme.Api35</item>
++        <item name="shakyImageEditorButtonTheme">@style/ShakyChristmasImageEditorButtonTheme.Api35</item>
++        <item name="shakyAlertDialogTheme">@style/ShakyChristmasAlertDialogTheme.Api35</item>
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyChristmasPopupTheme.Api35" parent="ShakyChristmasPopupTheme">
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++</resources>
+diff --git a/shaky/build.gradle b/shaky/build.gradle
+index 7976fc7..4f5caca 100644
+--- a/shaky/build.gradle
++++ b/shaky/build.gradle
+@@ -12,8 +12,6 @@ android {
+     defaultConfig {
+         minSdkVersion rootProject.ext.minSdkVersion
+         targetSdkVersion rootProject.ext.targetSdkVersion
+-        versionCode 1
+-        versionName "1.0"
+     }
+ 
+     buildTypes {
+@@ -28,6 +26,7 @@ android {
+     }
+ 
+     resourcePrefix 'shaky_'
++    namespace 'com.linkedin.android.shaky'
+ }
+ 
+ dependencies {
+diff --git a/shaky/src/main/AndroidManifest.xml b/shaky/src/main/AndroidManifest.xml
+index 4712010..1e386a0 100644
+--- a/shaky/src/main/AndroidManifest.xml
++++ b/shaky/src/main/AndroidManifest.xml
+@@ -14,8 +14,7 @@
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ -->
+-<manifest package="com.linkedin.android.shaky"
+-          xmlns:android="http://schemas.android.com/apk/res/android">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+     <application android:supportsRtl="true">
+         <activity android:name="com.linkedin.android.shaky.FeedbackActivity" />
+diff --git a/shaky/src/main/java/com/linkedin/android/shaky/FeedbackActivity.java b/shaky/src/main/java/com/linkedin/android/shaky/FeedbackActivity.java
+index d877244..31d62e1 100644
+--- a/shaky/src/main/java/com/linkedin/android/shaky/FeedbackActivity.java
++++ b/shaky/src/main/java/com/linkedin/android/shaky/FeedbackActivity.java
+@@ -20,6 +20,7 @@ import android.content.Context;
+ import android.content.Intent;
+ import android.content.IntentFilter;
+ import android.net.Uri;
++import android.os.Build;
+ import android.os.Bundle;
+ import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
+@@ -72,7 +73,8 @@ public class FeedbackActivity extends AppCompatActivity {
+     public void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+ 
+-        setTheme(R.style.ShakyBaseTheme);
++        boolean isApi35OrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
++        setTheme(isApi35OrAbove? R.style.ShakyBaseTheme_Api35: R.style.ShakyBaseTheme);
+ 
+         setContentView(R.layout.shaky_feedback);
+ 
+diff --git a/shaky/src/main/java/com/linkedin/android/shaky/SendFeedbackDialog.java b/shaky/src/main/java/com/linkedin/android/shaky/SendFeedbackDialog.java
+index cc63767..ce0e20f 100644
+--- a/shaky/src/main/java/com/linkedin/android/shaky/SendFeedbackDialog.java
++++ b/shaky/src/main/java/com/linkedin/android/shaky/SendFeedbackDialog.java
+@@ -20,6 +20,7 @@ import android.app.Dialog;
+ import android.app.DialogFragment;
+ import android.content.DialogInterface;
+ import android.content.Intent;
++import android.os.Build;
+ import android.os.Bundle;
+ import android.os.Handler;
+ import android.view.ContextThemeWrapper;
+@@ -61,10 +62,11 @@ public class SendFeedbackDialog extends DialogFragment {
+         // We have to pass some kind of theme to Alert.Builder's constructor, as the Context-only
+         // constructor makes different assumptions about the theme passed to it
+         final AlertDialog.Builder builder;
++        boolean isApi35OrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
+         if (theme != FeedbackActivity.MISSING_RESOURCE) {
+-            builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.ShakyBasePopupTheme), theme);
++            builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), isApi35OrAbove? R.style.ShakyBasePopupTheme_Api35 : R.style.ShakyBasePopupTheme), theme);
+         } else {
+-            builder = new AlertDialog.Builder(getActivity(), R.style.ShakyBasePopupTheme);
++            builder = new AlertDialog.Builder(getActivity(), isApi35OrAbove? R.style.ShakyBasePopupTheme_Api35 : R.style.ShakyBasePopupTheme);
+         }
+ 
+         View popupView = View.inflate(builder.getContext(),
+diff --git a/shaky/src/main/res/values-v35/shaky_styles_v35.xml b/shaky/src/main/res/values-v35/shaky_styles_v35.xml
+new file mode 100644
+index 0000000..6c1bfab
+--- /dev/null
++++ b/shaky/src/main/res/values-v35/shaky_styles_v35.xml
+@@ -0,0 +1,37 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++
++    <style name="ShakyBaseAlertDialogTheme.Api35" parent="ShakyBaseAlertDialogTheme">
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyBaseEditTextTheme.Api35" parent="ShakyBaseEditTextTheme">
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyBaseSpinnerTheme.Api35" parent="ShakyBaseSpinnerTheme">
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyBaseToolbarTheme.Api35" parent="ShakyBaseToolbarTheme">
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyBaseImageEditorButtonTheme.Api35" parent="ShakyBaseImageEditorButtonTheme">
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++
++    <style name="ShakyBaseTheme.Api35" parent="ShakyBaseTheme">
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++        <!-- AlertDialog -->
++        <item name="shakyAlertDialogTheme">@style/ShakyBaseAlertDialogTheme.Api35</item>
++        <item name="shakyImageEditorButtonTheme">@style/ShakyBaseImageEditorButtonTheme.Api35</item>
++
++        <item name="alertDialogTheme">?attr/shakyAlertDialogTheme</item>
++        <item name="materialAlertDialogTheme">?attr/shakyAlertDialogTheme</item>
++    </style>
++
++    <style name="ShakyBasePopupTheme.Api35" parent="ShakyBasePopupTheme">
++        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
++    </style>
++</resources>

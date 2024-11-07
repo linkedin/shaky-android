@@ -18,6 +18,7 @@ package com.linkedin.android.shaky.app;
 import android.app.Activity;
 import android.app.Application;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -40,6 +41,7 @@ public class ShakyDemo extends Activity {
         int color = Color.rgb(random.nextInt(RGB_MAX), random.nextInt(RGB_MAX), random.nextInt(RGB_MAX));
         tv.setBackgroundColor(color);
 
+        boolean isApi35OrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
         findViewById(R.id.theme_checkbox).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,8 +49,8 @@ public class ShakyDemo extends Activity {
                     CheckBox checkBox = (CheckBox) v;
                     ShakyApplication application = (ShakyApplication) getApplication();
                     if (checkBox.isChecked()) {
-                        application.setShakyTheme(R.style.ShakyChristmasTheme);
-                        application.setShakyPopupTheme(R.style.ShakyChristmasPopupTheme);
+                        application.setShakyTheme(isApi35OrAbove ? R.style.ShakyChristmasTheme_Api35: R.style.ShakyChristmasTheme);
+                        application.setShakyPopupTheme(isApi35OrAbove ? R.style.ShakyChristmasPopupTheme_Api35 : R.style.ShakyChristmasPopupTheme);
                     } else {
                         application.setShakyTheme(null);
                         application.setShakyPopupTheme(null);
