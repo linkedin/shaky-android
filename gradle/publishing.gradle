@@ -26,10 +26,13 @@ afterEvaluate {
     publishing {
         publications {
             maven(MavenPublication) {
-                from components.findByName('release') ?: components.findByName('debug')
 
-                artifact sourcesJar
-                artifact javadocJar
+                artifact(tasks.sourcesJar) {
+                    classifier = 'sources'
+                }
+                artifact(tasks.javadocJar) {
+                    classifier = 'javadoc'
+                }
 
                 pom {
                     name = 'Shaky'

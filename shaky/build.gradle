@@ -21,12 +21,12 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError true
-    }
 
     resourcePrefix 'shaky_'
     namespace 'com.linkedin.android.shaky'
+    lint {
+        abortOnError true
+    }
 }
 
 dependencies {
