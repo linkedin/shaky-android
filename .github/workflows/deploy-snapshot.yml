@@ -11,6 +11,15 @@ jobs:
       matrix:
         java-version: [ 17 ]
     steps:
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java-version }}
+      - name: Show java
+        run: |
+          echo $JAVA_HOME
+          echo $PATH
+          java -version
       - uses: actions/checkout@v2
 
       - name: Cache Gradle Files
@@ -22,11 +31,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: ${{ matrix.java-version }}
 
       - name: Build
         run: ./gradlew build
