@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply from: "$rootDir/gradle/publishing.gradle"
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
