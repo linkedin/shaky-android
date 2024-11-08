@@ -28,8 +28,8 @@ afterEvaluate {
             maven(MavenPublication) {
                 from components.findByName('release') ?: components.findByName('debug')
 
-                //artifact sourcesJar
-                //artifact javadocJar
+                artifact sourcesJar
+                artifact javadocJar
 
                 pom {
                     name = 'Shaky'
