@@ -7,14 +7,12 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java-version: [ 17 ]
     steps:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-         java-version: ${{ matrix.java-version }}
+          java-version: '17'
+          distribution: 'temurin'
       - name: Show java
         run: |
             echo $JAVA_HOME
