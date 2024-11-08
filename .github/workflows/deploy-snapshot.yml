@@ -7,6 +7,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'Prepare for release') }}
+    strategy:
+      matrix:
+        java-version: [ 17 ]
     steps:
       - uses: actions/checkout@v2
 
@@ -23,8 +26,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
-          distribution: "temurin"
+          java-version: ${{ matrix.java-version }}
 
       - name: Build
         run: ./gradlew build
