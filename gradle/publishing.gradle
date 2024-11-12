@@ -8,6 +8,18 @@ tasks.register("sourcesJar", Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
+tasks.register("androidJavadoc", Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+tasks.register("androidJavadocJar", Jar) {
+    dependsOn androidJavadoc
+    archiveClassifier.set('javadoc')
+    from androidJavadoc.destinationDir
+}
+
 // AGP creates the components in afterEvaluate, so we need to use it too
 // https://developer.android.com/studio/build/maven-publish-plugin
 afterEvaluate {
@@ -16,6 +28,7 @@ afterEvaluate {
             maven(MavenPublication){
                 from(components["release"])
                 artifact sourcesJar
+                artifact androidJavadocJar
                 pom {
                     name = 'Shaky'
                     description = 'Shake-to-send-feedback library for Android'
