@@ -44,9 +44,4 @@
         <item name="shakyPopupTitleColor">@android:color/white</item>
         <item name="shakyPopupContentColor">@android:color/white</item>
     </style>
-
-    <style name="OptOutEdgeToEdgeEnforcement">
-        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
-    </style>
-
 </resources>
