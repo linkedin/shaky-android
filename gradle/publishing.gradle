@@ -8,23 +8,6 @@ tasks.register("sourcesJar", Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
-//tasks.register('androidJavadocs', Javadoc) {
-//    failOnError false
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//    android.libraryVariants.all { variant ->
-//        if (variant.name == 'release') {
-//            owner.classpath += variant.javaCompileProvider.get().classpath
-//        }
-//    }
-//    exclude '**/R.html', '**/R.*.html', '**/index.html'
-//}
-//
-//tasks.register('androidJavadocsJar', Jar) {
-//    dependsOn androidJavadocs
-//    from androidJavadocs.destinationDir
-//}
-
 // AGP creates the components in afterEvaluate, so we need to use it too
 // https://developer.android.com/studio/build/maven-publish-plugin
 afterEvaluate {
