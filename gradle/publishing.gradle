@@ -34,6 +34,8 @@ afterEvaluate {
                     classifier = 'javadoc'
                 }
 
+                artifact('build/outputs/aar/shaky-release.aar')
+
                 pom {
                     name = 'Shaky'
                     description = 'Shake-to-send-feedback library for Android'
