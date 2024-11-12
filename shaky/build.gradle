@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply from: "$rootDir/gradle/publishing.gradle"
 
 android {
+    namespace "com.linkedin.android.shaky"
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
@@ -16,10 +17,11 @@ android {
         versionName "1.0"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    publishing {
+        singleVariant("release") {
+            // if you don't want sources/javadoc, remove these lines
+            withSourcesJar()
+            withJavadocJar()
         }
     }
 
@@ -41,5 +43,5 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.12.4'
-    testImplementation 'org.robolectric:robolectric:4.9.2'
+    testImplementation 'org.robolectric:robolectric:4.14-beta-1'
 }
