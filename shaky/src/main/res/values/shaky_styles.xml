@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="ShakyBaseAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:colorBackground">?attr/shakyBackgroundColor</item>
@@ -70,6 +70,9 @@
         <item name="shakyAlertDialogTheme">@style/ShakyBaseAlertDialogTheme</item>
         <item name="alertDialogTheme">?attr/shakyAlertDialogTheme</item>
         <item name="materialAlertDialogTheme">?attr/shakyAlertDialogTheme</item>
+
+        <!-- Opt out of Edge to Edge enforcement required from Android 15 -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
     <style name="ShakyBasePopupTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
