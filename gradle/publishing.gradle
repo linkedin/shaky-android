@@ -15,7 +15,6 @@ afterEvaluate {
         publications {
             maven(MavenPublication){
                 from(components["release"])
-                // Adds javadocs and sources as separate jars.
                 artifact sourcesJar
                 pom {
                     name = 'Shaky'
