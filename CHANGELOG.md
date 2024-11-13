@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 3.0.7 (2024-11-13)
+- Add support for Android 15 [#76](https://github.com/linkedin/shaky-android/pull/76)
+
 ## Version 3.0.6 (2024-05-08)
 -  adding a custom dialog [#74](https://github.com/linkedin/shaky-android/pull/74)
 
