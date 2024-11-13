@@ -19,8 +19,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles 'proguard.cfg'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -33,12 +33,6 @@ android {
     }
 
     resourcePrefix 'shaky_'
-}
-
-tasks.configureEach {
-    if (it.name == 'testReleaseUnitTest') {
-        it.enabled = false
-    }
 }
 
 dependencies {
