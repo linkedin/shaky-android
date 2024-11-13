@@ -2,7 +2,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
 
     dependencies {
@@ -16,7 +15,6 @@ subprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
 
     group = GROUP_ID
