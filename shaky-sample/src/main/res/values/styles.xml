@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -44,5 +44,4 @@
         <item name="shakyPopupTitleColor">@android:color/white</item>
         <item name="shakyPopupContentColor">@android:color/white</item>
     </style>
-
 </resources>
