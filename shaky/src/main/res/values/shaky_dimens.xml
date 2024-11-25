@@ -21,13 +21,14 @@
     <dimen name="shaky_button_padding">8dp</dimen>
     <dimen name="shaky_content_top_padding">8dp</dimen>
     <dimen name="shaky_section_padding">16dp</dimen>
-    <dimen name="shaky_icon_padding">8dp</dimen>
+    <dimen name="shaky_icon_padding">12dp</dimen>
+    <dimen name="shaky_list_margin">16dp</dimen>
 
     <!-- textsize -->
     <dimen name="shaky_title_textsize">20sp</dimen>
     <dimen name="shaky_content_textsize">16sp</dimen>
     <dimen name="shaky_row_title_textsize">18sp</dimen>
-    <dimen name="shaky_row_textspacing">2sp</dimen>
+    <dimen name="shaky_row_textspacing">1dp</dimen>
 
     <dimen name="shaky_screenshot_height">200dp</dimen>
 

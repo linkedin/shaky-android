@@ -22,14 +22,14 @@
               android:focusable="true"
               android:gravity="center_vertical"
               android:minHeight="?android:attr/listPreferredItemHeight"
-              android:orientation="horizontal"
-              android:padding="@dimen/shaky_button_padding">
+              android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/shaky_row_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/shaky_icon_padding"
+        android:layout_marginVertical="@dimen/shaky_icon_padding"
+        android:layout_marginRight="@dimen/shaky_icon_padding"
         android:adjustViewBounds="true"
         android:gravity="center_vertical"
         android:scaleType="centerInside"
@@ -45,7 +45,6 @@
             android:id="@+id/shaky_row_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/shaky_row_textspacing"
             android:gravity="start"
             android:textAlignment="textStart"
             android:text="@string/shaky_row1_title"
