@@ -64,10 +64,18 @@ public class Shaky implements ShakeDetector.Listener {
     private long lastShakeTime;
     private CollectDataTask collectDataTask;
 
-    Shaky(@NonNull Context context, @NonNull ShakeDelegate delegate, @Nullable ShakyFlowCallback callback) {
+    @Nullable
+    private final Bundle shakyConfigs;
+
+    Shaky(@NonNull Context context,
+          @NonNull ShakeDelegate delegate,
+          @Nullable Bundle shakyConfigs,
+          @Nullable ShakyFlowCallback callback
+    ) {
         appContext = context.getApplicationContext();
         this.delegate = delegate;
         this.shakyFlowCallback = callback;
+        this.shakyConfigs = shakyConfigs;
         shakeDetector = new ShakeDetector(this);
 
         shakeDetector.setSensitivity(getDetectorSensitivityLevel());
@@ -88,7 +96,7 @@ public class Shaky implements ShakeDetector.Listener {
      */
     @NonNull
     public static Shaky with(@NonNull Application application, @NonNull ShakeDelegate delegate) {
-        return with(application, delegate, null);
+        return with(application, delegate, null, null);
     }
 
     /**
@@ -99,8 +107,10 @@ public class Shaky implements ShakeDetector.Listener {
     @NonNull
     public static Shaky with(@NonNull Application application,
                              @NonNull ShakeDelegate delegate,
+                             @Nullable Bundle shakyConfigs,
                              @Nullable ShakyFlowCallback callback) {
-        Shaky shaky = new Shaky(application.getApplicationContext(), delegate, callback);
+        Shaky shaky =
+                new Shaky(application.getApplicationContext(), delegate, shakyConfigs, callback);
         LifecycleCallbacks lifecycleCallbacks = new LifecycleCallbacks(shaky);
         application.registerActivityLifecycleCallbacks(lifecycleCallbacks);
         return shaky;
@@ -326,6 +336,7 @@ public class Shaky implements ShakeDetector.Listener {
                 result.getScreenshotUri(),
                 result.getData(),
                 delegate.resMenu,
+                shakyConfigs,
                 delegate.getTheme() != null ? delegate.getTheme() : FeedbackActivity.MISSING_RESOURCE);
         activity.startActivity(intent);
 

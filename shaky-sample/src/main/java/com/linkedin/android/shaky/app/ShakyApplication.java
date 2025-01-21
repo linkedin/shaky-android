@@ -52,7 +52,7 @@ public class ShakyApplication extends Application {
                 return popupTheme;
             }
 
-        }, new ShakyFlowCallback() {
+        }, null, new ShakyFlowCallback() {
             @Override
             public void onShakyStarted(@ShakyFlowCallback.ShakyStartedReason int reason) {
                 Log.d(TAG, "onShakyStarted: " + reason);

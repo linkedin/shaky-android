@@ -47,6 +47,7 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String SUBCATEGORY = "subcategory";
     static final String THEME = "theme";
     static final int MISSING_RESOURCE = 0;
+    static final String SHAKY_CONFIGS = "shakyConfigs";
 
     private Uri imageUri;
     private @FeedbackItem.FeedbackType int feedbackType;
@@ -59,11 +60,13 @@ public class FeedbackActivity extends AppCompatActivity {
                                    @Nullable Uri screenshotUri,
                                    @Nullable Bundle userData,
                                    @MenuRes int resMenu,
+                                   @Nullable Bundle shakyConfigs,
                                    @StyleRes int theme) {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
         intent.putExtra(RES_MENU, resMenu);
+        intent.putExtra(SHAKY_CONFIGS, shakyConfigs);
         intent.putExtra(THEME, theme);
         return intent;
     }
@@ -80,12 +83,22 @@ public class FeedbackActivity extends AppCompatActivity {
         imageUri = getIntent().getParcelableExtra(SCREENSHOT_URI);
         userData = getIntent().getBundleExtra(USER_DATA);
         resMenu = getIntent().getIntExtra(RES_MENU, FormFragment.DEFAULT_MENU);
+        Bundle shakyConfigs = getIntent().getBundleExtra(SHAKY_CONFIGS);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager()
+            if (shakyConfigs != null && shakyConfigs.getBoolean(ShakyConfigConstants.IS_USER_ALUMNI))
+            {
+                // Directly opening the "Bug Report" screen for Alumni users
+                startFormFragment(FeedbackItem.BUG, false);
+                if (imageUri != null) {
+                    startDrawFragment();
+                }
+            } else {
+                getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.shaky_fragment_container, SelectFragment.newInstance(customTheme))
                     .commit();
+            }
         }
     }
 
@@ -121,18 +134,26 @@ public class FeedbackActivity extends AppCompatActivity {
      *
      * @param fragment Fragment the fragment to swap to
      */
-    private void changeToFragment(@NonNull Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
+    private void changeToFragment(@NonNull Fragment fragment, boolean shouldAddToBackStack) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+            .beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .replace(R.id.shaky_fragment_container, fragment)
-            .addToBackStack(null)
-            .commit();
+            .replace(R.id.shaky_fragment_container, fragment);
+
+        if (shouldAddToBackStack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        fragmentTransaction.commit();
     }
 
     /**
      * Swap the view container for a form fragment, restores the previous fragment if one exists.
      */
-    private void startFormFragment(@FeedbackItem.FeedbackType int feedbackType) {
+    private void startFormFragment(
+        @FeedbackItem.FeedbackType int feedbackType,
+        boolean shouldAddToBackStack
+    ) {
         String title = getString(getTitleResId(feedbackType));
         String hint = getString(getHintResId(feedbackType));
         String[] subtypes = null;
@@ -140,18 +161,20 @@ public class FeedbackActivity extends AppCompatActivity {
             subtypes = new String[]{Subcategories.Bug.CRASH, Subcategories.Bug.NON_FATAL};
         }
         changeToFragment(new FormFragment.Builder(title, hint)
-                .setScreenshotUri(imageUri)
-                .setMenu(resMenu)
-                .setSubtypes(subtypes != null ? R.array.shaky_bug_subcategories : null, subtypes)
-                .setTheme(customTheme)
-                .build());
+            .setScreenshotUri(imageUri)
+            .setMenu(resMenu)
+            .setSubtypes(subtypes != null ? R.array.shaky_bug_subcategories : null, subtypes)
+            .setTheme(customTheme)
+            .build(),
+            shouldAddToBackStack
+        );
     }
 
     /**
      * Swap the view container for a draw fragment, restores the previous fragment if one exists.
      */
     private void startDrawFragment() {
-        changeToFragment(DrawFragment.newInstance(imageUri, customTheme));
+        changeToFragment(DrawFragment.newInstance(imageUri, customTheme), true);
     }
 
     private void setFeedbackType(@FeedbackItem.FeedbackType int feedbackType) {
@@ -167,7 +190,7 @@ public class FeedbackActivity extends AppCompatActivity {
 
                 setFeedbackType(feedbackType);
 
-                startFormFragment(feedbackType);
+                startFormFragment(feedbackType, true);
                 if (imageUri != null && feedbackType == FeedbackItem.BUG) {
                     startDrawFragment();
                 }

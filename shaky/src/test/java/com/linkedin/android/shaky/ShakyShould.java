@@ -52,7 +52,7 @@ public class ShakyShould {
         when(activity.getMainLooper()).thenReturn(Looper.getMainLooper());
         when(delegate.getSensitivityLevel()).thenReturn(ShakeDelegate.SENSITIVITY_LIGHT);
 
-        shaky = new Shaky(activity, delegate, null);
+        shaky = new Shaky(activity, delegate, null, null);
         shaky.setActivity(activity);
     }
 
