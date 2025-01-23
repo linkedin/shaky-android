@@ -41,6 +41,7 @@ import java.util.concurrent.TimeUnit;
 public class SendFeedbackDialog extends DialogFragment {
 
     public static final String ACTION_START_FEEDBACK_FLOW = "StartFeedbackFlow";
+    public static final String ACTION_START_BUG_REPORT = "StartBugReport";
     public static final String ACTION_DIALOG_DISMISSED_BY_USER = "DialogDismissedByUser";
     public static final String SHOULD_DISPLAY_SETTING_UI = "ShouldDisplaySettingUI";
     public static final String CUSTOM_TITLE = "CustomTitle";
@@ -89,7 +90,7 @@ public class SendFeedbackDialog extends DialogFragment {
         builder.setPositiveButton(R.string.shaky_dialog_positive, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(ACTION_START_FEEDBACK_FLOW);
+                Intent intent = new Intent(getActionToPerformOnPositiveClick());
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         });
@@ -141,5 +142,13 @@ public class SendFeedbackDialog extends DialogFragment {
         if (handler != null) {
             handler.removeCallbacks(runnable);
         }
+    }
+
+    /**
+     * Consumer can override this method to perform a custom action on dialog positive button click,
+     * by default it starts the feedback flow.
+     */
+    public String getActionToPerformOnPositiveClick() {
+        return ACTION_START_FEEDBACK_FLOW;
     }
 }

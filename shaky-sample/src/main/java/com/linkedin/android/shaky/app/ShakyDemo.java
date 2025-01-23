@@ -16,12 +16,13 @@
 package com.linkedin.android.shaky.app;
 
 import android.app.Activity;
-import android.app.Application;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
+import com.linkedin.android.shaky.SendFeedbackDialog;
 
 import java.util.Random;
 
@@ -67,7 +68,15 @@ public class ShakyDemo extends Activity {
         findViewById(R.id.demo_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ShakyApplication) getApplication()).getShaky().startFeedbackFlow();
+                ((ShakyApplication) getApplication()).getShaky().startFeedbackFlow(null);
+            }
+        });
+
+        findViewById(R.id.demo_bug_report_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ShakyApplication) getApplication()).getShaky()
+                        .startFeedbackFlow(SendFeedbackDialog.ACTION_START_BUG_REPORT);
             }
         });
     }
