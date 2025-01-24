@@ -68,7 +68,7 @@ public class ShakyDemo extends Activity {
         findViewById(R.id.demo_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ShakyApplication) getApplication()).getShaky().startFeedbackFlow(null);
+                ((ShakyApplication) getApplication()).getShaky().startFeedbackFlow();
             }
         });
 

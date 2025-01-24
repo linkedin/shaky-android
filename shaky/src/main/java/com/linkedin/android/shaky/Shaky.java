@@ -110,7 +110,14 @@ public class Shaky implements ShakeDetector.Listener {
     }
 
     /**
-     * Start shaky manually.
+     * Start the shaky feedback flow manually.
+     */
+    public void startFeedbackFlow() {
+        startFeedbackFlow(null);
+    }
+
+    /**
+     * Start shaky manually for a custom flow.
      *
      * @param action the flow to start. If null, starts the feedback flow by default. Otherwise
      *               starts the custom flow (if valid).
