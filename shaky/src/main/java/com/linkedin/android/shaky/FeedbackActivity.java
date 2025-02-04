@@ -86,12 +86,12 @@ public class FeedbackActivity extends AppCompatActivity {
         String action = getIntent().getStringExtra(ACTION);
 
         if (savedInstanceState == null && action != null) {
-            if (action.equals(SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW)) {
+            if (action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)) {
                 getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.shaky_fragment_container, SelectFragment.newInstance(customTheme))
                     .commit();
-            } else if (action.equals(SendFeedbackDialog.ACTION_START_BUG_REPORT)) {
+            } else if (action.equals(ActionConstants.ACTION_START_BUG_REPORT)) {
                 startFormFragment(FeedbackItem.BUG, false);
                 if (imageUri != null) {
                     startDrawFragment();

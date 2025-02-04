@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import com.linkedin.android.shaky.SendFeedbackDialog;
+import com.linkedin.android.shaky.ActionConstants;
 
 import java.util.Random;
 
@@ -76,7 +76,7 @@ public class ShakyDemo extends Activity {
             @Override
             public void onClick(View v) {
                 ((ShakyApplication) getApplication()).getShaky()
-                        .startFeedbackFlow(SendFeedbackDialog.ACTION_START_BUG_REPORT);
+                        .startFeedbackFlow(ActionConstants.ACTION_START_BUG_REPORT);
             }
         });
     }

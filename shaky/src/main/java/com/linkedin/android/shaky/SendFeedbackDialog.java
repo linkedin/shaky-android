@@ -40,9 +40,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class SendFeedbackDialog extends DialogFragment {
 
-    public static final String ACTION_START_FEEDBACK_FLOW = "StartFeedbackFlow";
-    public static final String ACTION_START_BUG_REPORT = "StartBugReport";
-    public static final String ACTION_DIALOG_DISMISSED_BY_USER = "DialogDismissedByUser";
     public static final String SHOULD_DISPLAY_SETTING_UI = "ShouldDisplaySettingUI";
     public static final String CUSTOM_TITLE = "CustomTitle";
     public static final String CUSTOM_MESSAGE = "CustomMessage";
@@ -97,7 +94,7 @@ public class SendFeedbackDialog extends DialogFragment {
         builder.setNegativeButton(R.string.shaky_dialog_negative, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(ACTION_DIALOG_DISMISSED_BY_USER);
+                Intent intent = new Intent(ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER);
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         });
@@ -149,6 +146,6 @@ public class SendFeedbackDialog extends DialogFragment {
      * by default it starts the feedback flow.
      */
     public String getActionToPerformOnPositiveClick() {
-        return ACTION_START_FEEDBACK_FLOW;
+        return ActionConstants.ACTION_START_FEEDBACK_FLOW;
     }
 }

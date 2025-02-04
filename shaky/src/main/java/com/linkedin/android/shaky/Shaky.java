@@ -75,9 +75,9 @@ public class Shaky implements ShakeDetector.Listener {
         shakeDetector.setSensitivity(getDetectorSensitivityLevel());
 
         IntentFilter filter = new IntentFilter();
-        filter.addAction(SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW);
-        filter.addAction(SendFeedbackDialog.ACTION_START_BUG_REPORT);
-        filter.addAction(SendFeedbackDialog.ACTION_DIALOG_DISMISSED_BY_USER);
+        filter.addAction(ActionConstants.ACTION_START_FEEDBACK_FLOW);
+        filter.addAction(ActionConstants.ACTION_START_BUG_REPORT);
+        filter.addAction(ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER);
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
         filter.addAction(FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER);
         filter.addAction(ShakySettingDialog.UPDATE_SHAKY_SENSITIVITY);
@@ -134,7 +134,7 @@ public class Shaky implements ShakeDetector.Listener {
                 actionThatStartedTheActivity = action;
             }
         } else {
-            actionThatStartedTheActivity = SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW;
+            actionThatStartedTheActivity = ActionConstants.ACTION_START_FEEDBACK_FLOW;
         }
         doStartFeedbackFlow();
     }
@@ -192,8 +192,8 @@ public class Shaky implements ShakeDetector.Listener {
      * @return true if the flow is a valid flow.
      */
     private boolean isValidStartAction(String action) {
-        return action.equals(SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW)
-                || action.equals(SendFeedbackDialog.ACTION_START_BUG_REPORT);
+        return action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)
+                || action.equals(ActionConstants.ACTION_START_BUG_REPORT);
     }
 
     @Override
@@ -305,13 +305,13 @@ public class Shaky implements ShakeDetector.Listener {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())
-                        || SendFeedbackDialog.ACTION_START_BUG_REPORT.equals(intent.getAction())) {
+                if (ActionConstants.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())
+                        || ActionConstants.ACTION_START_BUG_REPORT.equals(intent.getAction())) {
                     if (activity != null) {
                         actionThatStartedTheActivity = intent.getAction();
                         doStartFeedbackFlow();
                     }
-                } else if (SendFeedbackDialog.ACTION_DIALOG_DISMISSED_BY_USER.equals(intent.getAction())
+                } else if (ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER.equals(intent.getAction())
                         || FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER.equals(intent.getAction())) {
                     if (shakyFlowCallback != null) {
                         shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_BY_USER);
