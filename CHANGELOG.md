@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 3.0.8 (2025-03-11)
+- Add support to perform custom action in feedback dialog [#78](https://github.com/linkedin/shaky-android/pull/78)
+
 ## Version 3.0.7 (2024-11-13)
 - Add support for Android 15 [#76](https://github.com/linkedin/shaky-android/pull/76)
 

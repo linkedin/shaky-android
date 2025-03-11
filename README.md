@@ -15,7 +15,7 @@ Download the latest .aar via Maven:
 	<dependency>
 	  <groupId>com.linkedin.shaky</groupId>
 	  <artifactId>shaky</artifactId>
-	  <version>3.0.7</version>
+	  <version>3.0.8</version>
 	</dependency>
 ```
 
