@@ -17,6 +17,7 @@ package com.linkedin.android.shaky;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.DialogFragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -63,6 +64,7 @@ public class Shaky implements ShakeDetector.Listener {
     private Context appContext;
     private long lastShakeTime;
     private CollectDataTask collectDataTask;
+    private String actionThatStartedTheActivity;
 
     Shaky(@NonNull Context context, @NonNull ShakeDelegate delegate, @Nullable ShakyFlowCallback callback) {
         appContext = context.getApplicationContext();
@@ -73,8 +75,9 @@ public class Shaky implements ShakeDetector.Listener {
         shakeDetector.setSensitivity(getDetectorSensitivityLevel());
 
         IntentFilter filter = new IntentFilter();
-        filter.addAction(SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW);
-        filter.addAction(SendFeedbackDialog.ACTION_DIALOG_DISMISSED_BY_USER);
+        filter.addAction(ActionConstants.ACTION_START_FEEDBACK_FLOW);
+        filter.addAction(ActionConstants.ACTION_START_BUG_REPORT);
+        filter.addAction(ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER);
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
         filter.addAction(FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER);
         filter.addAction(ShakySettingDialog.UPDATE_SHAKY_SENSITIVITY);
@@ -106,14 +109,33 @@ public class Shaky implements ShakeDetector.Listener {
         return shaky;
     }
 
+    /**
+     * Start the shaky feedback flow manually.
+     */
     public void startFeedbackFlow() {
+        startFeedbackFlow(null);
+    }
+
+    /**
+     * Start shaky manually for a custom flow.
+     *
+     * @param action the flow to start. If null, starts the feedback flow by default. Otherwise
+     *               starts the custom flow (if valid).
+     */
+    public void startFeedbackFlow(@Nullable String action) {
         if (shakyFlowCallback != null) {
             shakyFlowCallback.onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_MANUALLY);
         }
         if (!canStartFeedbackFlow()) {
             return;
         }
-
+        if (action != null) {
+            if (isValidStartAction(action)) {
+                actionThatStartedTheActivity = action;
+            }
+        } else {
+            actionThatStartedTheActivity = ActionConstants.ACTION_START_FEEDBACK_FLOW;
+        }
         doStartFeedbackFlow();
     }
 
@@ -163,6 +185,17 @@ public class Shaky implements ShakeDetector.Listener {
         shakeDetector.stop();
     }
 
+    /**
+     * Checks If the flow to start is a valid flow or not.
+     * @param action the provided flow to start
+     *
+     * @return true if the flow is a valid flow.
+     */
+    private boolean isValidStartAction(String action) {
+        return action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)
+                || action.equals(ActionConstants.ACTION_START_BUG_REPORT);
+    }
+
     @Override
     public void hearShake() {
         if (shakyFlowCallback != null) {
@@ -184,11 +217,15 @@ public class Shaky implements ShakeDetector.Listener {
         }
         arguments.putBoolean(SendFeedbackDialog.SHOULD_DISPLAY_SETTING_UI, delegate.shouldShowSettingsUI());
         arguments.putInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, delegate.getSensitivityLevel());
-        SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();
-        sendFeedbackDialog.setArguments(arguments);
         if (delegate.getCustomDialog() != null) {
-            delegate.getCustomDialog().show(activity.getFragmentManager(), CUSTOM_DIALOG_TAG);
+            DialogFragment customDialog = delegate.getCustomDialog();
+            if (delegate.getCustomDialog() instanceof SendFeedbackDialog) {
+                customDialog.setArguments(arguments);
+            }
+            customDialog.show(activity.getFragmentManager(), CUSTOM_DIALOG_TAG);
         } else {
+            SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();
+            sendFeedbackDialog.setArguments(arguments);
             sendFeedbackDialog.show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
         }
         if (shakyFlowCallback != null) {
@@ -268,11 +305,13 @@ public class Shaky implements ShakeDetector.Listener {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (SendFeedbackDialog.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())) {
+                if (ActionConstants.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())
+                        || ActionConstants.ACTION_START_BUG_REPORT.equals(intent.getAction())) {
                     if (activity != null) {
+                        actionThatStartedTheActivity = intent.getAction();
                         doStartFeedbackFlow();
                     }
-                } else if (SendFeedbackDialog.ACTION_DIALOG_DISMISSED_BY_USER.equals(intent.getAction())
+                } else if (ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER.equals(intent.getAction())
                         || FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER.equals(intent.getAction())) {
                     if (shakyFlowCallback != null) {
                         shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_BY_USER);
@@ -326,6 +365,7 @@ public class Shaky implements ShakeDetector.Listener {
                 result.getScreenshotUri(),
                 result.getData(),
                 delegate.resMenu,
+                actionThatStartedTheActivity,
                 delegate.getTheme() != null ? delegate.getTheme() : FeedbackActivity.MISSING_RESOURCE);
         activity.startActivity(intent);
 

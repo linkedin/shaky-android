@@ -46,6 +46,7 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String RES_MENU = "resMenu";
     static final String SUBCATEGORY = "subcategory";
     static final String THEME = "theme";
+    private static final String ACTION = "ACTION_THAT_STARTED_THE_ACTIVITY";
     static final int MISSING_RESOURCE = 0;
 
     private Uri imageUri;
@@ -59,11 +60,13 @@ public class FeedbackActivity extends AppCompatActivity {
                                    @Nullable Uri screenshotUri,
                                    @Nullable Bundle userData,
                                    @MenuRes int resMenu,
+                                   @Nullable String actionThatStartedTheActivity,
                                    @StyleRes int theme) {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
         intent.putExtra(RES_MENU, resMenu);
+        intent.putExtra(ACTION, actionThatStartedTheActivity);
         intent.putExtra(THEME, theme);
         return intent;
     }
@@ -80,12 +83,20 @@ public class FeedbackActivity extends AppCompatActivity {
         imageUri = getIntent().getParcelableExtra(SCREENSHOT_URI);
         userData = getIntent().getBundleExtra(USER_DATA);
         resMenu = getIntent().getIntExtra(RES_MENU, FormFragment.DEFAULT_MENU);
+        String action = getIntent().getStringExtra(ACTION);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
+        if (savedInstanceState == null && action != null) {
+            if (action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)) {
+                getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.shaky_fragment_container, SelectFragment.newInstance(customTheme))
                     .commit();
+            } else if (action.equals(ActionConstants.ACTION_START_BUG_REPORT)) {
+                startFormFragment(FeedbackItem.BUG, false);
+                if (imageUri != null) {
+                    startDrawFragment();
+                }
+            }
         }
     }
 
@@ -120,19 +131,31 @@ public class FeedbackActivity extends AppCompatActivity {
      * Attaches this intent's extras to the fragment and transitions to the next fragment.
      *
      * @param fragment Fragment the fragment to swap to
+     * @param shouldAddToBackStack if the fragment should be added to backstack or not
      */
-    private void changeToFragment(@NonNull Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
+    private void changeToFragment(@NonNull Fragment fragment, boolean shouldAddToBackStack) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+            .beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .replace(R.id.shaky_fragment_container, fragment)
-            .addToBackStack(null)
-            .commit();
+            .replace(R.id.shaky_fragment_container, fragment);
+
+        if (shouldAddToBackStack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        fragmentTransaction.commit();
     }
 
     /**
      * Swap the view container for a form fragment, restores the previous fragment if one exists.
+     *
+     * @param feedbackType the FeedbackType for which to start the fragment
+     * @param shouldAddToBackStack if the fragment should be added to backstack or not
      */
-    private void startFormFragment(@FeedbackItem.FeedbackType int feedbackType) {
+    private void startFormFragment(
+        @FeedbackItem.FeedbackType int feedbackType,
+        boolean shouldAddToBackStack
+    ) {
         String title = getString(getTitleResId(feedbackType));
         String hint = getString(getHintResId(feedbackType));
         String[] subtypes = null;
@@ -140,18 +163,19 @@ public class FeedbackActivity extends AppCompatActivity {
             subtypes = new String[]{Subcategories.Bug.CRASH, Subcategories.Bug.NON_FATAL};
         }
         changeToFragment(new FormFragment.Builder(title, hint)
-                .setScreenshotUri(imageUri)
-                .setMenu(resMenu)
-                .setSubtypes(subtypes != null ? R.array.shaky_bug_subcategories : null, subtypes)
-                .setTheme(customTheme)
-                .build());
+            .setScreenshotUri(imageUri)
+            .setMenu(resMenu)
+            .setSubtypes(subtypes != null ? R.array.shaky_bug_subcategories : null, subtypes)
+            .setTheme(customTheme)
+            .build(),
+            shouldAddToBackStack);
     }
 
     /**
      * Swap the view container for a draw fragment, restores the previous fragment if one exists.
      */
     private void startDrawFragment() {
-        changeToFragment(DrawFragment.newInstance(imageUri, customTheme));
+        changeToFragment(DrawFragment.newInstance(imageUri, customTheme), true);
     }
 
     private void setFeedbackType(@FeedbackItem.FeedbackType int feedbackType) {
@@ -167,7 +191,7 @@ public class FeedbackActivity extends AppCompatActivity {
 
                 setFeedbackType(feedbackType);
 
-                startFormFragment(feedbackType);
+                startFormFragment(feedbackType, true);
                 if (imageUri != null && feedbackType == FeedbackItem.BUG) {
                     startDrawFragment();
                 }
