@@ -78,9 +78,9 @@ public class FeedbackActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
         setTheme(R.style.ShakyBaseTheme);
-        EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(
             getWindow().findViewById(android.R.id.content),
             (v, insets) -> {
