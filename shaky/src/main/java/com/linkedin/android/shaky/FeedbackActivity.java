@@ -84,7 +84,8 @@ public class FeedbackActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(
             getWindow().findViewById(android.R.id.content),
             (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                Insets systemBars =
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
                 return WindowInsetsCompat.CONSUMED;
             }
