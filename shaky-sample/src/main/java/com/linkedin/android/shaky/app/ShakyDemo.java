@@ -41,7 +41,8 @@ public class ShakyDemo extends Activity {
         ViewCompat.setOnApplyWindowInsetsListener(
             getWindow().findViewById(R.id.demo_background),
             (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                Insets systemBars =
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
                 return WindowInsetsCompat.CONSUMED;
             }
