@@ -22,6 +22,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import com.linkedin.android.shaky.ActionConstants;
 
 import java.util.Random;
@@ -34,9 +38,16 @@ public class ShakyDemo extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-
+        ViewCompat.setOnApplyWindowInsetsListener(
+            getWindow().findViewById(R.id.demo_background),
+            (v, insets) -> {
+                Insets systemBars =
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return WindowInsetsCompat.CONSUMED;
+            }
+        );
         View tv = findViewById(R.id.demo_background);
-
         Random random = new Random();
         int color = Color.rgb(random.nextInt(RGB_MAX), random.nextInt(RGB_MAX), random.nextInt(RGB_MAX));
         tv.setBackgroundColor(color);

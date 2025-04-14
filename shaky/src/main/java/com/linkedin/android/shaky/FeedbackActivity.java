@@ -21,15 +21,20 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.MenuRes;
 
 /**
  * The main activity used capture and send feedback.
@@ -73,10 +78,18 @@ public class FeedbackActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
-
         setTheme(R.style.ShakyBaseTheme);
-
+        ViewCompat.setOnApplyWindowInsetsListener(
+            getWindow().findViewById(android.R.id.content),
+            (v, insets) -> {
+                Insets systemBars =
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return WindowInsetsCompat.CONSUMED;
+            }
+        );
         setContentView(R.layout.shaky_feedback);
 
         customTheme = getIntent().getIntExtra(THEME, MISSING_RESOURCE);
