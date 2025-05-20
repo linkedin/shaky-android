@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 3.0.11 (2025-05-19)
+- Add support for keeping old screenshots [#80](https://github.com/linkedin/shaky-android/pull/80)
+
 ## Version 3.0.10 (2025-05-11)
 - Add support for keeping old screenshots [#80](https://github.com/linkedin/shaky-android/pull/80)
 
