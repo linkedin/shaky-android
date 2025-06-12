@@ -272,15 +272,8 @@ public class Shaky implements ShakeDetector.Listener {
     @Nullable
     @UiThread
     private Bitmap getScreenshotBitmap() {
-        try {
-            // Attempt to use Falcon to take the screenshot
-            return Falcon.takeScreenshotBitmap(activity);
-        } catch (Falcon.UnableToTakeScreenshotException exception) {
-            // Fallback to using the default screenshot capture mechanism if Falcon does not work (e.g. if it has not
-            // been updated to work on newer versions of Android yet)
-            View view = activity.getWindow().getDecorView().getRootView();
-            return Utils.capture(view, activity.getWindow());
-        }
+        View view = activity.getWindow().getDecorView().getRootView();
+        return Utils.capture(view, activity.getWindow());
     }
 
     private void dismissCollectFeedbackDialogIfNecessary() {
