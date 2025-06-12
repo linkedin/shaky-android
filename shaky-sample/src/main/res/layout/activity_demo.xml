@@ -50,4 +50,11 @@
         android:layout_height="wrap_content"
         android:text="@string/manual_bug_report"/>
 
+    <Button
+        android:id="@+id/demo_bottom_sheet_button"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/manual_bottom_sheet"/>
+
 </LinearLayout>

@@ -15,22 +15,23 @@
  */
 package com.linkedin.android.shaky.app;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.linkedin.android.shaky.ActionConstants;
+import com.linkedin.android.shaky.BottomSheetFragment;
 
 import java.util.Random;
 
-public class ShakyDemo extends Activity {
+public class ShakyDemo extends AppCompatActivity {
 
     private static final int RGB_MAX = 256;
 
@@ -88,6 +89,14 @@ public class ShakyDemo extends Activity {
             public void onClick(View v) {
                 ((ShakyApplication) getApplication()).getShaky()
                         .startFeedbackFlow(ActionConstants.ACTION_START_BUG_REPORT);
+            }
+        });
+
+        findViewById(R.id.demo_bottom_sheet_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetFragment bottomSheetFragment = BottomSheetFragment.newInstance(null);
+                bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheet");
             }
         });
     }

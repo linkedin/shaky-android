@@ -100,14 +100,10 @@ public class FeedbackActivity extends AppCompatActivity {
 
         if (savedInstanceState == null && action != null) {
             if (action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)) {
-//                getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .add(R.id.shaky_fragment_container, SelectFragment.newInstance(customTheme))
-//                    .commit();
                 getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.shaky_fragment_container, BottomSheetFragment.newInstance(customTheme))
-                        .commit();
+                    .beginTransaction()
+                    .add(R.id.shaky_fragment_container, SelectFragment.newInstance(customTheme))
+                    .commit();
             } else if (action.equals(ActionConstants.ACTION_START_BUG_REPORT)) {
                 startFormFragment(FeedbackItem.BUG, false);
                 if (imageUri != null) {
