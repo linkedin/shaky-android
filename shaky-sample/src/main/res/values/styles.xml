@@ -44,4 +44,17 @@
         <item name="shakyPopupTitleColor">@android:color/white</item>
         <item name="shakyPopupContentColor">@android:color/white</item>
     </style>
+
+    <style name="BottomSheetTheme" parent="Theme.Material3.Light.BottomSheetDialog">
+        <!-- Common -->
+        <item name="shakyBackgroundColor">@android:color/white</item>
+        <item name="shakyTitleColor">@color/shaky_dark_gray</item>
+        <item name="shakyContentColor">@color/shaky_gray</item>
+        <item name="shakyToolbarTheme">@style/ShakyBaseToolbarTheme</item>
+
+        <!-- Category Select -->
+        <item name="shakySelectBackgroundColor">?attr/shakyBackgroundColor</item>
+        <item name="shakyCategoryListItemTitleColor">?attr/shakyTitleColor</item>
+        <item name="shakyCategoryListItemSubtitleColor">?attr/shakyContentColor</item>
+    </style>
 </resources>

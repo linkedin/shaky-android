@@ -95,7 +95,7 @@ public class ShakyDemo extends AppCompatActivity {
         findViewById(R.id.demo_bottom_sheet_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetFragment bottomSheetFragment = BottomSheetFragment.newInstance(null);
+                BottomSheetFragment bottomSheetFragment = BottomSheetFragment.newInstance(R.style.BottomSheetTheme);
                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheet");
             }
         });

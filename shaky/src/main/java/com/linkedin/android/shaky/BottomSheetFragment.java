@@ -30,6 +30,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     @Override
+    public int getTheme() {
+        return getArguments().getInt(KEY_THEME, FeedbackActivity.MISSING_RESOURCE);
+    }
+
+    @Override
     @NonNull
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.inflater = Utils.applyThemeToInflater(inflater,
