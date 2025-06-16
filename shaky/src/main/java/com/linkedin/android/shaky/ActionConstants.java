@@ -23,4 +23,5 @@ public class ActionConstants {
     public static final String ACTION_START_FEEDBACK_FLOW = "StartFeedbackFlow";
     public static final String ACTION_START_BUG_REPORT = "StartBugReport";
     public static final String ACTION_DIALOG_DISMISSED_BY_USER = "DialogDismissedByUser";
+    public static final String ACTION_DISMISS = "Dismiss";
 }

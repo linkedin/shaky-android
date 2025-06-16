@@ -46,7 +46,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FeedbackTypeAdapter adapter = new FeedbackTypeAdapter(inflater, getData());
+        BottomSheetFeedbackTypeAdapter adapter = new BottomSheetFeedbackTypeAdapter(inflater, getData());
 
         RecyclerView recyclerView = view.findViewById(R.id.shaky_recyclerView_bottomsheet);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -54,25 +54,28 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     @NonNull
-    private FeedbackItem[] getData() {
-        return new FeedbackItem[]{
-                new FeedbackItem(
+    private BottomSheetFeedbackItem[] getData() {
+        return new BottomSheetFeedbackItem[]{
+                new BottomSheetFeedbackItem(
                         getString(R.string.shaky_row1_title),
-                        getString(R.string.shaky_row1_title),
+                        getString(R.string.shaky_row1_subtitle),
                         R.drawable.shaky_img_magnifying_glass_56dp,
-                        FeedbackItem.BUG
+                        BottomSheetFeedbackItem.BUG,
+                        ActionConstants.ACTION_START_BUG_REPORT
                 ),
-                new FeedbackItem(
+                new BottomSheetFeedbackItem(
                         getString(R.string.shaky_row3_title),
-                        getString(R.string.shaky_row3_title),
+                        getString(R.string.shaky_row3_subtitle),
                         R.drawable.shaky_img_message_bubbles_56dp,
-                        FeedbackItem.GENERAL
+                        BottomSheetFeedbackItem.GENERAL,
+                        ActionConstants.ACTION_START_FEEDBACK_FLOW
                 ),
-                new FeedbackItem(
-                        getString(R.string.shaky_dialog_negative),
-                        getString(R.string.shaky_dialog_negative),
+                new BottomSheetFeedbackItem(
+                        getString(R.string.shaky_dismiss_title),
+                        getString(R.string.shaky_dismiss_subtitle),
                         R.drawable.shaky_dismiss,
-                        FeedbackItem.DISMISS
+                        BottomSheetFeedbackItem.DISMISS,
+                        ActionConstants.ACTION_DISMISS
                 ),
         };
     }
