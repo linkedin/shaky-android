@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 LinkedIn Corp.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,30 +16,34 @@
 package com.linkedin.android.shaky;
 
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * RecyclerView.Adapter for the select type of feedback view.
  */
 class BottomSheetFeedbackTypeAdapter extends RecyclerView.Adapter<BottomSheetFeedbackTypeAdapter.RowViewHolder> {
 
-    public static final String ACTION_FEEDBACK_TYPE_SELECTED = "ActionFeedbackTypeSelected";
     public static final String EXTRA_FEEDBACK_TYPE = "ExtraFeedbackType";
-    public static final String FEEDBACK_ACTION = "FeedbackAction";
 
     private final LayoutInflater inflater;
     private final BottomSheetFeedbackItem[] itemsList;
+    @NonNull
+    private final BottomSheetFeedbackFragment bottomSheetFeedbackFragment;
 
-    BottomSheetFeedbackTypeAdapter(@NonNull LayoutInflater inflater, @NonNull BottomSheetFeedbackItem[] itemsList) {
+    BottomSheetFeedbackTypeAdapter(@NonNull LayoutInflater inflater,
+                                   @NonNull BottomSheetFeedbackItem[] itemsList,
+                                   @NonNull BottomSheetFeedbackFragment bottomSheetFeedbackFragment) {
         this.inflater = inflater;
         this.itemsList = itemsList;
+        this.bottomSheetFeedbackFragment = bottomSheetFeedbackFragment;
     }
 
     @Override
@@ -56,17 +60,19 @@ class BottomSheetFeedbackTypeAdapter extends RecyclerView.Adapter<BottomSheetFee
     public void onBindViewHolder(RowViewHolder rowViewHolder, int position) {
         final BottomSheetFeedbackItem item = itemsList[position];
 
-        rowViewHolder.titleView.setText(String.valueOf(item.title));
-        rowViewHolder.descriptionView.setText(String.valueOf(item.description));
+        rowViewHolder.titleView.setText(item.title);
+        rowViewHolder.descriptionView.setText(item.description);
         rowViewHolder.imageView.setImageResource(item.icon);
-        rowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ACTION_FEEDBACK_TYPE_SELECTED);
-                intent.putExtra(EXTRA_FEEDBACK_TYPE, item.feedbackType);
-                intent.putExtra(FEEDBACK_ACTION, item.action);
-                LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
+        rowViewHolder.itemView.setOnClickListener(v -> {
+            // Dismiss is clicked
+            if (position == 2) {
+                bottomSheetFeedbackFragment.dismiss();
+                return;
             }
+            Intent intent = new Intent(item.action);
+            intent.putExtra(EXTRA_FEEDBACK_TYPE, item.feedbackType);
+            LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
+            bottomSheetFeedbackFragment.dismiss();
         });
     }
 
@@ -77,9 +83,9 @@ class BottomSheetFeedbackTypeAdapter extends RecyclerView.Adapter<BottomSheetFee
 
         RowViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.imageView = (ImageView) itemView.findViewById(R.id.shaky_row_icon);
-            this.titleView = (TextView) itemView.findViewById(R.id.shaky_row_title);
-            this.descriptionView = (TextView) itemView.findViewById(R.id.shaky_row_description);
+            this.imageView = itemView.findViewById(R.id.shaky_row_icon);
+            this.titleView = itemView.findViewById(R.id.shaky_row_title);
+            this.descriptionView = itemView.findViewById(R.id.shaky_row_description);
         }
     }
 }

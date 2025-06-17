@@ -44,7 +44,7 @@
     <string name="shaky_image_action">Tap to edit image</string>
 
     <string name="shaky_dismiss_title">Dismiss</string>
-    <string name="shaky_dismiss_subtitle">Triggered by mistake, can just dismiss :)</string>
+    <string name="shaky_dismiss_subtitle">No feedback? Can just dismiss.</string>
 
     <string name="shaky_form_submit">Send</string>
 

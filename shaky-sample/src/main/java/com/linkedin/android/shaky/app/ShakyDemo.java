@@ -27,7 +27,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.linkedin.android.shaky.ActionConstants;
-import com.linkedin.android.shaky.BottomSheetFragment;
+import com.linkedin.android.shaky.BottomSheetFeedbackFragment;
 
 import java.util.Random;
 
@@ -95,8 +95,9 @@ public class ShakyDemo extends AppCompatActivity {
         findViewById(R.id.demo_bottom_sheet_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetFragment bottomSheetFragment = BottomSheetFragment.newInstance(R.style.BottomSheetTheme);
-                bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheet");
+                BottomSheetFeedbackFragment bottomSheetFeedbackFragment =
+                        BottomSheetFeedbackFragment.newInstance(R.style.BottomSheetTheme);
+                bottomSheetFeedbackFragment.show(getSupportFragmentManager(), "BottomSheet");
             }
         });
     }

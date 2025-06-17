@@ -22,7 +22,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import androidx.annotation.WorkerThread;
 
 import java.lang.annotation.Retention;
@@ -138,6 +137,13 @@ public abstract class ShakeDelegate {
     @Nullable
     public DialogFragment getCustomDialog() {
         return null;
+    }
+
+    /**
+     * @return if the dialog should be shown on shake or the shake-to-feedback bottom sheet.
+     */
+    public boolean shouldUseBottomSheet() {
+        return true;
     }
 
     /**

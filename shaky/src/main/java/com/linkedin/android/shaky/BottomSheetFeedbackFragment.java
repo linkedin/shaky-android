@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class BottomSheetFragment extends BottomSheetDialogFragment {
+public class BottomSheetFeedbackFragment extends BottomSheetDialogFragment {
 
     private static final String KEY_THEME = "theme";
     @Nullable private LayoutInflater inflater;
 
     @NonNull
-    public static BottomSheetFragment newInstance(@Nullable @StyleRes Integer theme) {
-        BottomSheetFragment fragment = new BottomSheetFragment();
+    public static BottomSheetFeedbackFragment newInstance(@Nullable @StyleRes Integer theme) {
+        BottomSheetFeedbackFragment fragment = new BottomSheetFeedbackFragment();
         Bundle args = new Bundle();
         if (theme != null) {
             args.putInt(KEY_THEME, theme);
@@ -46,7 +46,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BottomSheetFeedbackTypeAdapter adapter = new BottomSheetFeedbackTypeAdapter(inflater, getData());
+        BottomSheetFeedbackTypeAdapter adapter = new BottomSheetFeedbackTypeAdapter(inflater, getData(), this);
 
         RecyclerView recyclerView = view.findViewById(R.id.shaky_recyclerView_bottomsheet);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -68,7 +68,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         getString(R.string.shaky_row3_subtitle),
                         R.drawable.shaky_img_message_bubbles_56dp,
                         BottomSheetFeedbackItem.GENERAL,
-                        ActionConstants.ACTION_START_FEEDBACK_FLOW
+                        ActionConstants.ACTION_START_GENERAL_FEEDBACK
                 ),
                 new BottomSheetFeedbackItem(
                         getString(R.string.shaky_dismiss_title),
