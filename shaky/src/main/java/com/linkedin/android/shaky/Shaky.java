@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.jraska.falcon.Falcon;
@@ -52,6 +53,7 @@ public class Shaky implements ShakeDetector.Listener {
     private static final String SEND_FEEDBACK_TAG = "SendFeedback";
     private static final String COLLECT_DATA_TAG = "CollectFeedbackData";
     private static final String CUSTOM_DIALOG_TAG = "CustomDialog";
+    private static final String BOTTOM_SHEET_TAG = "BottomSheet";
 
     private static final long SHAKE_COOLDOWN_MS = TimeUnit.SECONDS.toMillis(5);
     private final ShakeDelegate delegate;
@@ -60,7 +62,7 @@ public class Shaky implements ShakeDetector.Listener {
     private final ShakyFlowCallback shakyFlowCallback;
 
     @Nullable
-    private Activity activity;
+    private AppCompatActivity activity;
     private Context appContext;
     private long lastShakeTime;
     private CollectDataTask collectDataTask;
@@ -77,6 +79,7 @@ public class Shaky implements ShakeDetector.Listener {
         IntentFilter filter = new IntentFilter();
         filter.addAction(ActionConstants.ACTION_START_FEEDBACK_FLOW);
         filter.addAction(ActionConstants.ACTION_START_BUG_REPORT);
+        filter.addAction(ActionConstants.ACTION_START_GENERAL_FEEDBACK);
         filter.addAction(ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER);
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
         filter.addAction(FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER);
@@ -145,7 +148,7 @@ public class Shaky implements ShakeDetector.Listener {
     }
 
     void setActivity(@Nullable Activity activity) {
-        this.activity = activity;
+        this.activity = (AppCompatActivity) activity;
         if (activity != null) {
             start();
             // we're attaching to a new Activity instance
@@ -193,7 +196,8 @@ public class Shaky implements ShakeDetector.Listener {
      */
     private boolean isValidStartAction(String action) {
         return action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)
-                || action.equals(ActionConstants.ACTION_START_BUG_REPORT);
+                || action.equals(ActionConstants.ACTION_START_BUG_REPORT)
+                || action.equals(ActionConstants.ACTION_START_GENERAL_FEEDBACK);
     }
 
     @Override
@@ -205,28 +209,34 @@ public class Shaky implements ShakeDetector.Listener {
             return;
         }
 
-        Bundle arguments = new Bundle();
-        if (delegate.getDialogTitle() != null) {
-            arguments.putString(SendFeedbackDialog.CUSTOM_TITLE, delegate.getDialogTitle());
-        }
-        if (delegate.getDialogMessage() != null) {
-            arguments.putString(SendFeedbackDialog.CUSTOM_MESSAGE, delegate.getDialogMessage());
-        }
-        if (delegate.getPopupTheme() != null) {
-            arguments.putInt(SendFeedbackDialog.THEME, delegate.getPopupTheme());
-        }
-        arguments.putBoolean(SendFeedbackDialog.SHOULD_DISPLAY_SETTING_UI, delegate.shouldShowSettingsUI());
-        arguments.putInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, delegate.getSensitivityLevel());
-        if (delegate.getCustomDialog() != null) {
-            DialogFragment customDialog = delegate.getCustomDialog();
-            if (delegate.getCustomDialog() instanceof SendFeedbackDialog) {
-                customDialog.setArguments(arguments);
-            }
-            customDialog.show(activity.getFragmentManager(), CUSTOM_DIALOG_TAG);
+        if (delegate.shouldUseBottomSheet()) {
+            BottomSheetFeedbackFragment bottomSheetFeedbackFragment =
+                    BottomSheetFeedbackFragment.newInstance(delegate.getTheme());
+            bottomSheetFeedbackFragment.show(activity.getSupportFragmentManager(), BOTTOM_SHEET_TAG);
         } else {
-            SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();
-            sendFeedbackDialog.setArguments(arguments);
-            sendFeedbackDialog.show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
+            Bundle arguments = new Bundle();
+            if (delegate.getDialogTitle() != null) {
+                arguments.putString(SendFeedbackDialog.CUSTOM_TITLE, delegate.getDialogTitle());
+            }
+            if (delegate.getDialogMessage() != null) {
+                arguments.putString(SendFeedbackDialog.CUSTOM_MESSAGE, delegate.getDialogMessage());
+            }
+            if (delegate.getPopupTheme() != null) {
+                arguments.putInt(SendFeedbackDialog.THEME, delegate.getPopupTheme());
+            }
+            arguments.putBoolean(SendFeedbackDialog.SHOULD_DISPLAY_SETTING_UI, delegate.shouldShowSettingsUI());
+            arguments.putInt(ShakySettingDialog.SHAKY_CURRENT_SENSITIVITY, delegate.getSensitivityLevel());
+            if (delegate.getCustomDialog() != null) {
+                DialogFragment customDialog = delegate.getCustomDialog();
+                if (delegate.getCustomDialog() instanceof SendFeedbackDialog) {
+                    customDialog.setArguments(arguments);
+                }
+                customDialog.show(activity.getFragmentManager(), CUSTOM_DIALOG_TAG);
+            } else {
+                SendFeedbackDialog sendFeedbackDialog = new SendFeedbackDialog();
+                sendFeedbackDialog.setArguments(arguments);
+                sendFeedbackDialog.show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
+            }
         }
         if (shakyFlowCallback != null) {
             shakyFlowCallback.onUserPromptShown();
@@ -306,7 +316,8 @@ public class Shaky implements ShakeDetector.Listener {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (ActionConstants.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())
-                        || ActionConstants.ACTION_START_BUG_REPORT.equals(intent.getAction())) {
+                        || ActionConstants.ACTION_START_BUG_REPORT.equals(intent.getAction())
+                        || ActionConstants.ACTION_START_GENERAL_FEEDBACK.equals(intent.getAction())) {
                     if (activity != null) {
                         actionThatStartedTheActivity = intent.getAction();
                         doStartFeedbackFlow();

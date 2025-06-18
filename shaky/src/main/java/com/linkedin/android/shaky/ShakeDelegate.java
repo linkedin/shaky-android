@@ -140,6 +140,13 @@ public abstract class ShakeDelegate {
     }
 
     /**
+     * @return if the dialog should be shown on shake or the shake-to-feedback bottom sheet.
+     */
+    public boolean shouldUseBottomSheet() {
+        return true;
+    }
+
+    /**
      * Called when the user submits the Feedback form. Creates and starts an email Intent.
      * This method can be overridden to send data to a custom URL endpoint, etc.
      */
