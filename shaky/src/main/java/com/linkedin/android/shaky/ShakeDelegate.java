@@ -151,4 +151,14 @@ public abstract class ShakeDelegate {
      * This method can be overridden to send data to a custom URL endpoint, etc.
      */
     public abstract void submit(@NonNull Activity activity, @NonNull Result result);
+
+    /**
+     * @return whether the captured screenshots in memory should be deleted or not before capturing
+     * a new one.
+     * Please note that, when disabled, it is the responsibility of the integrating app to delete
+     * the old screenshots as and when required.
+     */
+    public boolean enableDeletingOldScreenshots() {
+        return true;
+    }
 }
