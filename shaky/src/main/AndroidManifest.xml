@@ -16,7 +16,19 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Permission for foreground service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- Permission specifically for media projection foreground service type on Android 10+ -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+
     <application android:supportsRtl="true">
         <activity android:name="com.linkedin.android.shaky.FeedbackActivity" />
+
+        <!-- Foreground service for MediaProjection -->
+        <service
+            android:name=".ScreenCaptureService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
     </application>
 </manifest>
