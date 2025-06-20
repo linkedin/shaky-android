@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">Shaky</string>
     <string name="shake_me" translatable="false">Shake me!</string>
     <string name="manual_feedback_trigger" translatable="false">Manually start feedback</string>
+    <string name="open_bottom_sheet" translatable="false">Open Bottom Sheet modal</string>
     <string name="manual_bug_report" translatable="false">Manually start bug report</string>
     <string name="show_toast" translatable="false">Show Toast</string>
     <string name="toast_text" translatable="false">This is a toast.</string>

@@ -4,6 +4,11 @@
     <!-- for MultipleAttachmentShakeDelegate example -->
     <uses-permission android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
+
+    <!-- Permissions required for MediaProjection screen capture -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+
     <application
         android:name=".ShakyApplication"
         android:allowBackup="false"

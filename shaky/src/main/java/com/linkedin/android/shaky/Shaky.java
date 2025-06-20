@@ -59,6 +59,12 @@ public class Shaky implements ShakeDetector.Listener {
     @Nullable
     private final ShakyFlowCallback shakyFlowCallback;
 
+    // Screen capture related fields
+    private ScreenCaptureManager screenCaptureManager;
+    private boolean useMediaProjection = false;
+    private boolean isScreenCaptureInProgress = false;
+    private CollectDataTask.Callback pendingDataCollectionCallback = null;
+
     @Nullable
     private Activity activity;
     private Context appContext;
@@ -73,6 +79,9 @@ public class Shaky implements ShakeDetector.Listener {
         shakeDetector = new ShakeDetector(this);
 
         shakeDetector.setSensitivity(getDetectorSensitivityLevel());
+
+        // Initialize the screen capture manager
+        screenCaptureManager = new ScreenCaptureManager(context);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(ActionConstants.ACTION_START_FEEDBACK_FLOW);
@@ -156,14 +165,65 @@ public class Shaky implements ShakeDetector.Listener {
         }
     }
 
+    /**
+     * Enable or disable MediaProjection API for taking screenshots.
+     * When enabled, Shaky will capture screenshots that include system overlays.
+     *
+     * @param useMediaProjection true to use MediaProjection, false to use default screenshot method
+     */
+    public void setUseMediaProjection(boolean useMediaProjection) {
+        this.useMediaProjection = useMediaProjection;
+    }
+
+    /**
+     * Handle activity result for MediaProjection permission request.
+     * This must be called from the host activity's onActivityResult method.
+     *
+     * @param requestCode Request code from onActivityResult
+     * @param resultCode Result code from onActivityResult
+     * @param data Intent data from onActivityResult
+     * @return true if handled by Shaky, false otherwise
+     */
+    public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
+        if (isScreenCaptureInProgress) {
+            boolean handled = screenCaptureManager.handleActivityResult(requestCode, resultCode, data);
+            if (handled) {
+                isScreenCaptureInProgress = false;
+            }
+            return handled;
+        }
+        return false;
+    }
+
     private void doStartFeedbackFlow() {
         new CollectDataDialog().show(activity.getFragmentManager(), COLLECT_DATA_TAG);
         if (shakyFlowCallback != null) {
             shakyFlowCallback.onCollectingData();
         }
 
-        collectDataTask = new CollectDataTask(activity, delegate, createCallback());
-        collectDataTask.execute(getScreenshotBitmap());
+        if (useMediaProjection) {
+            // For MediaProjection API, we'll start the permission request first
+            isScreenCaptureInProgress = true;
+            screenCaptureManager.requestCapturePermission(activity, new ScreenCaptureManager.CaptureCallback() {
+                @Override
+                public void onCaptureComplete(Bitmap bitmap) {
+                    // Once we have the bitmap, start the data collection task
+                    collectDataTask = new CollectDataTask(activity, delegate, createCallback());
+                    collectDataTask.execute(bitmap);
+                }
+
+                @Override
+                public void onCaptureFailed() {
+                    // If capture fails, continue with normal flow (without screenshot)
+                    collectDataTask = new CollectDataTask(activity, delegate, createCallback());
+                    collectDataTask.execute((Bitmap) null);
+                }
+            });
+        } else {
+            // Use the regular screenshot method
+            collectDataTask = new CollectDataTask(activity, delegate, createCallback());
+            collectDataTask.execute(getScreenshotBitmap());
+        }
     }
 
     /**
@@ -272,8 +332,18 @@ public class Shaky implements ShakeDetector.Listener {
     @Nullable
     @UiThread
     private Bitmap getScreenshotBitmap() {
-        View view = activity.getWindow().getDecorView().getRootView();
-        return Utils.capture(view, activity.getWindow());
+        if (activity == null) {
+            return null;
+        }
+
+        // If MediaProjection is not enabled, use the default method
+        if (!useMediaProjection) {
+            View view = activity.getWindow().getDecorView().getRootView();
+            return Utils.capture(view, activity.getWindow());
+        }
+
+        // For MediaProjection, return null and handle it separately
+        return null;
     }
 
     private void dismissCollectFeedbackDialogIfNecessary() {
