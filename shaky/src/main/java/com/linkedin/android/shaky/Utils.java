@@ -17,7 +17,6 @@ package com.linkedin.android.shaky;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -36,7 +35,6 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.PixelCopy;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 
 import java.io.ByteArrayOutputStream;
@@ -113,14 +111,8 @@ final class Utils {
      */
     @Nullable
     static Bitmap capture(View view, Window window) {
-        ViewGroup rootView = window.getDecorView().findViewById(android.R.id.content);
-        View topModalView = findTopMostModalView(rootView);
-        if (topModalView != null) {
-            // If a bottom sheet is present, use its dimensions instead of the view's
-            view = topModalView;
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Bitmap bitmap = Bitmap.createBitmap(rootView.getWidth(), rootView.getHeight(), Bitmap.Config.ARGB_8888);
+            Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
             int[] location = new int[2];
             view.getLocationInWindow(location);
             PixelCopy.request(window,
@@ -172,24 +164,5 @@ final class Utils {
             return inflater.cloneInContext(new ContextThemeWrapper(inflater.getContext(), theme));
         }
         return inflater;
-    }
-
-    private static View findTopMostModalView(ViewGroup parent) {
-        // Look for views that are likely modals (positioned absolutely, high elevation)
-        for (int i = parent.getChildCount() - 1; i >= 0; i--) {
-            View child = parent.getChildAt(i);
-
-            if (child.getVisibility() == View.VISIBLE &&
-                    child.getElevation() > 0f &&
-                    child.getHeight() > parent.getHeight() * 0.3) { // Likely a modal if > 30% of screen
-                return child;
-            }
-
-            if (child instanceof ViewGroup) {
-                View found = findTopMostModalView((ViewGroup) child);
-                if (found != null) return found;
-            }
-        }
-        return null;
     }
 }
