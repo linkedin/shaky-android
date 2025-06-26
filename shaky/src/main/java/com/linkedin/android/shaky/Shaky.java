@@ -62,7 +62,7 @@ public class Shaky implements ShakeDetector.Listener {
     private final ShakyFlowCallback shakyFlowCallback;
 
     @Nullable
-    private AppCompatActivity activity;
+    private Activity activity;
     private Context appContext;
     private long lastShakeTime;
     private CollectDataTask collectDataTask;
@@ -148,7 +148,7 @@ public class Shaky implements ShakeDetector.Listener {
     }
 
     void setActivity(@Nullable Activity activity) {
-        this.activity = (AppCompatActivity) activity;
+        this.activity = activity;
         if (activity != null) {
             start();
             // we're attaching to a new Activity instance
@@ -212,7 +212,10 @@ public class Shaky implements ShakeDetector.Listener {
         if (delegate.shouldUseBottomSheet()) {
             BottomSheetFeedbackFragment bottomSheetFeedbackFragment =
                     BottomSheetFeedbackFragment.newInstance(delegate.getTheme());
-            bottomSheetFeedbackFragment.show(activity.getSupportFragmentManager(), BOTTOM_SHEET_TAG);
+            if (activity instanceof AppCompatActivity) {
+                AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
+                bottomSheetFeedbackFragment.show(appCompatActivity.getSupportFragmentManager(), BOTTOM_SHEET_TAG);
+            }
         } else {
             Bundle arguments = new Bundle();
             if (delegate.getDialogTitle() != null) {
