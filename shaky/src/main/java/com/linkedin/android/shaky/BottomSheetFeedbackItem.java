@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Data wrapper for a single row in the select feedback type view.
  */
-class FeedbackItem {
+class BottomSheetFeedbackItem {
     @IntDef({
             BUG,
             FEATURE,
@@ -44,12 +44,14 @@ class FeedbackItem {
     public final String title;
     public final String description;
     public final int feedbackType;
+    public final String action;
 
-    FeedbackItem(@NonNull String title, @NonNull String description, @DrawableRes int icon,
-                        @FeedbackType int feedbackType) {
+    BottomSheetFeedbackItem(@NonNull String title, @NonNull String description, @DrawableRes int icon,
+                            @FeedbackType int feedbackType, @NonNull String action) {
         this.title = title;
         this.description = description;
         this.icon = icon;
         this.feedbackType = feedbackType;
+        this.action = action;
     }
 }

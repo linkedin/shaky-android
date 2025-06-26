@@ -22,6 +22,7 @@
     <dimen name="shaky_content_top_padding">8dp</dimen>
     <dimen name="shaky_section_padding">16dp</dimen>
     <dimen name="shaky_icon_padding">8dp</dimen>
+    <dimen name="shaky_icon_width">56dp</dimen>
 
     <!-- textsize -->
     <dimen name="shaky_title_textsize">20sp</dimen>
