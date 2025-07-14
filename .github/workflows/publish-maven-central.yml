@@ -21,7 +21,7 @@ jobs:
       - name: Publish package
         run: ./gradlew publishAllPublicationsToMavenCentralRepository
         env:
-          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USER: ${{ secrets.CENTRAL_SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.CENTRAL_SONATYPE_PASSWORD }}
           SHAKY_ANDROID_GPG_PRIVATE_KEY: ${{ secrets.SHAKY_ANDROID_GPG_PRIVATE_KEY }}
           SHAKY_ANDROID_GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.SHAKY_ANDROID_GPG_PRIVATE_KEY_PASSWORD }}
