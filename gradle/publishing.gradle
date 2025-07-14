@@ -53,11 +53,11 @@ afterEvaluate {
                 }
 
                 repositories {
-                    def sonatypeUsername = System.getenv("SONATYPE_USER")
-                    def sonatypePassword = System.getenv("SONATYPE_PASSWORD")
+                    def sonatypeUsername = System.getenv("CENTRAL_SONATYPE_USERNAME")
+                    def sonatypePassword = System.getenv("CENTRAL_SONATYPE_PASSWORD")
                     maven {
                         name = "sonatypeSnapshot"
-                        url = "https://oss.sonatype.org/content/repositories/snapshots"
+                        url = "https://central.sonatype.com/repository/maven-snapshots"
                         credentials {
                             username = sonatypeUsername
                             password = sonatypePassword
@@ -65,7 +65,7 @@ afterEvaluate {
                     }
                     maven {
                         name = "mavenCentral"
-                        url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                        url = "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2"
                         credentials {
                             username = sonatypeUsername
                             password = sonatypePassword
