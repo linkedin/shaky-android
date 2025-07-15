@@ -31,5 +31,5 @@ jobs:
       - name: Publish package
         run: ./gradlew publishAllPublicationsToSonatypeSnapshotRepository
         env:
-          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USER: ${{ secrets.CENTRAL_SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.CENTRAL_SONATYPE_PASSWORD }}
