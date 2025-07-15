@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 3.0.12 (2025-07-15)
+- Add support for capturing screenshots using MediaProjection API [#82](https://github.com/linkedin/shaky-android/pull/82)
+- Fix crash related to MediaProjection API [#84](https://github.com/linkedin/shaky-android/pull/84)
+
 ## Version 3.0.11 (2025-05-19)
 - Add support for keeping old screenshots [#80](https://github.com/linkedin/shaky-android/pull/80)
 
