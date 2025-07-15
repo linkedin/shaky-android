@@ -107,7 +107,7 @@ public class ShakyDemo extends FragmentActivity {
                 bottomSheetFeedbackFragment.show(getSupportFragmentManager(), "BottomSheet");
             }
         });
-        ((ShakyApplication)getApplication()).getShaky().setUseMediaProjection(false);
+        ((ShakyApplication)getApplication()).getShaky().setUseMediaProjection(true);
     }
 
     @Override

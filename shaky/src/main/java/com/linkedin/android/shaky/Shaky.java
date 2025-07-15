@@ -86,6 +86,7 @@ public class Shaky implements ShakeDetector.Listener {
         IntentFilter filter = new IntentFilter();
         filter.addAction(ActionConstants.ACTION_START_FEEDBACK_FLOW);
         filter.addAction(ActionConstants.ACTION_START_BUG_REPORT);
+        filter.addAction(ActionConstants.ACTION_START_GENERAL_FEEDBACK);
         filter.addAction(ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER);
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
         filter.addAction(FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER);
@@ -253,7 +254,8 @@ public class Shaky implements ShakeDetector.Listener {
      */
     private boolean isValidStartAction(String action) {
         return action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)
-                || action.equals(ActionConstants.ACTION_START_BUG_REPORT);
+                || action.equals(ActionConstants.ACTION_START_BUG_REPORT)
+                || action.equals(ActionConstants.ACTION_START_GENERAL_FEEDBACK);
     }
 
     @Override
@@ -352,7 +354,7 @@ public class Shaky implements ShakeDetector.Listener {
         }
 
         CollectDataDialog dialog = (CollectDataDialog) activity.getFragmentManager()
-                                                               .findFragmentByTag(COLLECT_DATA_TAG);
+                .findFragmentByTag(COLLECT_DATA_TAG);
 
         if (dialog != null) {
             dialog.dismiss();
@@ -369,7 +371,8 @@ public class Shaky implements ShakeDetector.Listener {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (ActionConstants.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())
-                        || ActionConstants.ACTION_START_BUG_REPORT.equals(intent.getAction())) {
+                        || ActionConstants.ACTION_START_BUG_REPORT.equals(intent.getAction())
+                        || ActionConstants.ACTION_START_GENERAL_FEEDBACK.equals(intent.getAction())) {
                     if (activity != null) {
                         actionThatStartedTheActivity = intent.getAction();
                         doStartFeedbackFlow();
