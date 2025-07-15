@@ -111,8 +111,17 @@ public class ScreenCaptureManager {
         }
     }
 
+    private final MediaProjection.Callback mediaProjectionCallback = new MediaProjection.Callback() {
+        @Override
+        public void onStop() {
+            stopCapture();
+        }
+    };
+
     private void startCapture(int resultCode, Intent data) {
         mediaProjection = projectionManager.getMediaProjection(resultCode, data);
+        // Register callback to manage resources
+        mediaProjection.registerCallback(mediaProjectionCallback, new Handler());
 
         imageReader = ImageReader.newInstance(
                 screenWidth, screenHeight,
