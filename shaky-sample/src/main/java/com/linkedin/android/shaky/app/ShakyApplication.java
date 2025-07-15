@@ -33,7 +33,7 @@ public class ShakyApplication extends Application {
     private static final String TAG = ShakyApplication.class.getSimpleName();
 
     private Shaky shaky;
-    private @StyleRes Integer theme = R.style.BottomSheetTheme;
+    private @StyleRes Integer theme = null;
     private @StyleRes Integer popupTheme = null;
 
     @Override

@@ -29,8 +29,7 @@ class FeedbackItem {
     @IntDef({
             BUG,
             FEATURE,
-            GENERAL,
-            DISMISS
+            GENERAL
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface FeedbackType {}
@@ -38,7 +37,6 @@ class FeedbackItem {
     public static final int BUG = 0;
     public static final int FEATURE = 1;
     public static final int GENERAL = 2;
-    public static final int DISMISS = 3;
 
     @DrawableRes public final int icon;
     public final String title;
