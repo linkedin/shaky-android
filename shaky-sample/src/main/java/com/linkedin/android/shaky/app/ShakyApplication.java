@@ -35,6 +35,7 @@ public class ShakyApplication extends Application {
     private Shaky shaky;
     private @StyleRes Integer theme = null;
     private @StyleRes Integer popupTheme = null;
+    private @StyleRes Integer bottomSheetTheme = null;
 
     @Override
     public void onCreate() {
@@ -50,6 +51,12 @@ public class ShakyApplication extends Application {
             @Nullable
             public Integer getPopupTheme() {
                 return popupTheme;
+            }
+
+            @Override
+            @Nullable
+            public Integer getBottomSheetTheme() {
+                return bottomSheetTheme;
             }
 
         }, new ShakyFlowCallback() {
@@ -91,5 +98,9 @@ public class ShakyApplication extends Application {
 
     public void setShakyPopupTheme(@StyleRes Integer theme) {
         this.popupTheme = theme;
+    }
+
+    public void setBottomSheetTheme(@StyleRes Integer theme) {
+        this.bottomSheetTheme = theme;
     }
 }
