@@ -123,6 +123,15 @@ public abstract class ShakeDelegate {
     }
 
     /**
+     * @return a custom theme to apply to the bottom sheet that appears when the user shakes. Look
+     * at shaky_attrs.xml for possible attributes to set
+     */
+    @Nullable
+    public Integer getBottomSheetTheme() {
+        return null;
+    }
+
+    /**
      * Called from the background thread during the feedback collection flow. This method
      * can be used to collect extra debug information to include in the feedback
      * submission, such as user data, app version, etc.
@@ -137,6 +146,13 @@ public abstract class ShakeDelegate {
     @Nullable
     public DialogFragment getCustomDialog() {
         return null;
+    }
+
+    /**
+     * @return if the dialog should be shown on shake or the shake-to-feedback bottom sheet.
+     */
+    public boolean shouldUseBottomSheet() {
+        return true;
     }
 
     /**
