@@ -54,8 +54,6 @@ public class ShakyDemo extends FragmentActivity {
         int color = Color.rgb(random.nextInt(RGB_MAX), random.nextInt(RGB_MAX), random.nextInt(RGB_MAX));
         tv.setBackgroundColor(color);
 
-        ((ShakyApplication) getApplication()).setBottomSheetTheme(R.style.BottomSheetTheme);
-
         findViewById(R.id.theme_checkbox).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
