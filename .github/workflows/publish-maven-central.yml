@@ -46,7 +46,7 @@ tasks.register("uploadToSonatypeCentral") {
         def encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes())
 
         // Upload bundle to Sonatype Central API
-        def connection = new URL("https://central.sonatype.com/api/v1/publisher/upload?publishingType=AUTOMATIC").openConnection()
+        def connection = new URL("https://central.sonatype.com/api/v1/publisher/upload").openConnection()
         connection.setRequestMethod("POST")
         connection.setRequestProperty("Authorization", "UserToken ${sonatypeUsername}:${sonatypePassword}")
         connection.setRequestProperty("Content-Type", "multipart/form-data")
@@ -55,17 +55,17 @@ tasks.register("uploadToSonatypeCentral") {
         // Create multipart form data
         def boundary = "----WebKitFormBoundary" + System.currentTimeMillis()
         connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary)
-        
+
         connection.outputStream.withWriter("UTF-8") { writer ->
             writer.write("--" + boundary + "\r\n")
             writer.write("Content-Disposition: form-data; name=\"bundle\"; filename=\"deployment-bundle.zip\"\r\n")
             writer.write("Content-Type: application/zip\r\n\r\n")
             writer.flush()
-            
+
             bundleFile.withInputStream { input ->
                 connection.outputStream << input
             }
-            
+
             writer.write("\r\n--" + boundary + "--\r\n")
             writer.flush()
         }
