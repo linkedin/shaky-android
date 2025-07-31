@@ -120,14 +120,6 @@ afterEvaluate {
                 name = "local"
                 url = uri("${project.buildDir}/repo")
             }
-            maven {
-                name = "SonatypeSnapshot"
-                url = "https://central.sonatype.com/api/v1/publisher/deployments"
-                credentials {
-                    username = System.getenv("SONATYPE_USER")
-                    password = System.getenv("SONATYPE_PASSWORD")
-                }
-            }
         }
     }
 
