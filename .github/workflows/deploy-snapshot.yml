@@ -23,7 +23,7 @@ jobs:
         run: ./gradlew build
 
       - name: Publish package
-        run: ./gradlew publishAllPublicationsToSonatypeSnapshotRepository
+        run: ./gradlew :shaky:publishAllPublicationsToSonatypeSnapshotRepository
         env:
           SONATYPE_USER: ${{ secrets.CENTRAL_SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.CENTRAL_SONATYPE_PASSWORD }}
