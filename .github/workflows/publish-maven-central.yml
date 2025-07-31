@@ -1,31 +1,149 @@
-name: Publish package to the Maven Central Repository
-on:
-  release:
-    types: [published]
-    branches:
-      - main
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+// Ideally AGP should provide sources and javadoc integration for their components:
+// https://issuetracker.google.com/issues/145670440
+tasks.register("sourcesJar", Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+}
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+tasks.register("javadoc", Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
 
-      - name: Build
-        run: ./gradlew build
+tasks.register("javadocJar", Jar) {
+    dependsOn javadoc
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
 
-      - name: Upload to Sonatype Central
-        run: ./gradlew uploadToSonatypeCentral
-        env:
-          SONATYPE_USER: ${{ secrets.CENTRAL_SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.CENTRAL_SONATYPE_PASSWORD }}
-          SHAKY_ANDROID_GPG_PRIVATE_KEY: ${{ secrets.SHAKY_ANDROID_GPG_PRIVATE_KEY }}
-          SHAKY_ANDROID_GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.SHAKY_ANDROID_GPG_PRIVATE_KEY_PASSWORD }}
+// Custom task to upload deployment bundle to Sonatype Central API
+tasks.register("uploadToSonatypeCentral") {
+    dependsOn publishToLocalMaven
+    doLast {
+        def sonatypeUsername = System.getenv("SONATYPE_USER")
+        def sonatypePassword = System.getenv("SONATYPE_PASSWORD")
+
+        if (!sonatypeUsername || !sonatypePassword) {
+            throw new GradleException("SONATYPE_USER and SONATYPE_PASSWORD environment variables must be set")
+        }
+
+        // Create deployment bundle (zip file containing all artifacts)
+        def bundleFile = new File(project.buildDir, "distributions/deployment-bundle.zip")
+        bundleFile.parentFile.mkdirs()
+
+        ant.zip(destfile: bundleFile) {
+            fileset(dir: "${project.buildDir}/repo") {
+                include(name: "**/*")
+            }
+        }
+
+        // Create base64 encoded credentials
+        def credentials = "${sonatypeUsername}:${sonatypePassword}"
+        def encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes())
+
+        // Upload bundle to Sonatype Central API
+        def connection = new URL("https://central.sonatype.com/api/v1/publisher/upload?publishingType=AUTOMATIC").openConnection()
+        connection.setRequestMethod("POST")
+        connection.setRequestProperty("Authorization", "UserToken ${sonatypeUsername}:${sonatypePassword}")
+        connection.setRequestProperty("Content-Type", "multipart/form-data")
+        connection.setDoOutput(true)
+
+        // Create multipart form data
+        def boundary = "----WebKitFormBoundary" + System.currentTimeMillis()
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary)
+        
+        connection.outputStream.withWriter("UTF-8") { writer ->
+            writer.write("--" + boundary + "\r\n")
+            writer.write("Content-Disposition: form-data; name=\"bundle\"; filename=\"deployment-bundle.zip\"\r\n")
+            writer.write("Content-Type: application/zip\r\n\r\n")
+            writer.flush()
+            
+            bundleFile.withInputStream { input ->
+                connection.outputStream << input
+            }
+            
+            writer.write("\r\n--" + boundary + "--\r\n")
+            writer.flush()
+        }
+
+        def responseCode = connection.responseCode
+        if (responseCode == 201) {
+            println "Bundle uploaded successfully to Sonatype Central"
+        } else {
+            def errorStream = connection.errorStream ?: connection.inputStream
+            def errorMessage = errorStream.text
+            throw new GradleException("Upload failed with response code ${responseCode}: ${errorMessage}")
+        }
+    }
+}
+
+// AGP creates the components in afterEvaluate, so we need to use it too
+// https://developer.android.com/studio/build/maven-publish-plugin
+afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication){
+                from(components["release"])
+                artifact sourcesJar
+                artifact javadocJar
+                pom {
+                    name = 'Shaky'
+                    description = 'Shake-to-send-feedback library for Android'
+                    url = 'https://github.com/linkedin/shaky-android'
+                    licenses {
+                        license {
+                            name = 'The Apache Software License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'com.linkedin'
+                            name = 'LinkedIn Corp'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/linkedin/shaky-android.git'
+                        developerConnection = 'scm:git:ssh://github.com:linkedin/shaky-android.git'
+                        url = 'https://github.com/linkedin/shaky-android/tree/main'
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "local"
+                url = uri("${project.buildDir}/repo")
+            }
+            maven {
+                name = "SonatypeSnapshot"
+                url = "https://central.sonatype.com/api/v1/publisher/deployments"
+                credentials {
+                    username = System.getenv("SONATYPE_USER")
+                    password = System.getenv("SONATYPE_PASSWORD")
+                }
+            }
+        }
+    }
+
+    // Task to publish to local repository for bundle creation
+    tasks.register("publishToLocalMaven", Task) {
+        dependsOn "publishMavenPublicationToLocalRepository"
+    }
+
+    // SHAKY_ANDROID_GPG_PRIVATE_KEY should contain the armoured private key that
+    // starts with -----BEGIN PGP PRIVATE KEY BLOCK-----
+    // It can be obtained with gpg --armour --export-secret-keys KEY_ID
+    def signingKey = System.getenv("SHAKY_ANDROID_GPG_PRIVATE_KEY")
+    def signingPassword = System.getenv("SHAKY_ANDROID_GPG_PRIVATE_KEY_PASSWORD")
+    signing {
+        required { signingKey != null && signingPassword != null }
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.maven
+    }
+}
