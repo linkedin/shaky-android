@@ -15,7 +15,6 @@
  */
 package com.linkedin.android.shaky.app;
 
-import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,8 +25,8 @@ import android.widget.Toast;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.linkedin.android.shaky.ActionConstants;
 import com.linkedin.android.shaky.Shaky;
 
@@ -96,6 +95,13 @@ public class ShakyDemo extends FragmentActivity {
             public void onClick(View v) {
                 ((ShakyApplication) getApplication()).getShaky()
                         .startFeedbackFlow(ActionConstants.ACTION_START_BUG_REPORT);
+            }
+        });
+
+        findViewById(R.id.demo_bottom_sheet_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ShakyApplication) getApplication()).getShaky().startShakeBottomSheetFlowManually();
             }
         });
 
