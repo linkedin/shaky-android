@@ -48,14 +48,26 @@ tasks.register("uploadToSonatypeCentral") {
         // Upload bundle to Sonatype Central API
         def connection = new URL("https://central.sonatype.com/api/v1/publisher/upload").openConnection()
         connection.setRequestMethod("POST")
-        connection.setRequestProperty("Authorization", "Basic ${encodedCredentials}")
-        connection.setRequestProperty("Content-Type", "application/octet-stream")
+        connection.setRequestProperty("Authorization", "UserToken ${sonatypeUsername}:${sonatypePassword}")
+        connection.setRequestProperty("Content-Type", "multipart/form-data")
         connection.setDoOutput(true)
 
-        bundleFile.withInputStream { input ->
-            connection.outputStream.withStream { output ->
-                output << input
+        // Create multipart form data
+        def boundary = "----WebKitFormBoundary" + System.currentTimeMillis()
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary)
+
+        connection.outputStream.withWriter("UTF-8") { writer ->
+            writer.write("--" + boundary + "\r\n")
+            writer.write("Content-Disposition: form-data; name=\"bundle\"; filename=\"deployment-bundle.zip\"\r\n")
+            writer.write("Content-Type: application/zip\r\n\r\n")
+            writer.flush()
+
+            bundleFile.withInputStream { input ->
+                connection.outputStream << input
             }
+
+            writer.write("\r\n--" + boundary + "--\r\n")
+            writer.flush()
         }
 
         def responseCode = connection.responseCode
@@ -107,6 +119,14 @@ afterEvaluate {
             maven {
                 name = "local"
                 url = uri("${project.buildDir}/repo")
+            }
+            maven {
+                name = "SonatypeSnapshot"
+                url = "https://central.sonatype.com/api/v1/publisher/deployments"
+                credentials {
+                    username = System.getenv("SONATYPE_USER")
+                    password = System.getenv("SONATYPE_PASSWORD")
+                }
             }
         }
     }
