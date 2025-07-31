@@ -48,7 +48,7 @@ tasks.register("uploadToSonatypeCentral") {
         // Upload bundle to Sonatype Central API
         def connection = new URL("https://central.sonatype.com/api/v1/publisher/upload").openConnection()
         connection.setRequestMethod("POST")
-        connection.setRequestProperty("Authorization", "UserToken ${sonatypeUsername}:${sonatypePassword}")
+        connection.setRequestProperty("Authorization", "Bearer ${encodedCredentials}")
         connection.setRequestProperty("Content-Type", "multipart/form-data")
         connection.setDoOutput(true)
 
