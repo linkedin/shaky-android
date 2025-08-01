@@ -106,9 +106,8 @@ public class FeedbackActivity extends AppCompatActivity {
                     .commit();
             } else if (action.equals(ActionConstants.ACTION_START_BUG_REPORT)) {
                 startFormFragment(FeedbackItem.BUG, false);
-                if (imageUri != null) {
-                    startDrawFragment();
-                }
+            } else if (action.equals(ActionConstants.ACTION_START_GENERAL_FEEDBACK)) {
+                startFormFragment(FeedbackItem.GENERAL, false);
             }
         }
     }
