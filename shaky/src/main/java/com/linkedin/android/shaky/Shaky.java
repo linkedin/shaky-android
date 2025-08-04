@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
+import androidx.fragment.app.FragmentActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.jraska.falcon.Falcon;
@@ -173,6 +174,18 @@ public class Shaky implements ShakeDetector.Listener {
      */
     public void setUseMediaProjection(boolean useMediaProjection) {
         this.useMediaProjection = useMediaProjection;
+    }
+
+    /**
+     * Initialize the ScreenCaptureManager for MediaProjection API.
+     * This must be called from the host activity's onCreate method before any screen capture operations.
+     *
+     * @param activity The FragmentActivity that will handle the MediaProjection permission flow
+     */
+    public void initializeScreenCapture(FragmentActivity activity) {
+        if (screenCaptureManager != null) {
+            screenCaptureManager.initialize(activity);
+        }
     }
 
     /**

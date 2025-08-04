@@ -120,6 +120,11 @@ afterEvaluate {
                 name = "local"
                 url = uri("${project.buildDir}/repo")
             }
+
+            maven {
+                name = "mavenLocal"
+                url = uri("${System.getProperty('user.home')}/.m2/repository")
+            }
         }
     }
 

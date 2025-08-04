@@ -1,4 +1,3 @@
-/**
  * Copyright (C) 2016 LinkedIn Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,6 +40,10 @@ public class ShakyDemo extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
+
+        // Initialize ScreenCaptureManager for the Shaky library
+        ((ShakyApplication) getApplication()).getShaky().initializeScreenCapture(this);
+        
         ViewCompat.setOnApplyWindowInsetsListener(
             getWindow().findViewById(R.id.demo_background),
             (v, insets) -> {
