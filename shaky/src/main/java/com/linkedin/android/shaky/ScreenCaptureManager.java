@@ -105,10 +105,6 @@ public class ScreenCaptureManager {
      */
     private void handleActivityResult(ActivityResult result) {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            return false;
-        }
-
-        if (resultCode == Activity.RESULT_OK && data != null) {
             // Start the foreground service before creating MediaProjection
             ScreenCaptureService.start(appContext);
 
