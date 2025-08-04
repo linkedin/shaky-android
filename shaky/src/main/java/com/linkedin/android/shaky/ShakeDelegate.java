@@ -126,9 +126,8 @@ public abstract class ShakeDelegate {
      * @return a custom theme to apply to the bottom sheet that appears when the user shakes. Look
      * at shaky_attrs.xml for possible attributes to set
      */
-    @Nullable
-    public Integer getBottomSheetTheme() {
-        return null;
+    public int getBottomSheetTheme() {
+        return R.style.ShakyBaseBottomSheetTheme;
     }
 
     /**

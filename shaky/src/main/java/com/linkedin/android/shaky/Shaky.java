@@ -278,18 +278,18 @@ public class Shaky implements ShakeDetector.Listener {
         if (delegate.shouldUseBottomSheet()) {
             if (activity != null) {
                 BottomSheetDialog bottomSheetDialog;
-                if (delegate.getBottomSheetTheme() != null) {
-                    bottomSheetDialog = new BottomSheetDialog(activity, delegate.getBottomSheetTheme());
-                } else {
-                    bottomSheetDialog = new BottomSheetDialog(activity, R.style.ShakyBaseBottomSheetTheme);
-                }
+                bottomSheetDialog = new BottomSheetDialog(activity, delegate.getBottomSheetTheme());
 
                 View sheetView = LayoutInflater.from(activity).inflate(R.layout.shaky_feedback_bottomsheet, null);
 
                 RecyclerView recyclerView = sheetView.findViewById(R.id.shaky_recyclerView_bottomsheet);
                 recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-                int bottomSheetTheme = delegate.getBottomSheetTheme() == null ? R.style.ShakyBaseBottomSheetTheme : delegate.getBottomSheetTheme();
-                recyclerView.setAdapter(new BottomSheetFeedbackTypeAdapter(getData(activity), bottomSheetDialog, bottomSheetTheme));
+                recyclerView.setAdapter(
+                        new BottomSheetFeedbackTypeAdapter(
+                                getData(activity),
+                                bottomSheetDialog,
+                                delegate.getBottomSheetTheme())
+                );
 
                 bottomSheetDialog.setContentView(sheetView);
                 bottomSheetDialog.show();
