@@ -11,13 +11,15 @@ import android.media.Image;
 import android.media.ImageReader;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
-import android.os.Build;
 import android.os.Handler;
 import android.view.Display;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.fragment.app.FragmentActivity;
 
 import java.nio.ByteBuffer;
 
@@ -26,8 +28,6 @@ import java.nio.ByteBuffer;
  * This class handles the permission request and screen capturing process.
  */
 public class ScreenCaptureManager {
-
-    private static final int REQUEST_CODE_MEDIA_PROJECTION = 1000;
 
     private Context appContext;
     private MediaProjectionManager projectionManager;
@@ -39,6 +39,7 @@ public class ScreenCaptureManager {
     private int screenDensity;
 
     private CaptureCallback captureCallback;
+    private ActivityResultLauncher<Intent> mediaProjectionLauncher;
 
     public interface CaptureCallback {
         void onCaptureComplete(Bitmap bitmap);
@@ -52,8 +53,21 @@ public class ScreenCaptureManager {
     }
 
     /**
+     * Initialize the activity result launcher. This must be called in the activity's onCreate method
+     * before any fragments are created or the activity is started.
+     *
+     * @param activity The FragmentActivity to register the launcher with
+     */
+    public void initialize(FragmentActivity activity) {
+        mediaProjectionLauncher = activity.registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                this::handleActivityResult
+        );
+    }
+
+    /**
      * Request screen capture permission and start the capturing process.
-     * This needs to be called from an Activity.
+     * This needs to be called from an Activity after initialize() has been called.
      *
      * @param activity Activity to request permission from
      * @param callback Callback to receive the captured screenshot or failure
@@ -61,6 +75,10 @@ public class ScreenCaptureManager {
     public void requestCapturePermission(Activity activity, CaptureCallback callback) {
         if (activity == null || callback == null) {
             return;
+        }
+
+        if (mediaProjectionLauncher == null) {
+            throw new IllegalStateException("ScreenCaptureManager must be initialized before requesting permission. Call initialize() in onCreate().");
         }
 
         this.captureCallback = callback;
@@ -75,40 +93,41 @@ public class ScreenCaptureManager {
         screenHeight = metrics.heightPixels;
         screenDensity = metrics.densityDpi;
 
-        // Request permission
+        // Request permission using the modern Activity Result API
         Intent intent = projectionManager.createScreenCaptureIntent();
-        activity.startActivityForResult(intent, REQUEST_CODE_MEDIA_PROJECTION);
+        mediaProjectionLauncher.launch(intent);
     }
 
     /**
-     * Handle activity result from permission request.
-     * This should be called from the activity's onActivityResult method.
+     * Handle activity result from permission request using the modern Activity Result API.
      *
-     * @param requestCode Request code from onActivityResult
-     * @param resultCode Result code from onActivityResult
-     * @param data Intent data from onActivityResult
-     * @return true if handled by this manager, false otherwise
+     * @param result ActivityResult from the launcher
      */
-    public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode != REQUEST_CODE_MEDIA_PROJECTION) {
-            return false;
-        }
-
-        if (resultCode == Activity.RESULT_OK && data != null) {
+    private void handleActivityResult(ActivityResult result) {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             // Start the foreground service before creating MediaProjection
             ScreenCaptureService.start(appContext);
 
             // Wait briefly to ensure the service is fully started
             new Handler().postDelayed(() -> {
-                startCapture(resultCode, data);
+                startCapture(result.getResultCode(), result.getData());
             }, 100); // Small delay to ensure service starts
-            return true;
         } else {
             if (captureCallback != null) {
                 captureCallback.onCaptureFailed();
             }
-            return true;
         }
+    }
+
+    /**
+     * @deprecated Use the modern Activity Result API instead. This method is kept for backwards compatibility
+     * but may not work reliably on newer Android versions.
+     */
+    @Deprecated
+    public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
+        // This is kept for backwards compatibility but should not be used
+        // The modern approach using ActivityResultLauncher is more reliable
+        return false;
     }
 
     private final MediaProjection.Callback mediaProjectionCallback = new MediaProjection.Callback() {
