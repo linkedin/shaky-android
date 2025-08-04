@@ -20,6 +20,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.FragmentActivity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.fragment.app.FragmentActivity;
+
 import java.nio.ByteBuffer;
 
 /**
@@ -27,7 +32,6 @@ import java.nio.ByteBuffer;
  * This class handles the permission request and screen capturing process.
  */
 public class ScreenCaptureManager {
-
     private Context appContext;
     private MediaProjectionManager projectionManager;
     private MediaProjection mediaProjection;
@@ -74,6 +78,9 @@ public class ScreenCaptureManager {
     public void requestCapturePermission(Activity activity, CaptureCallback callback) {
         if (activity == null || callback == null) {
             return;
+        }
+        if (mediaProjectionLauncher == null) {
+            throw new IllegalStateException("ScreenCaptureManager must be initialized before requesting permission. Call initialize() in onCreate().");
         }
 
         if (mediaProjectionLauncher == null) {
