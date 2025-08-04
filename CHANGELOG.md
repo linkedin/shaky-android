@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 3.0.13
+- Fix issues regarding permission feedback in ScreenCaptureManager.
+
 ## Version 3.0.12 (2025-07-31)
 - Add support for capturing screenshots using MediaProjection API [#82](https://github.com/linkedin/shaky-android/pull/82)
 - Fix crash related to MediaProjection API [#84](https://github.com/linkedin/shaky-android/pull/84)
