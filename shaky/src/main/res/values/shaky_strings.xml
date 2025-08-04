@@ -43,6 +43,10 @@
     <string name="shaky_message_hint">Write your feedback</string>
     <string name="shaky_image_action">Tap to edit image</string>
 
+<!-- Marking non-translatable for now, until we receive translated strings from the team -->
+    <string name="shaky_dismiss_title" translatable="false">Dismiss</string>
+    <string name="shaky_dismiss_subtitle" translatable="false">Exit shaky</string>
+
     <string name="shaky_form_submit">Send</string>
 
     <string name="shaky_draw_hint">Please mark the affected area(s)</string>
