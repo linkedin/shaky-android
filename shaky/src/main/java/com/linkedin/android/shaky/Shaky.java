@@ -67,6 +67,7 @@ public class Shaky implements ShakeDetector.Listener {
     private ScreenCaptureManager screenCaptureManager;
     private boolean useMediaProjection = false;
     private boolean isScreenCaptureInProgress = false;
+    private boolean isBottomSheetFlowActive = false;
     private CollectDataTask.Callback pendingDataCollectionCallback = null;
 
     @Nullable
@@ -292,6 +293,7 @@ public class Shaky implements ShakeDetector.Listener {
             if (activity != null) {
                 BottomSheetDialog bottomSheetDialog;
                 bottomSheetDialog = new BottomSheetDialog(activity, delegate.getBottomSheetTheme());
+                isBottomSheetFlowActive = true;
 
                 View sheetView = LayoutInflater.from(activity).inflate(R.layout.shaky_feedback_bottomsheet, null);
 
@@ -484,10 +486,22 @@ public class Shaky implements ShakeDetector.Listener {
                 boolean shouldStartFeedbackActivity = activity != null && collectDataTask != null;
                 collectDataTask = null;
                 dismissCollectFeedbackDialogIfNecessary();
+                Result safeResult = result != null ? result : new Result();
 
-                if (shouldStartFeedbackActivity) {
-                    startFeedbackActivity(result == null ? new Result() : result);
+                if (shouldStartFeedbackActivity && !isBottomSheetFlowActive) {
+                    startFeedbackActivity(safeResult);
                     return;
+                } else {
+                    if (activity != null) {
+                        // add file provider data to all attachments
+                        ArrayList<Uri> secureAttachments = new ArrayList<>();
+                        for (Uri attachment : safeResult.getAttachments()) {
+                            secureAttachments.add(Utils.getProviderUri(appContext, attachment));
+                        }
+                        safeResult.setAttachments(secureAttachments);
+                        delegate.submit(activity, safeResult);
+                        return;
+                    }
                 }
 
                 if (shakyFlowCallback != null) {
