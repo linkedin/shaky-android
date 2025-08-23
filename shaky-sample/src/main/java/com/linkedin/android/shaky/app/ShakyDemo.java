@@ -39,7 +39,7 @@ public class ShakyDemo extends FragmentActivity {
 
         // Initialize ScreenCaptureManager for the Shaky library
         ((ShakyApplication) getApplication()).getShaky().initializeScreenCapture(this);
-        
+
         ViewCompat.setOnApplyWindowInsetsListener(
             getWindow().findViewById(R.id.demo_background),
             (v, insets) -> {

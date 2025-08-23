@@ -15,8 +15,10 @@ import android.os.Handler;
 import android.view.Display;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.fragment.app.FragmentActivity;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
@@ -77,6 +79,10 @@ public class ScreenCaptureManager {
         if (activity == null || callback == null) {
             return;
         }
+        if (mediaProjectionLauncher == null) {
+            throw new IllegalStateException("ScreenCaptureManager must be initialized before requesting permission. Call initialize() in onCreate().");
+        }
+
         if (mediaProjectionLauncher == null) {
             throw new IllegalStateException("ScreenCaptureManager must be initialized before requesting permission. Call initialize() in onCreate().");
         }
