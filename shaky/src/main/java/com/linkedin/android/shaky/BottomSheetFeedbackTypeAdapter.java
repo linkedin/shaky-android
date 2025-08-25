@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +35,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
  */
 class BottomSheetFeedbackTypeAdapter extends RecyclerView.Adapter<BottomSheetFeedbackTypeAdapter.RowViewHolder> {
 
-    public static final String EXTRA_FEEDBACK_TYPE = "ExtraFeedbackType";
+    public static final String EXTRA_FEEDBACK_TITLE = "ExtraFeedbackTitle";
     private static final int DISMISS_OPTION_POSITION = 2;
     private final BottomSheetFeedbackItem[] itemsList;
     @NonNull
@@ -78,7 +79,10 @@ class BottomSheetFeedbackTypeAdapter extends RecyclerView.Adapter<BottomSheetFee
                 return;
             }
             Intent intent = new Intent(item.action);
-            intent.putExtra(EXTRA_FEEDBACK_TYPE, item.feedbackType);
+            intent.putExtra(
+                    EXTRA_FEEDBACK_TITLE,
+                    rowViewHolder.titleView.getResources().getString(getTitleResId(item.feedbackType))
+            );
             LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
             bottomSheetFeedbackFragment.dismiss();
         });
@@ -95,5 +99,13 @@ class BottomSheetFeedbackTypeAdapter extends RecyclerView.Adapter<BottomSheetFee
             this.titleView = itemView.findViewById(R.id.shaky_row_title);
             this.descriptionView = itemView.findViewById(R.id.shaky_row_description);
         }
+    }
+
+    @StringRes
+    private int getTitleResId(@BottomSheetFeedbackItem.FeedbackType int feedbackType) {
+        if (feedbackType == BottomSheetFeedbackItem.BUG) {
+            return R.string.shaky_bug_title;
+        }
+        return R.string.shaky_general_title;
     }
 }
