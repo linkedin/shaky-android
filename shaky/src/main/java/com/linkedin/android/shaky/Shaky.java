@@ -68,6 +68,8 @@ public class Shaky implements ShakeDetector.Listener {
     private boolean useMediaProjection = false;
     private boolean isScreenCaptureInProgress = false;
     private boolean isBottomSheetFlowActive = false;
+    @Nullable
+    private String feedbackTitle;
     private CollectDataTask.Callback pendingDataCollectionCallback = null;
 
     @Nullable
@@ -451,6 +453,11 @@ public class Shaky implements ShakeDetector.Listener {
                         || ActionConstants.ACTION_START_GENERAL_FEEDBACK.equals(intent.getAction())) {
                     if (activity != null) {
                         actionThatStartedTheActivity = intent.getAction();
+                        if (isBottomSheetFlowActive) {
+                            feedbackTitle = intent.getStringExtra(
+                                    BottomSheetFeedbackTypeAdapter.EXTRA_FEEDBACK_TITLE
+                            );
+                        }
                         doStartFeedbackFlow();
                     }
                 } else if (ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER.equals(intent.getAction())
@@ -493,6 +500,8 @@ public class Shaky implements ShakeDetector.Listener {
                     return;
                 } else {
                     if (activity != null) {
+                       safeResult.setTitle(feedbackTitle);
+
                         // add file provider data to all attachments
                         ArrayList<Uri> secureAttachments = new ArrayList<>();
                         for (Uri attachment : safeResult.getAttachments()) {
@@ -500,6 +509,8 @@ public class Shaky implements ShakeDetector.Listener {
                         }
                         safeResult.setAttachments(secureAttachments);
                         delegate.submit(activity, safeResult);
+                        // reset the value to avoid any inconsistent behaviour
+                        isBottomSheetFlowActive = false;
                         return;
                     }
                 }
