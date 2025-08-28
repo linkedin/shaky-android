@@ -26,15 +26,19 @@ import android.graphics.Bitmap;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
+import androidx.fragment.app.FragmentActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.jraska.falcon.Falcon;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.seismic.ShakeDetector;
 
 import java.util.ArrayList;
@@ -63,6 +67,7 @@ public class Shaky implements ShakeDetector.Listener {
     private ScreenCaptureManager screenCaptureManager;
     private boolean useMediaProjection = false;
     private boolean isScreenCaptureInProgress = false;
+    private boolean isBottomSheetFlowActive = false;
     private CollectDataTask.Callback pendingDataCollectionCallback = null;
 
     @Nullable
@@ -86,6 +91,7 @@ public class Shaky implements ShakeDetector.Listener {
         IntentFilter filter = new IntentFilter();
         filter.addAction(ActionConstants.ACTION_START_FEEDBACK_FLOW);
         filter.addAction(ActionConstants.ACTION_START_BUG_REPORT);
+        filter.addAction(ActionConstants.ACTION_START_GENERAL_FEEDBACK);
         filter.addAction(ActionConstants.ACTION_DIALOG_DISMISSED_BY_USER);
         filter.addAction(FeedbackActivity.ACTION_END_FEEDBACK_FLOW);
         filter.addAction(FeedbackActivity.ACTION_ACTIVITY_CLOSED_BY_USER);
@@ -176,6 +182,18 @@ public class Shaky implements ShakeDetector.Listener {
     }
 
     /**
+     * Initialize the ScreenCaptureManager for MediaProjection API.
+     * This must be called from the host activity's onCreate method before any screen capture operations.
+     *
+     * @param activity The FragmentActivity that will handle the MediaProjection permission flow
+     */
+    public void initializeScreenCapture(FragmentActivity activity) {
+        if (screenCaptureManager != null) {
+            screenCaptureManager.initialize(activity);
+        }
+    }
+
+    /**
      * Handle activity result for MediaProjection permission request.
      * This must be called from the host activity's onActivityResult method.
      *
@@ -253,18 +271,54 @@ public class Shaky implements ShakeDetector.Listener {
      */
     private boolean isValidStartAction(String action) {
         return action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)
-                || action.equals(ActionConstants.ACTION_START_BUG_REPORT);
+                || action.equals(ActionConstants.ACTION_START_BUG_REPORT)
+                || action.equals(ActionConstants.ACTION_START_GENERAL_FEEDBACK);
     }
 
     @Override
     public void hearShake() {
+        launchShakeBottomSheet(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
+    }
+
+    private void launchShakeBottomSheet(@ShakyFlowCallback.ShakyStartedReason int reason) {
         if (shakyFlowCallback != null) {
-            shakyFlowCallback.onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
+            shakyFlowCallback.onShakyStarted(reason);
         }
-        if (shouldIgnoreShake() || !canStartFeedbackFlow()) {
+
+        if ((reason != ShakyFlowCallback.SHAKY_STARTED_MANUALLY && shouldIgnoreShake()) || !canStartFeedbackFlow()) {
             return;
         }
 
+        if (delegate.shouldUseBottomSheet()) {
+            if (activity != null) {
+                BottomSheetDialog bottomSheetDialog;
+                bottomSheetDialog = new BottomSheetDialog(activity, delegate.getBottomSheetTheme());
+                isBottomSheetFlowActive = true;
+
+                View sheetView = LayoutInflater.from(activity).inflate(R.layout.shaky_feedback_bottomsheet, null);
+
+                RecyclerView recyclerView = sheetView.findViewById(R.id.shaky_recyclerView_bottomsheet);
+                recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                recyclerView.setAdapter(
+                        new BottomSheetFeedbackTypeAdapter(
+                                getData(activity),
+                                bottomSheetDialog,
+                                delegate.getBottomSheetTheme())
+                );
+
+                bottomSheetDialog.setContentView(sheetView);
+                bottomSheetDialog.show();
+            }
+        } else {
+            launchShakePopupDialog();
+        }
+
+        if (shakyFlowCallback != null) {
+            shakyFlowCallback.onUserPromptShown();
+        }
+    }
+
+    private void launchShakePopupDialog() {
         Bundle arguments = new Bundle();
         if (delegate.getDialogTitle() != null) {
             arguments.putString(SendFeedbackDialog.CUSTOM_TITLE, delegate.getDialogTitle());
@@ -288,9 +342,33 @@ public class Shaky implements ShakeDetector.Listener {
             sendFeedbackDialog.setArguments(arguments);
             sendFeedbackDialog.show(activity.getFragmentManager(), SEND_FEEDBACK_TAG);
         }
-        if (shakyFlowCallback != null) {
-            shakyFlowCallback.onUserPromptShown();
-        }
+    }
+
+    @NonNull
+    private BottomSheetFeedbackItem[] getData(@NonNull Activity activity) {
+        return new BottomSheetFeedbackItem[]{
+                new BottomSheetFeedbackItem(
+                        activity.getString(R.string.shaky_row1_title),
+                        activity.getString(R.string.shaky_row1_subtitle),
+                        R.drawable.shaky_img_magnifying_glass_56dp,
+                        BottomSheetFeedbackItem.BUG,
+                        ActionConstants.ACTION_START_BUG_REPORT
+                ),
+                new BottomSheetFeedbackItem(
+                        activity.getString(R.string.shaky_row3_title),
+                        activity.getString(R.string.shaky_row3_subtitle),
+                        R.drawable.shaky_img_message_bubbles_56dp,
+                        BottomSheetFeedbackItem.GENERAL,
+                        ActionConstants.ACTION_START_GENERAL_FEEDBACK
+                ),
+                new BottomSheetFeedbackItem(
+                        activity.getString(R.string.shaky_dismiss_title),
+                        activity.getString(R.string.shaky_dismiss_subtitle),
+                        R.drawable.shaky_dismiss,
+                        BottomSheetFeedbackItem.DISMISS,
+                        ActionConstants.ACTION_DISMISS
+                ),
+        };
     }
 
     /**
@@ -369,7 +447,8 @@ public class Shaky implements ShakeDetector.Listener {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (ActionConstants.ACTION_START_FEEDBACK_FLOW.equals(intent.getAction())
-                        || ActionConstants.ACTION_START_BUG_REPORT.equals(intent.getAction())) {
+                        || ActionConstants.ACTION_START_BUG_REPORT.equals(intent.getAction())
+                        || ActionConstants.ACTION_START_GENERAL_FEEDBACK.equals(intent.getAction())) {
                     if (activity != null) {
                         actionThatStartedTheActivity = intent.getAction();
                         doStartFeedbackFlow();
@@ -407,10 +486,22 @@ public class Shaky implements ShakeDetector.Listener {
                 boolean shouldStartFeedbackActivity = activity != null && collectDataTask != null;
                 collectDataTask = null;
                 dismissCollectFeedbackDialogIfNecessary();
+                Result safeResult = result != null ? result : new Result();
 
-                if (shouldStartFeedbackActivity) {
-                    startFeedbackActivity(result == null ? new Result() : result);
+                if (shouldStartFeedbackActivity && !isBottomSheetFlowActive) {
+                    startFeedbackActivity(safeResult);
                     return;
+                } else {
+                    if (activity != null) {
+                        // add file provider data to all attachments
+                        ArrayList<Uri> secureAttachments = new ArrayList<>();
+                        for (Uri attachment : safeResult.getAttachments()) {
+                            secureAttachments.add(Utils.getProviderUri(appContext, attachment));
+                        }
+                        safeResult.setAttachments(secureAttachments);
+                        delegate.submit(activity, safeResult);
+                        return;
+                    }
                 }
 
                 if (shakyFlowCallback != null) {
@@ -465,5 +556,12 @@ public class Shaky implements ShakeDetector.Listener {
         } else {
             return ShakeDetector.SENSITIVITY_MEDIUM;
         }
+    }
+
+    /**
+     * Start shake flow manually to launch bottom sheet
+     */
+    public void startShakeBottomSheetFlowManually() {
+        launchShakeBottomSheet(ShakyFlowCallback.SHAKY_STARTED_MANUALLY);
     }
 }

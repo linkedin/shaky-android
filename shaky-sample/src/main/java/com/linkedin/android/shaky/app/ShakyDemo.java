@@ -1,12 +1,8 @@
 /**
  * Copyright (C) 2016 LinkedIn Corp.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,7 +11,6 @@
  */
 package com.linkedin.android.shaky.app;
 
-import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,8 +21,8 @@ import android.widget.Toast;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.linkedin.android.shaky.ActionConstants;
 import com.linkedin.android.shaky.Shaky;
 
@@ -41,6 +36,10 @@ public class ShakyDemo extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
+
+        // Initialize ScreenCaptureManager for the Shaky library
+        ((ShakyApplication) getApplication()).getShaky().initializeScreenCapture(this);
+        
         ViewCompat.setOnApplyWindowInsetsListener(
             getWindow().findViewById(R.id.demo_background),
             (v, insets) -> {
@@ -96,6 +95,13 @@ public class ShakyDemo extends FragmentActivity {
             public void onClick(View v) {
                 ((ShakyApplication) getApplication()).getShaky()
                         .startFeedbackFlow(ActionConstants.ACTION_START_BUG_REPORT);
+            }
+        });
+
+        findViewById(R.id.demo_bottom_sheet_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ShakyApplication) getApplication()).getShaky().startShakeBottomSheetFlowManually();
             }
         });
 
