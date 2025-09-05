@@ -12,7 +12,6 @@
 package com.linkedin.android.shaky.app;
 
 import androidx.fragment.app.FragmentActivity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +23,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.linkedin.android.shaky.ActionConstants;
-import com.linkedin.android.shaky.Shaky;
 
 import java.util.Random;
 
@@ -36,9 +34,6 @@ public class ShakyDemo extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-
-        // Initialize ScreenCaptureManager for the Shaky library
-        ((ShakyApplication) getApplication()).getShaky().initializeScreenCapture(this);
         
         ViewCompat.setOnApplyWindowInsetsListener(
             getWindow().findViewById(R.id.demo_background),
@@ -97,16 +92,5 @@ public class ShakyDemo extends FragmentActivity {
                         .startFeedbackFlow(ActionConstants.ACTION_START_BUG_REPORT);
             }
         });
-
-        ((ShakyApplication)getApplication()).getShaky().setUseMediaProjection(true);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Shaky shaky = ((ShakyApplication) getApplication()).getShaky();
-        if (!shaky.handleActivityResult(requestCode, resultCode, data)) {
-            // If Shaky did not handle the result, call the super method
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 }
