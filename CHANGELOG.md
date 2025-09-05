@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 3.0.14
+- Create bottom-sheet for shake to feedback and launch them on detecting shake.
+
 ## Version 3.0.13
 - Fix issues regarding permission feedback in ScreenCaptureManager.
 
