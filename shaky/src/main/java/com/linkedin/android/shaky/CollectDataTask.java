@@ -57,14 +57,12 @@ class CollectDataTask extends AsyncTask<Bitmap, Void, Result> {
 
         File screenshotDirectory = new File(screenshotDirectoryRoot);
 
-        if(delegate.enableDeletingOldScreenshots()) {
-            // delete any old screenshots that we may have left lying around
-            if (screenshotDirectory.exists()) {
-                File[] oldScreenshots = screenshotDirectory.listFiles();
-                for (File oldScreenshot : oldScreenshots) {
-                    if (!oldScreenshot.delete()) {
-                        Log.e(TAG, "Could not delete old screenshot:" + oldScreenshot);
-                    }
+        // delete any old screenshots that we may have left lying around
+        if (screenshotDirectory.exists()) {
+            File[] oldScreenshots = screenshotDirectory.listFiles();
+            for (File oldScreenshot : oldScreenshots) {
+                if (!oldScreenshot.delete()) {
+                    Log.e(TAG, "Could not delete old screenshot:" + oldScreenshot);
                 }
             }
         }
