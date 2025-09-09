@@ -35,6 +35,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import java.util.Objects;
 
 /**
  * The main activity used capture and send feedback.
@@ -42,6 +43,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 public class FeedbackActivity extends AppCompatActivity {
 
     static final String ACTION_END_FEEDBACK_FLOW = "EndFeedbackFlow";
+    static final String ACTION_COMPLETE_EDIT_SCREENSHOT = "completeEditScreenshot";
     static final String ACTION_ACTIVITY_CLOSED_BY_USER = "ActivityClosedByUser";
 
     static final String SCREENSHOT_URI = "screenshotUri";
@@ -51,11 +53,13 @@ public class FeedbackActivity extends AppCompatActivity {
     static final String RES_MENU = "resMenu";
     static final String SUBCATEGORY = "subcategory";
     static final String THEME = "theme";
+    static final String FLOW_TYPE = "flowType";
     private static final String ACTION = "ACTION_THAT_STARTED_THE_ACTIVITY";
     static final int MISSING_RESOURCE = 0;
 
     private Uri imageUri;
     private @FeedbackItem.FeedbackType int feedbackType;
+    private FlowType flowType;
     private Bundle userData;
     private @MenuRes int resMenu;
     private @StyleRes Integer customTheme;
@@ -66,13 +70,15 @@ public class FeedbackActivity extends AppCompatActivity {
                                    @Nullable Bundle userData,
                                    @MenuRes int resMenu,
                                    @Nullable String actionThatStartedTheActivity,
-                                   @StyleRes int theme) {
+                                   @StyleRes int theme,
+                                   @NonNull FlowType flowType) {
         Intent intent = new Intent(context, FeedbackActivity.class);
         intent.putExtra(SCREENSHOT_URI, screenshotUri);
         intent.putExtra(USER_DATA, userData);
         intent.putExtra(RES_MENU, resMenu);
         intent.putExtra(ACTION, actionThatStartedTheActivity);
         intent.putExtra(THEME, theme);
+        intent.putExtra(FLOW_TYPE, flowType.name());
         return intent;
     }
 
@@ -97,6 +103,8 @@ public class FeedbackActivity extends AppCompatActivity {
         userData = getIntent().getBundleExtra(USER_DATA);
         resMenu = getIntent().getIntExtra(RES_MENU, FormFragment.DEFAULT_MENU);
         String action = getIntent().getStringExtra(ACTION);
+        String flowTypeName = getIntent().getStringExtra(FLOW_TYPE);
+        flowType = FlowType.valueOf(flowTypeName);
 
         if (savedInstanceState == null && action != null) {
             if (action.equals(ActionConstants.ACTION_START_FEEDBACK_FLOW)) {
@@ -106,8 +114,11 @@ public class FeedbackActivity extends AppCompatActivity {
                     .commit();
             } else if (action.equals(ActionConstants.ACTION_START_BUG_REPORT)) {
                 startFormFragment(FeedbackItem.BUG, false);
-            } else if (action.equals(ActionConstants.ACTION_START_GENERAL_FEEDBACK)) {
-                startFormFragment(FeedbackItem.GENERAL, false);
+                if (imageUri != null) {
+                    startDrawFragment();
+                }
+            } else if (action.equals(ActionConstants.ACTION_START_SCREENSHOT_EDIT_FLOW) && imageUri != null) {
+                startDrawFragment();
             }
         }
     }
@@ -151,7 +162,8 @@ public class FeedbackActivity extends AppCompatActivity {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .replace(R.id.shaky_fragment_container, fragment);
 
-        if (shouldAddToBackStack) {
+        if (shouldAddToBackStack && !Objects.equals(getIntent().getStringExtra(ACTION),
+                ActionConstants.ACTION_START_SCREENSHOT_EDIT_FLOW)) {
             fragmentTransaction.addToBackStack(null);
         }
 
@@ -210,13 +222,24 @@ public class FeedbackActivity extends AppCompatActivity {
             } else if (FormFragment.ACTION_EDIT_IMAGE.equals(intent.getAction())) {
                 startDrawFragment();
             } else if (DrawFragment.ACTION_DRAWING_COMPLETE.equals(intent.getAction())) {
-                onBackPressed();
+                if (flowType == FlowType.SCREENSHOT_EDIT_FLOW) {
+                    submitEditScreenshotIntent();
+                } else {
+                    onBackPressed();
+                }
             } else if (FormFragment.ACTION_SUBMIT_FEEDBACK.equals(intent.getAction())) {
                 submitFeedbackIntent(intent.getStringExtra(FormFragment.EXTRA_USER_MESSAGE),
                     intent.getStringExtra(FormFragment.EXTRA_SUBCATEGORY));
             }
         }
     };
+
+    private void submitEditScreenshotIntent() {
+        Intent intent = new Intent(ACTION_COMPLETE_EDIT_SCREENSHOT);
+        intent.putExtra(SCREENSHOT_URI, imageUri);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        finish();
+    }
 
     private void submitFeedbackIntent(@Nullable String userMessage, @Nullable String subcategory) {
         Intent intent = new Intent(ACTION_END_FEEDBACK_FLOW);

@@ -21,6 +21,7 @@ package com.linkedin.android.shaky;
 public class ActionConstants {
 
     public static final String ACTION_START_FEEDBACK_FLOW = "StartFeedbackFlow";
+    public static final String ACTION_START_SCREENSHOT_EDIT_FLOW = "StartScreenshotEditFlow";
     public static final String ACTION_START_BUG_REPORT = "StartBugReport";
     public static final String ACTION_START_GENERAL_FEEDBACK = "StartGeneralFeedback";
     public static final String ACTION_DIALOG_DISMISSED_BY_USER = "DialogDismissedByUser";

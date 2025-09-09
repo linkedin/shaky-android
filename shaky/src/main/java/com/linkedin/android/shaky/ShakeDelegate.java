@@ -159,4 +159,12 @@ public abstract class ShakeDelegate {
      * This method can be overridden to send data to a custom URL endpoint, etc.
      */
     public abstract void submit(@NonNull Activity activity, @NonNull Result result);
+
+    /**
+     * Called when the user completes edit screenshot action. Provides edited screenshot Uri
+     * in result.
+     * This method can be overridden to send edited screenshot to the expected endpoint, etc.
+     */
+    public void submitScreenshot(@NonNull Activity activity, @NonNull Result result) {
+    }
 }
