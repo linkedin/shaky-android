@@ -234,6 +234,9 @@ public class FeedbackActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Sends local broadcast of the edited screenshot URI and finishes the activity
+     */
     private void submitEditScreenshotIntent() {
         Intent intent = new Intent(ACTION_COMPLETE_EDIT_SCREENSHOT);
         intent.putExtra(SCREENSHOT_URI, imageUri);
