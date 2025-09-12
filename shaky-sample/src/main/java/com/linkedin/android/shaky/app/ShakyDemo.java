@@ -11,7 +11,6 @@
  */
 package com.linkedin.android.shaky.app;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +23,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.linkedin.android.shaky.ActionConstants;
-import com.linkedin.android.shaky.Shaky;
 
 import java.util.Random;
 
@@ -36,9 +34,6 @@ public class ShakyDemo extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-
-        // Initialize ScreenCaptureManager for the Shaky library
-        ((ShakyApplication) getApplication()).getShaky().initializeScreenCapture(this);
         
         ViewCompat.setOnApplyWindowInsetsListener(
             getWindow().findViewById(R.id.demo_background),
@@ -78,11 +73,6 @@ public class ShakyDemo extends FragmentActivity {
             }
         });
 
-        findViewById(R.id.open_bottom_sheet_button).setOnClickListener(v -> {
-            SampleBottomSheetDialog bottomSheetDialogFragment = new SampleBottomSheetDialog();
-            bottomSheetDialogFragment.show(this.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
-        });
-
         findViewById(R.id.demo_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,16 +94,5 @@ public class ShakyDemo extends FragmentActivity {
                 ((ShakyApplication) getApplication()).getShaky().startShakeBottomSheetFlowManually();
             }
         });
-
-        ((ShakyApplication)getApplication()).getShaky().setUseMediaProjection(true);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Shaky shaky = ((ShakyApplication) getApplication()).getShaky();
-        if (!shaky.handleActivityResult(requestCode, resultCode, data)) {
-            // If Shaky did not handle the result, call the super method
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 }
