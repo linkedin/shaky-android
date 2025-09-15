@@ -44,13 +44,6 @@
         android:text="@string/manual_feedback_trigger"/>
 
     <Button
-        android:id="@+id/open_bottom_sheet_button"
-        style="?attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/open_bottom_sheet"/>
-
-    <Button
         android:id="@+id/demo_bug_report_button"
         style="?attr/borderlessButtonStyle"
         android:layout_width="match_parent"

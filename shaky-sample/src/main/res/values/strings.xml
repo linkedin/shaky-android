@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">Shaky</string>
     <string name="shake_me" translatable="false">Shake me!</string>
     <string name="manual_feedback_trigger" translatable="false">Manually start feedback</string>
-    <string name="open_bottom_sheet" translatable="false">Open Bottom Sheet modal</string>
     <string name="manual_bug_report" translatable="false">Manually start bug report</string>
     <string name="manual_bottom_sheet" translatable="false">Manually launch bottom sheet</string>
     <string name="manual_edit_screenshot" translatable="false">Manually launch edit screenshot</string>
