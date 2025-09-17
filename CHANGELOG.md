@@ -1,5 +1,11 @@
 # Change Log
 
+## Version 4.0.0
+- Navigate user to email screen directly from bottom sheet 
+- Add support to send feedback title for bottomsheet flow
+- Add support to launch Edit Screenshot Flow
+- Removed MEDIA PROJECTION API support and its usages
+
 ## Version 3.0.14
 - Create bottom-sheet for shake to feedback and launch them on detecting shake.
 
