@@ -94,5 +94,12 @@ public class ShakyDemo extends FragmentActivity {
                 ((ShakyApplication) getApplication()).getShaky().startShakeBottomSheetFlowManually();
             }
         });
+
+        findViewById(R.id.demo_edit_screenshot_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ShakyApplication) getApplication()).getShaky().startEditScreenshotFlow(null);
+            }
+        });
     }
 }

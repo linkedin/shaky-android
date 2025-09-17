@@ -73,6 +73,7 @@ public class Shaky implements ShakeDetector.Listener {
     private long lastShakeTime;
     private CollectDataTask collectDataTask;
     private String actionThatStartedTheActivity;
+    private FlowType flowType = FlowType.FEEDBACK_FLOW;
 
     Shaky(@NonNull Context context, @NonNull ShakeDelegate delegate, @Nullable ShakyFlowCallback callback) {
         appContext = context.getApplicationContext();
@@ -146,6 +147,25 @@ public class Shaky implements ShakeDetector.Listener {
             actionThatStartedTheActivity = ActionConstants.ACTION_START_FEEDBACK_FLOW;
         }
         doStartFeedbackFlow();
+    }
+
+    /**
+     * Start edit screenshot manually for a custom flow.
+     *
+     * @param screenshotUri the flow to start. If null, starts the feedback flow by default. Otherwise
+     *               starts the custom flow (if valid).
+     */
+    public void startEditScreenshotFlow(@Nullable Uri screenshotUri) {
+        if (screenshotUri != null) {
+            actionThatStartedTheActivity = ActionConstants.ACTION_START_SCREENSHOT_EDIT_FLOW;
+            flowType = FlowType.SCREENSHOT_EDIT_FLOW;
+            Result result = new Result();
+            result.setScreenshotUri(screenshotUri);
+            startFeedbackActivity(result);
+        } else {
+            actionThatStartedTheActivity = ActionConstants.ACTION_START_FEEDBACK_FLOW;
+            doStartFeedbackFlow();
+        }
     }
 
     public void setSensitivity(@ShakeDelegate.SensitivityLevel int sensitivityLevel) {
@@ -402,6 +422,15 @@ public class Shaky implements ShakeDetector.Listener {
                     if (shakyFlowCallback != null) {
                         shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_SENSITIVITY_UPDATED);
                     }
+                } else if (FeedbackActivity.ACTION_COMPLETE_EDIT_SCREENSHOT.equals(intent.getAction())) {
+                    if (activity != null) {
+                        Result result = new Result(new Bundle());
+                        result.setScreenshotUri(intent.getParcelableExtra(FeedbackActivity.SCREENSHOT_URI));
+                        delegate.submitScreenshot(activity, result);
+                    }
+                    if (shakyFlowCallback != null) {
+                        shakyFlowCallback.onShakyFinished(ShakyFlowCallback.SHAKY_FINISHED_SUBMITTED);
+                    }
                 }
             }
         };
@@ -456,7 +485,8 @@ public class Shaky implements ShakeDetector.Listener {
                 result.getData(),
                 delegate.resMenu,
                 actionThatStartedTheActivity,
-                delegate.getTheme() != null ? delegate.getTheme() : FeedbackActivity.MISSING_RESOURCE);
+                delegate.getTheme() != null ? delegate.getTheme() : FeedbackActivity.MISSING_RESOURCE,
+                flowType);
         activity.startActivity(intent);
 
         if (shakyFlowCallback != null) {

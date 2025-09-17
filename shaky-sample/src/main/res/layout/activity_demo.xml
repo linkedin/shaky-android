@@ -57,4 +57,11 @@
         android:layout_height="wrap_content"
         android:text="@string/manual_bottom_sheet"/>
 
+    <Button
+        android:id="@+id/demo_edit_screenshot_button"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/manual_edit_screenshot"/>
+
 </LinearLayout>
