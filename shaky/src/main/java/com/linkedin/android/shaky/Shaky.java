@@ -239,28 +239,30 @@ public class Shaky implements ShakeDetector.Listener {
             return;
         }
 
-        if (delegate.shouldUseBottomSheet()) {
-            if (activity != null) {
-                BottomSheetDialog bottomSheetDialog;
-                bottomSheetDialog = new BottomSheetDialog(activity, delegate.getBottomSheetTheme());
-                isBottomSheetFlowActive = true;
+        if (!delegate.enableCustomHandlingOfShake) {
+            if (delegate.shouldUseBottomSheet()) {
+                if (activity != null) {
+                    BottomSheetDialog bottomSheetDialog;
+                    bottomSheetDialog = new BottomSheetDialog(activity, delegate.getBottomSheetTheme());
+                    isBottomSheetFlowActive = true;
 
-                View sheetView = LayoutInflater.from(activity).inflate(R.layout.shaky_feedback_bottomsheet, null);
+                    View sheetView = LayoutInflater.from(activity).inflate(R.layout.shaky_feedback_bottomsheet, null);
 
-                RecyclerView recyclerView = sheetView.findViewById(R.id.shaky_recyclerView_bottomsheet);
-                recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-                recyclerView.setAdapter(
-                        new BottomSheetFeedbackTypeAdapter(
-                                getData(activity),
-                                bottomSheetDialog,
-                                delegate.getBottomSheetTheme())
-                );
+                    RecyclerView recyclerView = sheetView.findViewById(R.id.shaky_recyclerView_bottomsheet);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                    recyclerView.setAdapter(
+                            new BottomSheetFeedbackTypeAdapter(
+                                    getData(activity),
+                                    bottomSheetDialog,
+                                    delegate.getBottomSheetTheme())
+                    );
 
-                bottomSheetDialog.setContentView(sheetView);
-                bottomSheetDialog.show();
+                    bottomSheetDialog.setContentView(sheetView);
+                    bottomSheetDialog.show();
+                }
+            } else {
+                launchShakePopupDialog();
             }
-        } else {
-            launchShakePopupDialog();
         }
 
         if (shakyFlowCallback != null) {

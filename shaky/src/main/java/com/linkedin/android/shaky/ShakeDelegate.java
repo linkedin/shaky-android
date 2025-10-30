@@ -52,6 +52,8 @@ public abstract class ShakeDelegate {
      */
     @MenuRes protected int resMenu = FormFragment.DEFAULT_MENU;
 
+    public boolean enableCustomHandlingOfShake = false;
+
     /**
      * @return true if shake detection should be enabled, false otherwise
      */
