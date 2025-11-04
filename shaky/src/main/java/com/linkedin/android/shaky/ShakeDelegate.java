@@ -52,6 +52,9 @@ public abstract class ShakeDelegate {
      */
     @MenuRes protected int resMenu = FormFragment.DEFAULT_MENU;
 
+    /**
+     * Allows user to enable performing a custom action on detecting shake.
+     */
     public boolean enableCustomHandlingOfShake = false;
 
     /**
@@ -148,6 +151,12 @@ public abstract class ShakeDelegate {
     public DialogFragment getCustomDialog() {
         return null;
     }
+
+    /**
+     * This method can be overridden to provide custom action to be performed on shake when
+     * {@link #enableCustomHandlingOfShake} is enabled.
+     */
+    public void performCustomActionOnShake(@NonNull Activity activity){}
 
     /**
      * @return if the dialog should be shown on shake or the shake-to-feedback bottom sheet.
