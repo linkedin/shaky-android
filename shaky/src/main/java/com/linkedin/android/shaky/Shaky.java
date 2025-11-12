@@ -227,7 +227,7 @@ public class Shaky implements ShakeDetector.Listener {
 
     @Override
     public void hearShake() {
-        if(delegate.enableCustomHandlingOfShake) {
+        if(delegate.isCustomHandlingOfShakeEnabled()) {
             if (shakyFlowCallback != null) {
                 shakyFlowCallback.onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
             }

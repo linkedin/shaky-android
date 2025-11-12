@@ -55,7 +55,7 @@ public abstract class ShakeDelegate {
     /**
      * Allows user to enable performing a custom action on detecting shake.
      */
-    public boolean enableCustomHandlingOfShake = false;
+    private boolean enableCustomHandlingOfShake = false;
 
     /**
      * @return true if shake detection should be enabled, false otherwise
@@ -150,6 +150,24 @@ public abstract class ShakeDelegate {
     @Nullable
     public DialogFragment getCustomDialog() {
         return null;
+    }
+
+    /**
+     * Returns whether custom handling of shake events is enabled.
+     *
+     * @return true if custom handling of shake is enabled, false otherwise
+     */
+    public boolean isCustomHandlingOfShakeEnabled() {
+        return enableCustomHandlingOfShake;
+    }
+
+    /**
+     * Enables or disables custom handling of shake events.
+     *
+     * @param enableCustomHandlingOfShake true to enable custom handling, false to disable
+     */
+    public void enableCustomHandlingOfShake(boolean enableCustomHandlingOfShake) {
+        this.enableCustomHandlingOfShake = enableCustomHandlingOfShake;
     }
 
     /**
