@@ -227,7 +227,23 @@ public class Shaky implements ShakeDetector.Listener {
 
     @Override
     public void hearShake() {
-        launchShakeBottomSheet(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
+        if(delegate.isCustomHandlingOfShakeEnabled()) {
+            if (shakyFlowCallback != null) {
+                shakyFlowCallback.onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
+            }
+
+            if (shouldIgnoreShake() || !canStartFeedbackFlow() || activity==null) {
+                return;
+            }
+
+            delegate.performCustomActionOnShake(activity);
+
+            if (shakyFlowCallback != null) {
+                shakyFlowCallback.onUserPromptShown();
+            }
+        } else {
+            launchShakeBottomSheet(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
+        }
     }
 
     private void launchShakeBottomSheet(@ShakyFlowCallback.ShakyStartedReason int reason) {
