@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 4.0.1
+- Add support to perform custom action on hearing shake
+
 ## Version 4.0.0
 - Navigate user to email screen directly from bottom sheet 
 - Add support to send feedback title for bottomsheet flow
