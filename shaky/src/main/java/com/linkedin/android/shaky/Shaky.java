@@ -41,6 +41,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jraska.falcon.Falcon;
 import com.squareup.seismic.ShakeDetector;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -385,6 +386,17 @@ public class Shaky implements ShakeDetector.Listener {
             View view = activity.getWindow().getDecorView().getRootView();
             return Utils.capture(view, activity.getWindow());
         }
+    }
+
+    @Nullable
+    public Uri getCapturedScreenshotUri() {
+        if (activity != null) {
+            String screenshotDirectoryRoot = Utils.getScreenshotDirectoryRoot(activity);
+            if (screenshotDirectoryRoot != null && collectDataTask != null) {
+                return collectDataTask.getScreenshotUri(getScreenshotBitmap(), new File(screenshotDirectoryRoot));
+            }
+        }
+        return null;
     }
 
     private void dismissCollectFeedbackDialogIfNecessary() {
