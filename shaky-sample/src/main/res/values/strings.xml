@@ -5,6 +5,7 @@
     <string name="manual_bug_report" translatable="false">Manually start bug report</string>
     <string name="manual_bottom_sheet" translatable="false">Manually launch bottom sheet</string>
     <string name="manual_edit_screenshot" translatable="false">Manually launch edit screenshot</string>
+    <string name="capture_screenshot_collect_data" translatable="false">Capture screenshot and collect data</string>
     <string name="show_toast" translatable="false">Show Toast</string>
     <string name="toast_text" translatable="false">This is a toast.</string>
     <string name="christmas_theme" translatable="false">Use Christmas theme</string>

@@ -64,4 +64,11 @@
         android:layout_height="wrap_content"
         android:text="@string/manual_edit_screenshot"/>
 
+    <Button
+        android:id="@+id/demo_capture_screenshot_collect_data_button"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/capture_screenshot_collect_data"/>
+
 </LinearLayout>

@@ -168,6 +168,26 @@ public class Shaky implements ShakeDetector.Listener {
         }
     }
 
+    /**
+     * Capture a screenshot and collect data without starting the feedback flow UI.
+     * This is for consumers to use their own custom UI with the captured data.
+     *
+     * @param callback called when the screenshot and data collection is complete
+     */
+    public void captureScreenshotAndCollectData(@NonNull final DataCollectionCallback callback) {
+        if (activity == null) {
+            callback.onDataCollected(null);
+            return;
+        }
+
+        Bitmap screenshotBitmap = getScreenshotBitmap();
+        collectDataTask = new CollectDataTask(activity, delegate, result -> {
+            collectDataTask = null;
+            callback.onDataCollected(result);
+        });
+        collectDataTask.execute(screenshotBitmap);
+    }
+
     public void setSensitivity(@ShakeDelegate.SensitivityLevel int sensitivityLevel) {
         delegate.setSensitivityLevel(sensitivityLevel);
         shakeDetector.setSensitivity(getDetectorSensitivityLevel());
