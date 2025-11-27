@@ -13,6 +13,7 @@ package com.linkedin.android.shaky.app;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import java.util.Random;
 public class ShakyDemo extends FragmentActivity {
 
     private static final int RGB_MAX = 256;
+    public static final String TAG = "ShakyDemo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,19 @@ public class ShakyDemo extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 ((ShakyApplication) getApplication()).getShaky().startEditScreenshotFlow(null);
+            }
+        });
+
+        findViewById(R.id.demo_capture_screenshot_collect_data_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ShakyApplication) getApplication()).getShaky().captureScreenshotAndCollectData(result -> {
+                    Toast.makeText(v.getContext(),
+                            "Data collection complete. Check logs for complete data.",
+                            Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "Screenshot URI: " + (result != null ? result.getScreenshotUri() : "null"));
+                    Log.d(TAG, "Collected data: " + (result != null ? result.getData() : "null"));
+                });
             }
         });
     }
