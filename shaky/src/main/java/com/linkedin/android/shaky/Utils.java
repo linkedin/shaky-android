@@ -49,8 +49,6 @@ final class Utils {
     private static final String BITMAP_PREFIX = "bitmap";
     private static final String FILE_PROVIDER_SUFFIX = ".fileprovider";
 
-    private static final String SCREENSHOT_DIRECTORY = "/screenshots";
-
     // prevent instantiation
     private Utils() {}
 
@@ -166,14 +164,5 @@ final class Utils {
             return inflater.cloneInContext(new ContextThemeWrapper(inflater.getContext(), theme));
         }
         return inflater;
-    }
-
-    @Nullable
-    static String getScreenshotDirectoryRoot(@NonNull Context context) {
-        File filesDir = context.getFilesDir();
-        if (filesDir == null) {
-            return null;
-        }
-        return filesDir.getAbsolutePath() + SCREENSHOT_DIRECTORY;
     }
 }

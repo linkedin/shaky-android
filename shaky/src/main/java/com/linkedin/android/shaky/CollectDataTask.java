@@ -50,7 +50,7 @@ class CollectDataTask extends AsyncTask<Bitmap, Void, Result> {
 
     @Override
     protected Result doInBackground(Bitmap... params) {
-        String screenshotDirectoryRoot = Utils.getScreenshotDirectoryRoot(activity);
+        String screenshotDirectoryRoot = getScreenshotDirectoryRoot(activity);
         if (screenshotDirectoryRoot == null) {
             return null;
         }
@@ -70,7 +70,8 @@ class CollectDataTask extends AsyncTask<Bitmap, Void, Result> {
         Uri screenshotUri = null;
         Bitmap bitmap = params != null && params.length != 0 ? params[0] : null;
         if (bitmap != null) {
-            screenshotUri = getScreenshotUri(bitmap, screenshotDirectory);
+            File screenshotFile = Utils.writeBitmapToDirectory(bitmap, screenshotDirectory);
+            screenshotUri = Uri.fromFile(screenshotFile);
         }
 
         Result result = new Result();
@@ -79,16 +80,21 @@ class CollectDataTask extends AsyncTask<Bitmap, Void, Result> {
         return result;
     }
 
-    public Uri getScreenshotUri(Bitmap bitmap, File screenshotDirectory) {
-        File screenshotFile = Utils.writeBitmapToDirectory(bitmap, screenshotDirectory);
-        return Uri.fromFile(screenshotFile);
-    }
-
     @Override
     protected void onPostExecute(Result result) {
         super.onPostExecute(result);
 
         callback.onDataReady(result);
+    }
+
+    @Nullable
+    @WorkerThread
+    private static String getScreenshotDirectoryRoot(@NonNull Context context) {
+        File filesDir = context.getFilesDir();
+        if (filesDir == null) {
+            return null;
+        }
+        return filesDir.getAbsolutePath() + SCREENSHOT_DIRECTORY;
     }
 
     interface Callback {

@@ -41,7 +41,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jraska.falcon.Falcon;
 import com.squareup.seismic.ShakeDetector;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -167,6 +166,26 @@ public class Shaky implements ShakeDetector.Listener {
             actionThatStartedTheActivity = ActionConstants.ACTION_START_FEEDBACK_FLOW;
             doStartFeedbackFlow();
         }
+    }
+
+    /**
+     * Capture a screenshot and collect data without starting the feedback flow UI.
+     * This is for consumers to use their own custom UI with the captured data.
+     *
+     * @param callback called when the screenshot and data collection is complete
+     */
+    public void captureScreenshotAndCollectData(@NonNull final DataCollectionCallback callback) {
+        if (activity == null) {
+            callback.onDataCollected(null);
+            return;
+        }
+
+        Bitmap screenshotBitmap = getScreenshotBitmap();
+        collectDataTask = new CollectDataTask(activity, delegate, result -> {
+            collectDataTask = null;
+            callback.onDataCollected(result);
+        });
+        collectDataTask.execute(screenshotBitmap);
     }
 
     public void setSensitivity(@ShakeDelegate.SensitivityLevel int sensitivityLevel) {
@@ -386,17 +405,6 @@ public class Shaky implements ShakeDetector.Listener {
             View view = activity.getWindow().getDecorView().getRootView();
             return Utils.capture(view, activity.getWindow());
         }
-    }
-
-    @Nullable
-    public Uri getCapturedScreenshotUri() {
-        if (activity != null) {
-            String screenshotDirectoryRoot = Utils.getScreenshotDirectoryRoot(activity);
-            if (screenshotDirectoryRoot != null && collectDataTask != null) {
-                return collectDataTask.getScreenshotUri(getScreenshotBitmap(), new File(screenshotDirectoryRoot));
-            }
-        }
-        return null;
     }
 
     private void dismissCollectFeedbackDialogIfNecessary() {
