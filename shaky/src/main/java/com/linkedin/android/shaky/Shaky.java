@@ -26,19 +26,18 @@ import android.graphics.Bitmap;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.jraska.falcon.Falcon;
 import com.squareup.seismic.ShakeDetector;
 
 import java.util.ArrayList;
@@ -191,7 +190,20 @@ public class Shaky implements ShakeDetector.Listener {
             shakyFlowCallback.onCollectingData();
         }
         collectDataTask = new CollectDataTask(activity, delegate, createCallback());
-        collectDataTask.execute(getScreenshotBitmap());
+
+        // Capture screenshot asynchronously, then execute the task
+        ScreenshotCaptureUtils.captureAndMergeAsync(activity, new ScreenshotCapture.CaptureCallback() {
+            @Override
+            public void onCaptureComplete(Bitmap bitmap) {
+                if (bitmap != null) {
+                    collectDataTask.execute(bitmap);
+                } else {
+                    Log.e("Shaky", "Failed to capture screenshot");
+                    // Dismiss the dialog if screenshot capture failed
+                    dismissCollectFeedbackDialogIfNecessary();
+                }
+            }
+        });
     }
 
     /**
@@ -373,19 +385,6 @@ public class Shaky implements ShakeDetector.Listener {
         return canStart;
     }
 
-    @Nullable
-    @UiThread
-    private Bitmap getScreenshotBitmap() {
-        try {
-            // Attempt to use Falcon to take the screenshot
-            return Falcon.takeScreenshotBitmap(activity);
-        } catch (Falcon.UnableToTakeScreenshotException exception) {
-            // Fallback to using the default screenshot capture mechanism if Falcon does not work (e.g. if it has not
-            // been updated to work on newer versions of Android yet)
-            View view = activity.getWindow().getDecorView().getRootView();
-            return Utils.capture(view, activity.getWindow());
-        }
-    }
 
     private void dismissCollectFeedbackDialogIfNecessary() {
         if (collectDataTask != null || activity == null) {
