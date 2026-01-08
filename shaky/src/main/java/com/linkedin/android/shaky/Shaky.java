@@ -376,13 +376,15 @@ public class Shaky implements ShakeDetector.Listener {
     }
 
     /**
-     * Captures screenshot(s) as a Bitmap. This method implements a 3 step approach to capture the
-     * screenshot(s):
+     * Captures screenshot(s) as a Bitmap. This method implements a multi-step approach to capture
+     * screenshots:
      * 1. `Falcon` - Fast single-bitmap capture of the entire screen (Canvas-based). However, fails
      * if UI contains hardware bitmaps.
-     * 2. `PixelCopy` multi-window - Captures each window separately to handle hardware bitmaps.
-     * 3. If both Falcon and PixelCopy fails, {@link Utils#capture} fallback - Main activity only
-     * (PixelCopy on API 26+, Canvas on older APIs).
+     * 2. If {@link ShakeDelegate#enableMultiWindowCapture()} is enabled:
+     *    - `PixelCopy` multi-window - Captures each window separately to handle hardware bitmaps.
+     *    - Falls back to {@link Utils#capture} if PixelCopy fails.
+     * 3. If multi-window capture is disabled (default):
+     *    - {@link Utils#capture} fallback - Main activity only.
      */
     private void getScreenshotBitmap() {
         try {
@@ -392,23 +394,29 @@ public class Shaky implements ShakeDetector.Listener {
                 return;
             }
         } catch (Exception exception) {
-            Log.e(TAG, "Falcon failed: " + exception.getMessage() + ", falling back to PixelCopy");
+            Log.e(TAG, "Falcon failed: " + exception.getMessage() + ", falling back");
         }
 
-        // Falcon failed - use PixelCopy to capture all windows separately
-        MultiWindowScreenshotCapture.captureMultipleAsync(activity, (List<Bitmap> bitmaps) -> {
-            if (bitmaps != null && !bitmaps.isEmpty()) {
-                Log.i(TAG, "PixelCopy captured " + bitmaps.size() + " screenshot(s)");
-                // Convert List to array for CollectDataTask
-                Bitmap[] bitmapArray = bitmaps.toArray(new Bitmap[0]);
-                // Pass the captured bitmaps as params to CollectDataTask
-                collectDataTask.execute(bitmapArray);
-            } else {
-                // Both Falcon and PixelCopy failed - try final fallback
-                Log.e(TAG, "PixelCopy failed, falling back to Canvas");
-                captureWithCanvas();
-            }
-        });
+        // Falcon failed - check if multi-window capture is enabled
+        if (delegate.enableMultiWindowCapture()) {
+            // Use PixelCopy to capture all windows separately
+            MultiWindowScreenshotCapture.captureMultipleAsync(activity, (List<Bitmap> bitmaps) -> {
+                if (bitmaps != null && !bitmaps.isEmpty()) {
+                    Log.i(TAG, "PixelCopy captured " + bitmaps.size() + " screenshot(s)");
+                    // Convert List to array for CollectDataTask
+                    Bitmap[] bitmapArray = bitmaps.toArray(new Bitmap[0]);
+                    // Pass the captured bitmaps as params to CollectDataTask
+                    collectDataTask.execute(bitmapArray);
+                } else {
+                    // PixelCopy failed - try final fallback
+                    Log.e(TAG, "PixelCopy failed, falling back to Canvas");
+                    captureWithCanvas();
+                }
+            });
+        } else {
+            // Multi-window capture disabled - use single-screenshot fallback
+            captureWithCanvas();
+        }
     }
 
     /**
