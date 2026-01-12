@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 4.0.2
+- Add support for capturing screenshots of multiple windows with hardware bitmap support [#99]
+
 ## Version 4.0.1
 - Add support to perform custom action on hearing shake
 
