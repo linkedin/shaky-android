@@ -26,12 +26,12 @@ import android.graphics.Bitmap;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +42,7 @@ import com.jraska.falcon.Falcon;
 import com.squareup.seismic.ShakeDetector;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -53,6 +54,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Shaky implements ShakeDetector.Listener {
 
+    private static final String TAG = "Shaky";
     private static final String SEND_FEEDBACK_TAG = "SendFeedback";
     private static final String COLLECT_DATA_TAG = "CollectFeedbackData";
     private static final String CUSTOM_DIALOG_TAG = "CustomDialog";
@@ -191,7 +193,7 @@ public class Shaky implements ShakeDetector.Listener {
             shakyFlowCallback.onCollectingData();
         }
         collectDataTask = new CollectDataTask(activity, delegate, createCallback());
-        collectDataTask.execute(getScreenshotBitmap());
+        getScreenshotBitmap();
     }
 
     /**
@@ -373,18 +375,62 @@ public class Shaky implements ShakeDetector.Listener {
         return canStart;
     }
 
-    @Nullable
-    @UiThread
-    private Bitmap getScreenshotBitmap() {
+    /**
+     * Captures screenshot(s) as a Bitmap. This method implements a multi-step approach to capture
+     * screenshots:
+     * 1. `Falcon` - Fast single-bitmap capture of the entire screen (Canvas-based). However, fails
+     * if UI contains hardware bitmaps.
+     * 2. If {@link ShakeDelegate#enableMultiWindowCapture()} is enabled:
+     *    - `PixelCopy` multi-window - Captures each window separately to handle hardware bitmaps.
+     *    - Falls back to {@link Utils#capture} if PixelCopy fails.
+     * 3. If multi-window capture is disabled (default):
+     *    - {@link Utils#capture} fallback - Main activity only.
+     */
+    private void getScreenshotBitmap() {
         try {
-            // Attempt to use Falcon to take the screenshot
-            return Falcon.takeScreenshotBitmap(activity);
-        } catch (Falcon.UnableToTakeScreenshotException exception) {
-            // Fallback to using the default screenshot capture mechanism if Falcon does not work (e.g. if it has not
-            // been updated to work on newer versions of Android yet)
-            View view = activity.getWindow().getDecorView().getRootView();
-            return Utils.capture(view, activity.getWindow());
+            Bitmap bitmap = Falcon.takeScreenshotBitmap(activity);
+            if (bitmap != null) {
+                collectDataTask.execute(bitmap);
+                return;
+            }
+        } catch (Exception exception) {
+            Log.e(TAG, "Falcon failed: " + exception.getMessage() + ", falling back");
         }
+
+        // Falcon failed - check if multi-window capture is enabled
+        if (delegate.enableMultiWindowCapture()) {
+            // Use PixelCopy to capture all windows separately
+            MultiWindowScreenshotCapture.captureMultipleAsync(activity, (List<Bitmap> bitmaps) -> {
+                if (bitmaps != null && !bitmaps.isEmpty()) {
+                    Log.i(TAG, "PixelCopy captured " + bitmaps.size() + " screenshot(s)");
+                    // Convert List to array for CollectDataTask
+                    Bitmap[] bitmapArray = bitmaps.toArray(new Bitmap[0]);
+                    // Pass the captured bitmaps as params to CollectDataTask
+                    collectDataTask.execute(bitmapArray);
+                } else {
+                    // PixelCopy failed - try final fallback
+                    Log.e(TAG, "PixelCopy failed, falling back to Canvas");
+                    captureWithCanvas();
+                }
+            });
+        } else {
+            // Multi-window capture disabled - use single-screenshot fallback
+            captureWithCanvas();
+        }
+    }
+
+    /**
+     * Final fallback when all other screenshot methods fail.
+     * Attempts to capture at least the main window via {@link Utils#capture}.
+     */
+    private void captureWithCanvas() {
+        View view = activity.getWindow().getDecorView().getRootView();
+        Bitmap bitmap = Utils.capture(view, activity.getWindow());
+        if (bitmap == null) {
+            Log.e(TAG, "Screenshot capture failed");
+        }
+        // Execute task regardless - user can still submit feedback without screenshot
+        collectDataTask.execute(bitmap);
     }
 
     private void dismissCollectFeedbackDialogIfNecessary() {

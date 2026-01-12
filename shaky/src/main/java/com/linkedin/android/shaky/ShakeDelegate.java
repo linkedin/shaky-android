@@ -184,6 +184,19 @@ public abstract class ShakeDelegate {
     }
 
     /**
+     * Controls whether multi-window screenshot capture is enabled.
+     * When enabled, uses PixelCopy API to capture multiple windows (activity, dialogs, bottom sheets)
+     * separately. This handles hardware bitmaps correctly but may result in multiple screenshot attachments.
+     * When disabled (default), uses the original single-screenshot fallback behavior for backward
+     * compatibility.
+     *
+     * @return true to enable multi-window capture, false to use single-screenshot fallback (default)
+     */
+    public boolean enableMultiWindowCapture() {
+        return false;
+    }
+
+    /**
      * Called when the user submits the Feedback form. Creates and starts an email Intent.
      * This method can be overridden to send data to a custom URL endpoint, etc.
      */

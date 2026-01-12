@@ -67,15 +67,33 @@ class CollectDataTask extends AsyncTask<Bitmap, Void, Result> {
             }
         }
 
-        Uri screenshotUri = null;
-        Bitmap bitmap = params != null && params.length != 0 ? params[0] : null;
-        if (bitmap != null) {
-            File screenshotFile = Utils.writeBitmapToDirectory(bitmap, screenshotDirectory);
-            screenshotUri = Uri.fromFile(screenshotFile);
+        Result result = new Result();
+
+        // Process all bitmaps
+        if (params != null && params.length > 0) {
+            for (int i = 0; i < params.length; i++) {
+                Bitmap bitmap = params[i];
+                if (bitmap != null) {
+                    File screenshotFile = Utils.writeBitmapToDirectory(bitmap, screenshotDirectory);
+
+                    if (screenshotFile != null) {
+                        Uri screenshotUri = Uri.fromFile(screenshotFile);
+
+                        // First bitmap becomes the main screenshot (for UI preview)
+                        if (i == 0) {
+                            result.setScreenshotUri(screenshotUri);
+                        } else {
+                            // Subsequent screenshots (dialogs/bottom sheets) are only attachments
+                            result.getAttachments().add(screenshotUri);
+                        }
+                    } else {
+                        Log.e(TAG, "Failed to write bitmap " + i + " to file");
+                    }
+                }
+            }
+            Log.d(TAG, "Saved " + result.getAttachments().size() + " screenshot(s) total");
         }
 
-        Result result = new Result();
-        result.setScreenshotUri(screenshotUri);
         delegate.collectData(activity, result);
         return result;
     }
