@@ -238,11 +238,8 @@ public class Shaky implements ShakeDetector.Listener {
                 return;
             }
 
-            delegate.performCustomActionOnShake(activity);
-
-            if (shakyFlowCallback != null) {
-                shakyFlowCallback.onUserPromptShown();
-            }
+            actionThatStartedTheActivity = ActionConstants.ACTION_START_FEEDBACK_FLOW;
+            doStartFeedbackFlow();
         } else {
             launchShakeBottomSheet(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
         }
@@ -510,6 +507,18 @@ public class Shaky implements ShakeDetector.Listener {
                 collectDataTask = null;
                 dismissCollectFeedbackDialogIfNecessary();
                 Result safeResult = result != null ? result : new Result();
+
+                // Handle custom shake flow
+                if (delegate.isCustomHandlingOfShakeEnabled()) {
+                    if (activity != null) {
+                        delegate.performCustomActionOnShake(activity, safeResult);
+                    }
+
+                    if (shakyFlowCallback != null) {
+                        shakyFlowCallback.onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
+                    }
+                    return;
+                }
 
                 if (shouldStartFeedbackActivity && !isBottomSheetFlowActive) {
                     startFeedbackActivity(safeResult);
