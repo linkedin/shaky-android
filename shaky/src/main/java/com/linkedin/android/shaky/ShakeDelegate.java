@@ -171,10 +171,31 @@ public abstract class ShakeDelegate {
     }
 
     /**
-     * This method can be overridden to provide custom action to be performed on shake when
-     * {@link #enableCustomHandlingOfShake} is enabled.
+     * Called immediately when shake is detected and custom handling is enabled.
+     *
+     * @param activity the current activity
+     * @deprecated Use {@link #performCustomActionOnShake(Activity, Result)} instead.
+     *             This method is called before data collection and does not provide access
+     *             to screenshots or collected debug data. The new method is called after
+     *             data collection completes with full access to the Result object.
      */
-    public void performCustomActionOnShake(@NonNull Activity activity){}
+    @Deprecated
+    public void performCustomActionOnShake(@NonNull Activity activity) {
+        // Default: do nothing
+    }
+
+    /**
+     * Called after data collection is complete when custom shake handling is enabled.
+     * Override this method to perform custom actions with access to collected data including
+     * screenshots, debug info, and attachments.
+     *
+     * @param activity the current activity
+     * @param result the collected data including screenshots, attachments, and debug info
+     */
+    public void performCustomActionOnShake(@NonNull Activity activity, @NonNull Result result) {
+        // Default implementation: fall back to the deprecated method for backward compatibility
+        performCustomActionOnShake(activity);
+    }
 
     /**
      * @return if the dialog should be shown on shake or the shake-to-feedback bottom sheet.
