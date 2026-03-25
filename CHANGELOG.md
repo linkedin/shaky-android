@@ -1,5 +1,6 @@
 # Change Log
-
+## Version 4.0.3
+- Enable data collection in custom action [#100]
 ## Version 4.0.2
 - Add support for capturing screenshots of multiple windows with hardware bitmap support [#99]
 
