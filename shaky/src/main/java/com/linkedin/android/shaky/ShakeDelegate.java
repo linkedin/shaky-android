@@ -154,7 +154,7 @@ public abstract class ShakeDelegate {
 
     /**
      * Allows different use cases to customize the per-shake behavior. Called each time a shake is detected;
-     * manually started flows are not affected.
+     * flows started from non shake entry points are not affected.
      *
      * @return true (default) to handle the shake, false to ignore it
      */
