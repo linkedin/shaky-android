@@ -229,10 +229,12 @@ public class Shaky implements ShakeDetector.Listener {
 
     @Override
     public void hearShake() {
+        if (!delegate.shouldHandleShake()) {
+            Log.i(TAG, "Ignoring shake: delegate declined to handle it");
+            return;
+        }
+
         if(delegate.isCustomHandlingOfShakeEnabled()) {
-            if (!delegate.shouldHandleShake()) {
-                return;
-            }
             if (shakyFlowCallback != null) {
                 shakyFlowCallback.onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
             }

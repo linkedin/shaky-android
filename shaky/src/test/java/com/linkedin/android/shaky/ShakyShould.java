@@ -124,12 +124,26 @@ public class ShakyShould {
     }
 
     @Test
-    public void notConsultShouldHandleShakeWithoutCustomHandling() {
+    public void ignoreShakeWithoutCustomHandlingWhenDelegateDeclines() {
+        ShakyFlowCallback callback = mock(ShakyFlowCallback.class);
         when(delegate.isCustomHandlingOfShakeEnabled()).thenReturn(false);
+        when(delegate.shouldHandleShake()).thenReturn(false);
+        Shaky legacyShaky = new Shaky(activity, delegate, callback);
+        legacyShaky.setActivity(activity);
+
+        legacyShaky.hearShake();
+
+        verify(callback, never()).onShakyStarted(anyInt());
+        verify(fragmentManager, never()).beginTransaction();
+    }
+
+    @Test
+    public void notCheckCustomHandlingWhenDelegateDeclinesShake() {
+        when(delegate.shouldHandleShake()).thenReturn(false);
 
         shaky.hearShake();
 
-        verify(delegate, never()).shouldHandleShake();
+        verify(delegate, never()).isCustomHandlingOfShakeEnabled();
     }
 
     @Test
