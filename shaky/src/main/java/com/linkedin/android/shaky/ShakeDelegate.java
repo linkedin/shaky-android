@@ -153,9 +153,8 @@ public abstract class ShakeDelegate {
     }
 
     /**
-     * Returns whether a detected shake should start the feedback flow. Only consulted per shake when custom
-     * handling of shake is enabled; manually started flows are not affected. Allows apps to honor a user setting
-     * that can change after the shake sensor has been registered.
+     * Allows different use cases to customize the per-shake behavior. Called each time a shake is detected;
+     * manually started flows are not affected.
      *
      * @return true (default) to handle the shake, false to ignore it
      */
