@@ -17,7 +17,11 @@ package com.linkedin.android.shaky;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Looper;
+import android.view.View;
+import android.view.Window;
+import androidx.annotation.NonNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +31,10 @@ import com.squareup.seismic.ShakeDetector;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -48,6 +55,12 @@ public class ShakyShould {
         fragmentManager = mock(FragmentManager.class);
 
         when(activity.getFragmentManager()).thenReturn(fragmentManager);
+        when(fragmentManager.beginTransaction()).thenReturn(mock(FragmentTransaction.class));
+        Window window = mock(Window.class);
+        View decorView = mock(View.class);
+        when(activity.getWindow()).thenReturn(window);
+        when(window.getDecorView()).thenReturn(decorView);
+        when(decorView.getRootView()).thenReturn(decorView);
         when(activity.getApplicationContext()).thenReturn(activity);
         when(activity.getMainLooper()).thenReturn(Looper.getMainLooper());
         when(delegate.getSensitivityLevel()).thenReturn(ShakeDelegate.SENSITIVITY_LIGHT);
@@ -73,6 +86,64 @@ public class ShakyShould {
         FeedbackActivity feedbackActivity = new FeedbackActivity();
         shaky.setActivity(feedbackActivity);
         assertFalse(shaky.canStartFeedbackFlow());
+    }
+
+    @Test
+    public void defaultToHandlingShake() {
+        assertTrue(new ShakeDelegate() {
+            @Override
+            public void submit(@NonNull Activity activity, @NonNull Result result) { }
+        }.shouldHandleShake());
+    }
+
+    @Test
+    public void ignoreShakeWhenCustomHandlingAndDelegateDeclines() {
+        ShakyFlowCallback callback = mock(ShakyFlowCallback.class);
+        when(delegate.isCustomHandlingOfShakeEnabled()).thenReturn(true);
+        when(delegate.shouldHandleShake()).thenReturn(false);
+        Shaky customShaky = new Shaky(activity, delegate, callback);
+        customShaky.setActivity(activity);
+
+        customShaky.hearShake();
+
+        verify(callback, never()).onShakyStarted(anyInt());
+        assertFalse(customShaky.shouldIgnoreShake());
+    }
+
+    @Test
+    public void startFlowWhenCustomHandlingAndDelegateAccepts() {
+        ShakyFlowCallback callback = mock(ShakyFlowCallback.class);
+        when(delegate.isCustomHandlingOfShakeEnabled()).thenReturn(true);
+        when(delegate.shouldHandleShake()).thenReturn(true);
+        Shaky customShaky = new Shaky(activity, delegate, callback);
+        customShaky.setActivity(activity);
+
+        customShaky.hearShake();
+
+        verify(callback).onShakyStarted(ShakyFlowCallback.SHAKY_STARTED_BY_SHAKE);
+    }
+
+    @Test
+    public void ignoreShakeWithoutCustomHandlingWhenDelegateDeclines() {
+        ShakyFlowCallback callback = mock(ShakyFlowCallback.class);
+        when(delegate.isCustomHandlingOfShakeEnabled()).thenReturn(false);
+        when(delegate.shouldHandleShake()).thenReturn(false);
+        Shaky legacyShaky = new Shaky(activity, delegate, callback);
+        legacyShaky.setActivity(activity);
+
+        legacyShaky.hearShake();
+
+        verify(callback, never()).onShakyStarted(anyInt());
+        verify(fragmentManager, never()).beginTransaction();
+    }
+
+    @Test
+    public void notCheckCustomHandlingWhenDelegateDeclinesShake() {
+        when(delegate.shouldHandleShake()).thenReturn(false);
+
+        shaky.hearShake();
+
+        verify(delegate, never()).isCustomHandlingOfShakeEnabled();
     }
 
     @Test
