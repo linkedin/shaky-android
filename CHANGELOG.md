@@ -1,5 +1,5 @@
 # Change Log
-## Unreleased
+## Version 4.0.4
 - Add `ShakeDelegate.shouldHandleShake()` to let apps customize the per-shake behavior, e.g. ignore a detected shake
 ## Version 4.0.3
 - Enable data collection in custom action [#100]
