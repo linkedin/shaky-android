@@ -277,6 +277,9 @@ public class Shaky implements ShakeDetector.Listener {
                 );
 
                 bottomSheetDialog.setContentView(sheetView);
+                // Back press, an outside tap, a swipe down and the Dismiss row cancel the sheet.
+                // No flow follows, so a later manual flow must not be treated as a sheet flow.
+                bottomSheetDialog.setOnCancelListener(dialog -> isBottomSheetFlowActive = false);
                 bottomSheetDialog.show();
             }
         } else {
