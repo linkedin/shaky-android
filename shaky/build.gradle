@@ -33,6 +33,10 @@ android {
     }
 
     resourcePrefix 'shaky_'
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
 }
 
 dependencies {

@@ -75,7 +75,7 @@ class BottomSheetFeedbackTypeAdapter extends RecyclerView.Adapter<BottomSheetFee
         rowViewHolder.itemView.setOnClickListener(v -> {
             // Dismiss is clicked
             if (position == DISMISS_OPTION_POSITION) {
-                bottomSheetFeedbackFragment.dismiss();
+                bottomSheetFeedbackFragment.cancel();
                 return;
             }
             Intent intent = new Intent(item.action);
